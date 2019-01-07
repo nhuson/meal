@@ -25,7 +25,7 @@ module.exports.register = async (req, res, next) => {
     email = email.trim();
 
     //find user
-    const user = UserService.findOne(email)
+    const user = await UserService.findByEmail(email)
     if (user) {
       throw createError(400, "Email already exists");
     }

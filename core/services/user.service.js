@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken'
 import { omit } from 'lodash'
 import User from '../models/User'
+import BaseService from './base.service'
 
-class UserService {
-    getInstance () {
-        return new User
+class UserService extends BaseService {
+    constructor () {
+        super()
+        this.tableName = "users"
     }
 
     tokenForUser (user) {
@@ -19,12 +21,8 @@ class UserService {
         });
     }
 
-    async findOne (email) {
-        return await this.getInstance().findOne({ email })
-    }
-
-    async create (data) {
-        this.getInstance().create(data)
+    async findByEmail (email) {
+        return await this.findOne({ email })
     }
 }
 
