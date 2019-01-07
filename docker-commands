@@ -1,0 +1,97 @@
+1) docker-machine
+----------------------------
+Phuoc's token: fc33bb9ee308c0c172ea7f365e77257dcfbda31d26ecec3209fd61a2de57732e
+
+1.1)  create server digital
+- docker-machine create --driver digitalocean --digitalocean-access-token=TOKEN SERVER_NAME
+
+1.2)  list all server
+- docker-machine ls
+
+1.3) view docker-machine env
+- docker-machine env SERVER_NAME
+
+1.4) Set working context to SERVER_NAME
+- eval $(docker-machine env -SERVER_NAME)
+
+1.5) Reset working context to local
+- eval $(docker-machine env -u)
+
+1.6) SSH To server
+- docker-machine ssh SERVER_NAME
+
+1.7) Connect to existed hos
+- docker-machine create --driver generic --generic-ip-address=174.138.79.19 --generic-ssh-key ~/.ssh/id_rsa
+
+1.8) Remove local host
+  -  docker-machine rm -f Coloring
+
+2) Docker
+----------------
+
+2.1) view all images
+- docker images
+
+2.2) view all container
+- docker ps -a
+
+2.3) go into one container
+- docker exec -it CONTAINER_ID /bin/bash/
+
+2.4) remove an images
+- docker rmi IMAGE_ID
+
+2.5) remove a containers
+- docker stop CONTAINER_ID
+- docker rm CONTAINER_ID
+
+2.6)  Delete all containers
+- docker rm $(docker ps -a -q)
+
+2.7) Delete all images
+docker rmi $(docker images -q)
+
+3) Docker-compose
+--------------------
+
+3.1) Build image for all service
+- docker-compose build | docker-compose -f FILE_NAME build
+
+3.2) RUN all service
+- docker-compose up | docker-compose -f FILE_NAME up
+
+
+3.2) Stop all service
+- docker-compose stop | docker-compose -f FILE_NAME stop
+
+3.3 Stop and remove all images, containers, colummes
+- docker-compose down | docker-compose -f FILE_NAME down
+
+4: fix error npm-gyp
+--------------------
+- ssh to server run : sudo apt-get install build-essential g++
+
+5: migrate and seed database
+--------------------
+- docker-compose run --rm web ./son db:migrate
+- docker-compose run --rm web ./son db:seed:all
+
+6: Docker volume
+---------------------
+6.1) List all volumes
+- docker volume ls
+6.2) Remove a volumes
+- docker volume rm VOLUME_NAME
+6.3) Remove unuse volumes
+- docker volume prune
+6.4) Display detailed information on one or more volumes
+docker volume inspect
+
+7: deploy change
+--------------------
+
+//This will first rebuild the image for web and then stop, destroy, and recreate just the web service.
+//The --no-deps flag prevents Compose from also recreating any services which web depends on.
+
+- docker-compose build web
+- docker-compose up --no-deps -d web
