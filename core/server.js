@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env.local' });
+require('dotenv').config({ path: '.env.local' })
 import createError from 'http-errors'
 import express from 'express'
 import morgan from 'morgan'

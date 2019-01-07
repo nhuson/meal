@@ -1,17 +1,8 @@
-import { omit } from 'lodash'
-const User = require("../models/User");
-const registerValidator = require("../validation/register.validation");
-const loginValidator = require("../validation/login.validation");
-const keys = require("../config/keys");
-const jwt = require("jsonwebtoken");
-const createError = require("http-errors");
+import registerValidator from '../validation/register.validation'
+import loginValidator from '../validation/login.validation'
+import createError from 'http-errors'
+import UserService from '../services/user.service'
 
-const tokenForUser = (user)  => {
-  const data = omit(user, 'password');
-  const expiresIn = 60*60*24*30;
-  const algorithm = process.env.JWT_ALGORITHM || 'HS256';
-  return jwt.sign({ data }, process.env.JWT_SECRET, { expiresIn, algorithm });
-}
 /**
  * @route   POST api/users/register
  * @des     Return current user
@@ -34,7 +25,7 @@ module.exports.register = async (req, res, next) => {
     email = email.trim();
 
     //find user
-    const user = await User.findOne({ email: email });
+    const user = UserService.findOne(email)
     if (user) {
       throw createError(400, "Email already exists");
     }
@@ -49,7 +40,7 @@ module.exports.register = async (req, res, next) => {
 
     //Save user to database
     const savedUser = await newUser.save();
-    res.status(200).json({ success: true, token: tokenForUser(savedUser) });
+    res.status(200).json({ success: true, token: UserService.tokenForUser(savedUser) });
   } catch (e) {
     next(e);
   }

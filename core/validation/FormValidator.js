@@ -1,6 +1,6 @@
-const validator = require("validator");
+import validator from 'validator'
 
-module.exports = class FormValidator {
+class FormValidator {
   constructor(validations) {
     this.validations = validations;
   }
@@ -15,12 +15,15 @@ module.exports = class FormValidator {
         }
         const args = rule.args || [];
         const validation_method =
-          typeof rule.method === "string"
-            ? validator[rule.method]
-            : rule.method;
+          typeof rule.method === "string" ?
+          validator[rule.method] :
+          rule.method;
 
         if (validation_method(field_value, ...args, state) !== rule.validWhen) {
-          validation[rule.field] = { isInvalid: true, message: rule.message };
+          validation[rule.field] = {
+            isInvalid: true,
+            message: rule.message
+          };
           validation.isValid = false;
         }
       }
@@ -39,15 +42,26 @@ module.exports = class FormValidator {
       }
     });
 
-    return { isValid: validation.isValid, errors: errors };
+    return {
+      isValid: validation.isValid,
+      errors: errors
+    };
   }
 
   valid() {
     const validation = {};
     this.validations.map(
-      rule => (validation[rule.field] = { isInvalid: false, message: "" })
+      rule => (validation[rule.field] = {
+        isInvalid: false,
+        message: ""
+      })
     );
 
-    return { isValid: true, ...validation };
+    return {
+      isValid: true,
+      ...validation
+    };
   }
-};
+}
+
+export default FormValidator

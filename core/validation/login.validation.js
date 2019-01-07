@@ -1,7 +1,6 @@
-const FormValidator = require("./FormValidator");
+import FormValidator from './FormValidator'
 
-module.exports = new FormValidator([
-  {
+const loginValid = new FormValidator([{
     field: "email",
     method: "isEmpty",
     validWhen: false,
@@ -22,8 +21,12 @@ module.exports = new FormValidator([
   {
     field: "password",
     method: "isLength",
-    args: [{ min: 6, max: 30 }],
+    args: [{
+      min: 6,
+      max: 30
+    }],
     validWhen: true,
     message: "Password must be between 6 and 30 characters"
   }
-]);
+])
+export default loginValid
