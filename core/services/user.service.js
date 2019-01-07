@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken'
 import { omit } from 'lodash'
-import User from '../models/User'
 import BaseService from './base.service'
 
 class UserService extends BaseService {

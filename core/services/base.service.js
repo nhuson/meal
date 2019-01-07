@@ -1,4 +1,3 @@
-import creatError from 'http-errors'
 import knex from '../db/database'
 
 class BaseService {

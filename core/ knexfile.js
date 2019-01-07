@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '.env.local' })
 
-const dbConfig = {
+module.exports = {
     development: {
       client: process.env.DB_CONNECTION,
       connection: {
@@ -18,5 +18,3 @@ const dbConfig = {
       }
     }
 }
-
-export default dbConfig

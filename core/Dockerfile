@@ -1,7 +1,19 @@
-FROM node:carbon
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+FROM node:carbon-alpine
+RUN mkdir /home/app
+WORKDIR /home/app
 COPY package.json ./
-RUN apt-get update && apt-get install -y build-essential && apt-get install -y python && npm install
+RUN apk update \
+    && apk add --no-cache --virtual .build-deps \
+        binutils-gold \
+        curl \
+        g++ \
+        gcc \
+        gnupg \
+        libgcc \
+        linux-headers \
+        make \
+        python \
+    && npm install \
+    && npm install babel-cli babel-preset-env babel-preset-es2016 babel-preset-stage-0 nodemon --save-dev
 COPY . .
 EXPOSE 8080

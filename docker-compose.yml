@@ -13,17 +13,18 @@ services:
     depends_on:
       - "db"
     volumes:
-      - ./core:/usr/src/app
+      - ./core:/home/app
     environment:
-      NODE_ENV: development
-      MYSQL_DATABASE: meal_db
-      MYSQL_ROOT_PASSWORD: 123123
+      NODE_ENV: "development"
     networks:
       - backend
   db:
     restart: always
     container_name: database
     image: "mysql:latest"
+    environment:
+      MYSQL_ROOT_PASSWORD: "123123"
+      MYSQL_DATABASE: "meal_db"
     ports:
       - "3306:3306"
     volumes:
