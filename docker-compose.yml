@@ -1,66 +1,36 @@
 version: "3"
 
 services:
-  admin:
-    restart: always
-    container_name: talkme_admin
-    build:
-      context: ./src/admin
-      dockerfile: Dockerfile
-    command: npm run start
-    ports:
-      - "3000:3000"
-    depends_on:
-      - "api"
-    networks:
-      - frontend
-    volumes:
-      - ./src/admin:/usr/src/app
-    environment:
-      NODE_ENV: development
-      PORT: 3000
   api:
     restart: always
-    container_name: talkme_api
+    container_name: api
     build:
-      context: ./src/api
+      context: ./core
       dockerfile: Dockerfile
     command: npm run start
     ports:
       - "8080:8080"
     depends_on:
-      - "mongo"
+      - "db"
     volumes:
-      - ./src/api:/usr/src/app
+      - ./core:/usr/src/app
     environment:
       NODE_ENV: development
-      MONGO_URL: mongodb://mongo/talkme
-      PORT: 8080
+      MYSQL_DATABASE: meal_db
+      MYSQL_ROOT_PASSWORD: 123123
     networks:
-      - frontend
       - backend
-  mongo:
+  db:
     restart: always
-    container_name: mongo
-    image: "mongo:latest"
+    container_name: database
+    image: "mysql:latest"
     ports:
-      - "27018:27018"
+      - "3306:3306"
     volumes:
-      - data_mongo:/data/db
+      - data_mysql:/var/lib/mysql
     networks:
       - backend
-      - tools
-  admin-mongo:
-    restart: always
-    container_name: admin-mongo
-    image: "mrvautin/adminmongo"
-    ports:
-      - "1234:1234"
-    networks:
-      - tools
 volumes:
-  data_mongo:
+  data_mysql:
 networks:
-  frontend:
   backend:
-  tools:

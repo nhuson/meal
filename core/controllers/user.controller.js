@@ -37,7 +37,7 @@ module.exports.register = async (req, res, next) => {
       email: email
     });
     newUser.password = newUser.generateHash(password);
-
+    
     //Save user to database
     const savedUser = await newUser.save();
     res.status(200).json({ success: true, token: UserService.tokenForUser(savedUser) });
