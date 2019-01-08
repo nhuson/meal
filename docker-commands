@@ -36,7 +36,7 @@ Phuoc's token: fc33bb9ee308c0c172ea7f365e77257dcfbda31d26ecec3209fd61a2de57732e
 - docker ps -a
 
 2.3) go into one container
-- docker exec -it CONTAINER_ID /bin/bash/
+- docker exec -it CONTAINER_ID /bin/sh
 
 2.4) remove an images
 - docker rmi IMAGE_ID
