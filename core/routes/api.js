@@ -1,6 +1,6 @@
 import { Router } from 'express'
 const router = Router();
-import authenticate from '../middleware/authenticate'
+import auth from '../middleware/auth'
 
 const asyncMiddleware = (fn) => {
   return (req, res, next) => {
@@ -10,17 +10,15 @@ const asyncMiddleware = (fn) => {
   };
 }
 
-// Simple routing
 const pickHandler = (handlerDef) => {
   const [handlerFile, handlerMethod] = handlerDef.split('@');
   return asyncMiddleware(require(`../controllers/${handlerFile}`)[handlerMethod]);
 }
 
-// Public API
-router.post('/register', pickHandler('UserController@register'));
-router.post('/login', pickHandler('UserController@login'));
 
-// Private API
-router.get('/user/info', authenticate, pickHandler('UserController@info'));
+//all routes are here
+router.post('/register', pickHandler('user.controller@register'));
+router.post('/login', pickHandler('user.controller@login'));
+router.get('/user/info', pickHandler('user.controller@info'));
 
 export default router

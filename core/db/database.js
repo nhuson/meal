@@ -9,5 +9,5 @@ const config = {
   }
 }
 
-import knex from 'knex'
-export default knex()(config)
+const knex = require('knex')(config)
+export default knex

@@ -9,11 +9,11 @@ services:
       dockerfile: Dockerfile
     command: npm run start
     ports:
-      - "8080:8080"
+      - "3000:3000"
     depends_on:
       - "db"
     volumes:
-      - ./core:/home/app
+      - ./core:/home/node/meal-api
     environment:
       NODE_ENV: "development"
     networks:
