@@ -1,4 +1,4 @@
 deploy:
 	docker-compose up
-init-db:
-	docker exec -it api /bin/sh node_modules/.bin/knex migrate:latest --file knexfile.js
+migrate:
+	docker exec -it api sh -c "./node_modules/.bin/knex migrate:latest"

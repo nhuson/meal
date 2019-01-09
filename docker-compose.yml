@@ -28,7 +28,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "data_mysql:/var/lib/mysql"
+      # - "data_mysql:/var/lib/mysql"
       - "./mysql/conf.d:/etc/mysql/conf.d"
     networks:
       - backend

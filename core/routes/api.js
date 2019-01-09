@@ -17,8 +17,8 @@ const pickHandler = (handlerDef) => {
 
 
 //all routes are here
-router.post('/register', pickHandler('user.controller@register'));
-router.post('/login', pickHandler('user.controller@login'));
-router.get('/user/info', pickHandler('user.controller@info'));
-
+router.post('/auth/signup', pickHandler('auth.controller@signup'));
+router.post('/atuh/login', pickHandler('auth.controller@login'));
+router.post('/atuh/forgot-password', pickHandler('auth.controller@forgotPassword'));
+router.post('/atuh/reset-password', pickHandler('auth.controller@resetPassword'));
 export default router

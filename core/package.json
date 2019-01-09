@@ -4,7 +4,9 @@
   "description": "Meal plan for life",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node -e js"
+    "start": "nodemon server.js --exec babel-node -e js",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
   },
   "author": "ProTeam",
   "license": "ISC",
