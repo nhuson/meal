@@ -1,6 +1,10 @@
-import { Router } from 'express';
+import {
+	Router
+} from 'express';
 const router = Router();
-import auth from '../middleware/auth';
+import requireAuth from '../middleware/auth';
+import SchemaValidator from '../middleware/schemaValidator';
+const validateRequest = SchemaValidator(true);
 
 const asyncMiddleware = (fn) => {
 	return (req, res, next) => {
@@ -14,8 +18,11 @@ const pickHandler = (handlerDef) => {
 };
 
 //all routes are here
-router.post('/auth/signup', pickHandler('auth.controller@signup'));
-router.post('/auth/login', pickHandler('auth.controller@login'));
-router.post('/auth/forgot-password', pickHandler('auth.controller@forgotPassword'));
-router.post('/auth/reset-password', pickHandler('auth.controller@resetPassword'));
+router.post('/auth/signup', validateRequest, pickHandler('auth.controller@signup'));
+router.post('/auth/login', validateRequest, pickHandler('auth.controller@login'));
+router.post('/auth/forgot-password', validateRequest, pickHandler('auth.controller@forgotPassword'));
+router.post('/auth/reset-password', validateRequest, pickHandler('auth.controller@resetPassword'));
+
+
+
 export default router;

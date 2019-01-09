@@ -1,19 +1,12 @@
-import registerValidator from '../validation/register.validation';
-import loginValidator from '../validation/login.validation';
 import createError from 'http-errors';
 import userService from '../services/user.service';
 
 /**
  * @route   POST api/auth/signup
- * @des     Return current user
+ * @des     Return current user with token
  */
 module.exports.signup = async (req, res, next) => {
 	const data = req.body || {};
-	const { isValid, errors } = loginValidator.prettyValidate(data);
-	if (!isValid) {
-		throw createError(400, 'Missing Parameters');
-	}
-
 	const email = data.email.toLowerCase().trim();
 	try {
 		const user = await userService.findByEmail(email);
@@ -29,7 +22,7 @@ module.exports.signup = async (req, res, next) => {
 		});
 
 		res.status(200).json({
-			success: true,
+			success: 'success',
 			token: userService.tokenForUser(newUser),
 		});
 	} catch (error) {
@@ -43,12 +36,6 @@ module.exports.signup = async (req, res, next) => {
  */
 module.exports.login = async (req, res, next) => {
 	const data = req.body || {};
-
-	const { isValid, errors } = loginValidator.prettyValidate(data);
-	if (!isValid) {
-		throw createError(400, 'Missing Parameters');
-	}
-
 	const email = data.email.toLowerCase().trim();
 	const user = await userService.findByEmail(email);
 	if (!user) {
@@ -59,7 +46,10 @@ module.exports.login = async (req, res, next) => {
 		throw createError(403, 'Invalid username or password.');
 	}
 
-	res.status(200).json({ success: true, token: userService.tokenForUser(user) });
+	res.status(200).json({
+		success: 'success',
+		token: userService.tokenForUser(user)
+	});
 };
 
 /**
