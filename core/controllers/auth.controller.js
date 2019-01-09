@@ -1,49 +1,40 @@
-import registerValidator from '../validation/register.validation'
-import loginValidator from '../validation/login.validation'
-import createError from 'http-errors'
-import UserService from '../services/user.service'
+import registerValidator from '../validation/register.validation';
+import loginValidator from '../validation/login.validation';
+import createError from 'http-errors';
+import userService from '../services/user.service';
 
 /**
  * @route   POST api/auth/signup
  * @des     Return current user
  */
 module.exports.signup = async (req, res, next) => {
-  try {
-    //Validate input
-    const { body } = req;
-    const { firstName, lastName, password } = body;
-    let { email } = body;
+	const data = req.body || {};
+	const { isValid, errors } = loginValidator.prettyValidate(data);
+	if (!isValid) {
+		throw createError(400, 'Missing Parameters');
+	}
 
-    //validate inputs
-    const { isValid, errors } = registerValidator.prettyValidate(body);
-    if (!isValid) {
-      throw createError(422, errors[0]);
-    }
+	const email = data.email.toLowerCase().trim();
+	try {
+		const user = await userService.findByEmail(email);
+		if (user) {
+			throw createError(400, 'Email already exists');
+		}
 
-    //pretty email
-    email = email.toLowerCase();
-    email = email.trim();
+		const newUser = await userService.create({
+			firstname: data.firstname,
+			lastname: data.lastname,
+			email: email,
+			password: userService.hashPassword(data.password),
+		});
 
-    //find user
-    const user = await UserService.findByEmail(email)
-    if (user) {
-      throw createError(400, "Email already exists");
-    }
-
-    //Create new user
-    const newUser = new User({
-      firstName: firstName,
-      lastName: lastName,
-      email: email
-    });
-    newUser.password = newUser.generateHash(password);
-    
-    //Save user to database
-    const savedUser = await newUser.save();
-    res.status(200).json({ success: true, token: UserService.tokenForUser(savedUser) });
-  } catch (e) {
-    next(e);
-  }
+		res.status(200).json({
+			success: true,
+			token: userService.tokenForUser(newUser),
+		});
+	} catch (error) {
+		next(error);
+	}
 };
 
 /**
@@ -51,49 +42,34 @@ module.exports.signup = async (req, res, next) => {
  * @des     Return JWT token
  */
 module.exports.login = async (req, res, next) => {
-  try {
-    //Validate input
-    const { body } = req;
-    const { password } = body;
-    let { email } = body;
+	const data = req.body || {};
 
-    //validate inputs
-    const { isValid, errors } = loginValidator.prettyValidate(body);
-    if (!isValid) {
-      throw createError(422, errors[0]);
-    }
+	const { isValid, errors } = loginValidator.prettyValidate(data);
+	if (!isValid) {
+		throw createError(400, 'Missing Parameters');
+	}
 
-    //Find user
-    const user = await User.findOne({ email });
-    if (!user) {
-      throw createError(404, "User not found");
-    }
-    //check password
-    if (!user.validPassword(password)) {
-      throw createError(400, "Wrong password");
-    }
+	const email = data.email.toLowerCase().trim();
+	const user = await userService.findByEmail(email);
+	if (!user) {
+		throw createError(404, 'User not found');
+	}
 
-    //user match
-    res.status(200).json({ success: true, token: tokenForUser(user) });
-  } catch (e) {
-    next(e);
-  }
+	if (!(await userService.compareHash(data.password, user.password))) {
+		throw createError(403, 'Invalid username or password.');
+	}
+
+	res.status(200).json({ success: true, token: userService.tokenForUser(user) });
 };
-
 
 /**
  * @route   POST api/auth/forgot-password
  * @des     Return JWT token
  */
-module.exports.forgotPassword = async (req, res, next) => {
-
-}
-
+module.exports.forgotPassword = async (req, res, next) => {};
 
 /**
  * @route   POST api/auth/reset-password
  * @des     Return JWT token
  */
-module.exports.resetPassword = async (req, res, next) => {
-
-}
+module.exports.resetPassword = async (req, res, next) => {};

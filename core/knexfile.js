@@ -1,20 +1,20 @@
-require('dotenv').config({ path: '.env.local' })
+import configs from './config';
 
 module.exports = {
-    development: {
-      client: process.env.DB_CONNECTION,
-      connection: {
-        host : process.env.DB_HOST,
-        user : process.env.DB_USERNAME,
-        password : process.env.DB_PASSWORD,
-        database : process.env.DB_DATABASE
-      },
-      useNullAsDefault: true,
-      migrations: {
-        directory: './db/migrations'
-      },
-      seeds: {
-        directory: './db/seeds'  
-      }
-    }
-}
+	development: {
+		client: configs.database.connection,
+		connection: {
+			host: configs.database.host,
+			user: configs.database.username,
+			password: configs.database.password,
+			database: configs.database.name,
+		},
+		useNullAsDefault: true,
+		migrations: {
+			directory: './db/migrations',
+		},
+		seeds: {
+			directory: './db/seeds',
+		},
+	},
+};
