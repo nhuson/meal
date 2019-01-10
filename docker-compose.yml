@@ -7,9 +7,10 @@ services:
     build:
       context: ./core
       dockerfile: Dockerfile
-    command: npm run start
+    command: npm run dev
     ports:
       - "3000:3000"
+      - "9229:9229"
     depends_on:
       - "db"
     volumes:
@@ -28,19 +29,21 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      # - "data_mysql:/var/lib/mysql"
-      - "./mysql/conf.d:/etc/mysql/conf.d"
+      - ~/data/mysql:/var/lib/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d
     networks:
       - backend
   # redis:
   #   restart: always
   #   image: redis:alpine
   #   container_name: redis
+      # volumes:
+      #   - ~/data/redis:/var/lib/redis
   #   ports:
   #     - "6379:6379"
   #   networks:
   #     - backend
 volumes:
-  data_mysql:
+  data:
 networks:
   backend:
