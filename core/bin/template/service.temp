@@ -1,0 +1,12 @@
+import BaseService from './base.service'
+
+class ServiceReplate extends BaseService {
+    constructor() {
+		super()
+		this.tableName = '$table_name'
+    }
+    
+
+}
+
+export default new ServiceReplate()
