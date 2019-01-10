@@ -4,7 +4,7 @@
   "description": "Meal plan for life",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node -e js",
+    "dev": "nodemon --inspect=0.0.0.0:9229 server.js --exec babel-node -e js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "prettier": "prettier --config ../.prettierrc --write \"./**/*.js\""

@@ -1,4 +1,4 @@
-import configs from '../config';
+import configs from '../config'
 const config = {
 	client: configs.database.connection,
 	connection: {
@@ -7,7 +7,7 @@ const config = {
 		password: configs.database.password,
 		database: configs.database.name,
 	},
-};
+}
 
-const knex = require('knex')(config);
-export default knex;
+const knex = require('knex')(config)
+export default knex

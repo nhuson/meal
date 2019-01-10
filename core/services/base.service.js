@@ -1,35 +1,35 @@
-import knex from '../db/database';
+import knex from '../db/database'
 
 class BaseService {
 	constructor() {
-		this.tableName = '';
+		this.tableName = ''
 	}
 
 	async create(data) {
-		return await knex(this.tableName).insert(data);
+		return await knex(this.tableName).insert(data)
 	}
 
 	async update(data, option) {
 		return await knex(this.tableName)
 			.where(option)
-			.update(data);
+			.update(data)
 	}
 
 	async delete(option) {
 		return await knex(this.tableName)
 			.where(option)
-			.delete();
+			.delete()
 	}
 
 	async findAll() {
-		return await knex(this.tableName).all();
+		return await knex(this.tableName).all()
 	}
 
 	async findOne(option) {
 		return await knex(this.tableName)
 			.where(option)
-			.first();
+			.first()
 	}
 }
 
-export default BaseService;
+export default BaseService

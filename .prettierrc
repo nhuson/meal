@@ -6,6 +6,6 @@
     "trailingComma": "all",
     "jsxBracketSameLine": false,
     "parser": "babylon",
-    "semi": true,
+    "semi": false,
     "arrowParens": "always"
 }

@@ -11,5 +11,9 @@ module.exports = {
 		password: process.env.DB_PASSWORD,
 		name: process.env.DB_DATABASE,
 	},
+<<<<<<< HEAD
+}
+=======
 	statusUser
 };
+>>>>>>> 32ff4f2c50f3dcc5c491738342e0f1de203b8c16
