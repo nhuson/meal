@@ -5,11 +5,11 @@ exports.up = function(knex, Promise) {
 			.primary();
 		t.timestamps();
         t.datetime('date').notNull().index()
-        t.specificType('status', 'tinyint(1)').default(0).index()
-        t.specificType('favorite', 'tinyint(1)').default(0).index()
-        t.integer('user_id').unsigned().notNull().index();
+        t.specificType('status', 'tinyint(1)').default(0)
+        t.specificType('favorite', 'tinyint(1)').default(0)
+        t.integer('user_id').unsigned().notNull()
         t.foreign('user_id').references('id').inTable('users');
-        t.integer('meal_id').unsigned().notNull().index();
+        t.integer('meal_id').unsigned().notNull()
         t.foreign('meal_id').references('id').inTable('meals');
 	});
 };

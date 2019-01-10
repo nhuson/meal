@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
         t.string('title', 100).index().notNull()
         t.string('image', 100).notNull()
         t.text('description').notNull()
-        t.string('unit', 100).index().notNull()
+        t.string('unit', 100).notNull()
         t.integer('type_id').unsigned().notNull();
         t.foreign('type_id').references('id').inTable('type_ingredients');
 	});

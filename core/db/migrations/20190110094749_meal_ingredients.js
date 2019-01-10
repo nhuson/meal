@@ -5,9 +5,9 @@ exports.up = function(knex, Promise) {
 			.primary();
         t.timestamps();
         t.integer('amount').notNull();
-        t.integer('meal_id').unsigned().notNull().index();
+        t.integer('meal_id').unsigned().notNull()
         t.foreign('meal_id').references('id').inTable('meals');
-        t.integer('ingre_id').unsigned().notNull().index();
+        t.integer('ingre_id').unsigned().notNull()
         t.foreign('ingre_id').references('id').inTable('ingredients');
 	});
 };
