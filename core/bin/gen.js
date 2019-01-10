@@ -13,7 +13,7 @@ async function excute(args) {
         // Get and save controller
         let controllerTemp = path.join(__dirname, 'template', 'controller.temp')
         let controller = fs.readFileSync(controllerTemp).toString()
-        controller = controller.replace('typeIngredientService', `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
+        controller = controller.replace(new RegExp('typeIngredientService', 'g'), `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
         controller = controller.replace('service_file', name)
         const controllerFile = path.join(__dirname, '../controllers', `${name}.controller.js`)
         await fs.writeFileSync(controllerFile, controller)
@@ -22,8 +22,7 @@ async function excute(args) {
         // Get and save service
         let serviceTemp = path.join(__dirname, 'template', 'service.temp')
         let service = fs.readFileSync(serviceTemp).toString()
-        service = service.replace('ServiceReplate', `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
-        service = service.replace('ServiceReplate', `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
+        service = service.replace(new RegExp('ServiceReplate', 'g'), `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
         service = service.replace('$table_name', table)
         const serviceFile = path.join(__dirname, '../services', `${name}.service.js`)
         await fs.writeFileSync(serviceFile, service)
