@@ -21,4 +21,10 @@ router.post('/auth/login', validateRequest, pickHandler('auth.controller@login')
 router.post('/auth/forgot-password',validateRequest,pickHandler('auth.controller@forgotPassword'))
 router.post('/auth/reset-password',validateRequest,pickHandler('auth.controller@resetPassword'))
 
+// Type ingredient
+router.get('/type-ingredient', requireAuth, pickHandler('typeIngredient.controller@getAll'))
+	.post('/type-ingredient', requireAuth, pickHandler('typeIngredient.controller@create'))
+	.put('/type-ingredient/:id', requireAuth, pickHandler('typeIngredient.controller@update'))
+	.delete('/type-ingredient/:id', requireAuth, pickHandler('typeIngredient.controller@deleteType'))
+
 export default router
