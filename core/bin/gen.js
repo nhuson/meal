@@ -23,6 +23,7 @@ async function excute(args) {
         let serviceTemp = path.join(__dirname, 'template', 'service.temp')
         let service = fs.readFileSync(serviceTemp).toString()
         service = service.replace('ServiceReplate', `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
+        service = service.replace('ServiceReplate', `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
         service = service.replace('$table_name', table)
         const serviceFile = path.join(__dirname, '../services', `${name}.service.js`)
         await fs.writeFileSync(serviceFile, service)
