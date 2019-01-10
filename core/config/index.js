@@ -1,15 +1,12 @@
-const dotenv = require('dotenv')
-
 const configs = {
 	development: { config: 'dev', env: '.env.local' },
 	production: { config: 'prod', env: '.env.prod' },
 }
 
-const currentEnvironment = process.env.NODE_ENV || 'development'
-const envPath = configs[currentEnvironment].env
-
-console.log(`Loading .env from '${envPath}'`)
-dotenv.config({ path: envPath })
+const currentEnvironment = process.env.NODE_ENV || 'development';
+const envPath = configs[currentEnvironment].env;
+require('dotenv').config({ path: envPath })
+console.log(`Loading .env from '${envPath}'`);
 
 const _default = {
 	server: {
