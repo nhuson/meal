@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-import path from 'path';
-
 const configs = {
 	development: { config: 'dev', env: '.env.local' },
 	production: { config: 'prod', env: '.env.prod' },
@@ -8,9 +5,8 @@ const configs = {
 
 const currentEnvironment = process.env.NODE_ENV || 'development';
 const envPath = configs[currentEnvironment].env;
-
+require('dotenv').config({ path: envPath })
 console.log(`Loading .env from '${envPath}'`);
-dotenv.config({ path: envPath });
 
 const _default = {
 	server: {

@@ -1,3 +1,8 @@
+const statusUser = {
+	BLOCKED: 1,
+	ACTIVE: 0
+}
+
 module.exports = {
 	database: {
 		connection: process.env.DB_CONNECTION,
@@ -6,4 +11,5 @@ module.exports = {
 		password: process.env.DB_PASSWORD,
 		name: process.env.DB_DATABASE,
 	},
+	statusUser
 };

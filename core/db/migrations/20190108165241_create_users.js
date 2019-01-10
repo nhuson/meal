@@ -4,11 +4,12 @@ exports.up = function(knex, Promise) {
 			.unsigned()
 			.primary();
 		t.timestamps();
-		t.string('firstname').notNull();
-		t.string('lastname');
-		t.string('email').notNull();
-		t.string('password').notNull();
-		t.string('avatar');
+		t.string('firstname', 50).index().notNull();
+		t.string('lastname', 50).index().notNull();
+		t.string('email', 100).index().notNull();
+		t.string('password', 100).notNull();
+		t.string('avatar', 100).nullable();
+		t.specificType('status', 'tinyint(1)').default(0)
 	});
 };
 

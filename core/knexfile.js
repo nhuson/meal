@@ -1,4 +1,4 @@
-import configs from './config';
+const configs = require('./config')
 
 module.exports = {
 	development: {
