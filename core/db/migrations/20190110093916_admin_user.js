@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
 		t.increments('id')
 			.unsigned()
 			.primary();
-		t.timestamps();
+		t.timestamps(true, true);
 		t.string('firstname').notNull();
 		t.string('lastname');
 		t.string('email').notNull();

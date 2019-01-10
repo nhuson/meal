@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
 		t.increments('id')
 			.unsigned()
 			.primary();
-		t.timestamps();
+		t.timestamps(true, true);
         t.string('version', 40).index().notNull();
         t.string('os', 40).index().notNull();
         t.string('url', 100).index().notNull();
