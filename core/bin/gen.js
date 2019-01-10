@@ -13,7 +13,7 @@ async function excute(args) {
         // Get and save controller
         let controllerTemp = path.join(__dirname, 'template', 'controller.temp')
         let controller = fs.readFileSync(controllerTemp).toString()
-        controller = controller.replace(new RegExp('typeIngredientService', 'g'), `${name.charAt(0).toUpperCase() + name.slice(1)}Service`)
+        controller = controller.replace(new RegExp('typeIngredientService', 'g'), `${name.charAt(0).toLowerCase() + name.slice(1)}Service`)
         controller = controller.replace('service_file', name)
         const controllerFile = path.join(__dirname, '../controllers', `${name}.controller.js`)
         await fs.writeFileSync(controllerFile, controller)
