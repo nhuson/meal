@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
 		t.timestamps();
         t.string('title', 45).index().notNull();
         t.string('type', 45).index().notNull();
-        t.text('description').index().notNull();
+        t.text('description').notNull();
 	});
 };
 
