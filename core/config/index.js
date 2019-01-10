@@ -16,6 +16,10 @@ const _default = {
 		secret: process.env.JWT_SECRET,
 		algorithm: process.env.JWT_ALGORITHM,
 	},
+	account: {
+		BLOCKED: 1,
+		ACTIVE: 0		
+	}
 }
 
 const config = require(`./${configs[currentEnvironment].config}`)

@@ -4,7 +4,8 @@
   "description": "Meal plan for life",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --inspect=0.0.0.0:9229 server.js --exec babel-node -e js",
+    "debug": "nodemon --inspect=0.0.0.0:9229 server.js --exec babel-node -e js",
+    "dev": "nodemon server.js --exec babel-node -e js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "prettier": "prettier --config ../.prettierrc --write \"./**/*.js\""
@@ -24,6 +25,7 @@
     "lodash": "^4.17.11",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
+    "uuid-v4": "^0.1.0",
     "validator": "^10.8.0"
   },
   "devDependencies": {
