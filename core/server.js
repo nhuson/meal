@@ -3,6 +3,7 @@ import createError from 'http-errors'
 import express from 'express'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import multer from 'multer'
 import cors from 'cors'
 import api from './routes/api'
 import crossAllowOrigin from './middleware/crossOrigin'
@@ -15,7 +16,7 @@ app.use(crossAllowOrigin)
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
+app.use(multer({dest: ''}).any())
 //Routes
 app.use('/api/v1', api)
 

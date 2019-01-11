@@ -6,4 +6,8 @@ module.exports = {
 		password: process.env.DB_PASSWORD,
 		name: process.env.DB_DATABASE,
 	},
+	s3: {
+		BUCKET_NAME: '',
+		
+	}
 };

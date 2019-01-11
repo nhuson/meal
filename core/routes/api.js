@@ -16,6 +16,7 @@ const pickHandler = (handlerDef) => {
 }
 
 //all routes are here
+router.get('/ping', (req, res, next) => { res.json(200, { message: 'pong' }) })
 router.post('/auth/signup', validateRequest, pickHandler('auth.controller@signup'))
 router.post('/auth/login', validateRequest, pickHandler('auth.controller@login'))
 router.post('/auth/forgot-password',validateRequest,pickHandler('auth.controller@forgotPassword'))
@@ -27,4 +28,17 @@ router.get('/type-ingredient', requireAuth, pickHandler('typeIngredient.controll
 	.put('/type-ingredient/:id', requireAuth, validateRequest, pickHandler('typeIngredient.controller@update'))
 	.delete('/type-ingredient/:id', requireAuth, pickHandler('typeIngredient.controller@deleteType'))
 
+// Ingredient
+router.get('/ingredient', requireAuth, pickHandler('ingredient.controller@getAll'))
+	.post('/ingredient', requireAuth, validateRequest, pickHandler('ingredient.controller@create'))
+	.put('/ingredient/:id', requireAuth, validateRequest, pickHandler('ingredient.controller@update'))
+	.delete('/ingredient/:id', requireAuth, pickHandler('ingredient.controller@deleteType'))
+	.post('/ingredient-csv', requireAuth, pickHandler('ingredient.controller@importCsv'))
+
+import upload from '../utils/uploadS3'	
+router.post('/test-upload', (req, res, next) => {
+	console.log(req.files)
+	console.log(upload.generateFileName())
+	res.json(422, "aaa")
+})
 export default router
