@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
 		t.increments('id')
 			.unsigned()
 			.primary();
-		t.timestamps();
+		t.timestamps(true, true);
         t.datetime('date').notNull().index()
         t.specificType('status', 'tinyint(1)').default(0)
         t.specificType('favorite', 'tinyint(1)').default(0)

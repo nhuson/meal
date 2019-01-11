@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
 		t.increments('id')
 			.unsigned()
 			.primary();
-		t.timestamps();
+		t.timestamps(true, true);
 		t.string('title', 100).index().notNull();
         t.text('description').nullable();
         t.string('image', 100).nullable()

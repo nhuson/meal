@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
 		t.increments('id')
 			.unsigned()
 			.primary();
-        t.timestamps();
+        t.timestamps(true, true);
         t.integer('amount').notNull();
         t.integer('meal_id').unsigned().notNull()
         t.foreign('meal_id').references('id').inTable('meals');
