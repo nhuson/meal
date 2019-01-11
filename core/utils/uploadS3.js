@@ -19,22 +19,32 @@ class Upload {
      * @param {Object} file 
      * @return {string}
      */
-    excute(file, path) {
-        s3.client.putObject({
-            Bucket: 'banners-adxs',
-            Key: 'del2.txt',
-            Body: base64data,
+    async excute(file, path) {
+        let name = this.generateFileName()
+        let [, mimeType] = file.mimetype.split('/')
+        await this.S3.putObject({
+            Bucket: `meal-life/${path}`,
+            Key: `${name}.${mimeType}`,
+            Body: file.buffer,
+            Metadata: { "Content-Type": file.mimetype},
             ACL: 'public-read'
         }, function (resp) {
-            console.log(arguments);
+            console.log(resp);
             console.log('Successfully uploaded package.');
-        });
+        })
+
+        return `${path}/${name}.${mimeType}`
     }
 
+    async push (files, path) {
+        let uploadFile = files.map(file => this.excute(file, path))
+        let resp = await Promise.all(uploadFile)
+        return resp
+
+    }
    
     generateFileName() {
         let fileName = uuid().replace(/-/g, '')
-
         return fileName + Date.now()
     }
 }

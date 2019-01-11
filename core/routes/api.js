@@ -36,9 +36,8 @@ router.get('/ingredient', requireAuth, pickHandler('ingredient.controller@getAll
 	.post('/ingredient-csv', requireAuth, pickHandler('ingredient.controller@importCsv'))
 
 import upload from '../utils/uploadS3'	
-router.post('/test-upload', (req, res, next) => {
-	console.log(req.files)
-	console.log(upload.generateFileName())
+router.post('/test-upload', async (req, res, next) => {
+	console.log(await upload.push(req.files, 'test'))
 	res.json(422, "aaa")
 })
 export default router
