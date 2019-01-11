@@ -26,7 +26,7 @@ class Upload {
             Bucket: `meal-life/${path}`,
             Key: `${name}.${mimeType}`,
             Body: file.buffer,
-            Metadata: { "Content-Type": file.mimetype},
+            ContentType: file.mimetype,
             ACL: 'public-read'
         }, function (resp) {
             console.log(resp);
