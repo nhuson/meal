@@ -37,7 +37,7 @@ router.get('/ingredient', requireAuth, pickHandler('ingredient.controller@getAll
 
 import upload from '../utils/uploadS3'	
 router.post('/test-upload', async (req, res, next) => {
-	console.log(await upload.push(req.files, 'test'))
-	res.json(422, "aaa")
+	console.log(await upload.push([req.files.upload], 'test'))
+	res.status(200).json("aaa")
 })
 export default router

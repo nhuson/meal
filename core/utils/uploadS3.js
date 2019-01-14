@@ -22,25 +22,25 @@ class Upload {
     async excute(file, path) {
         let name = this.generateFileName()
         let [, mimeType] = file.mimetype.split('/')
-        await this.S3.putObject({
+        this.S3.putObject({
             Bucket: `meal-life/${path}`,
             Key: `${name}.${mimeType}`,
-            Body: file.buffer,
+            Body: file.data,
             ContentType: file.mimetype,
             ACL: 'public-read'
-        }, function (resp) {
-            console.log(resp);
-            console.log('Successfully uploaded package.');
-        })
-
-        return `${path}/${name}.${mimeType}`
+        }, function (resp) {})
+        return Promise.resolve(`${path}/${name}.${mimeType}`)
     }
 
+    /**
+     * Put object multiple file to S3
+     * @param {Array} files 
+     * @param {String} path 
+     */
     async push (files, path) {
         let uploadFile = files.map(file => this.excute(file, path))
         let resp = await Promise.all(uploadFile)
         return resp
-
     }
    
     generateFileName() {
