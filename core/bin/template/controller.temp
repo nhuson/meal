@@ -8,7 +8,7 @@ import typeIngredientService from '../services/service_file.service'
  * @param {*} next
  * @return res.json
  */
-const getAll = async (req, res, next) => {
+exports.getAll = async (req, res, next) => {
     try {
         let data = await typeIngredientService.findAll()
 
@@ -28,7 +28,7 @@ const getAll = async (req, res, next) => {
  * @param {*} next
  * @return res.json
  */
-const create = async (req, res, next) => {
+exports.create = async (req, res, next) => {
     try {
         
 
@@ -45,7 +45,7 @@ const create = async (req, res, next) => {
  * @param {*} next
  * @return res.json
  */
-const update = async (req, res, next) => {
+exports.update = async (req, res, next) => {
     try {
         let { id } = req.params
         
@@ -63,7 +63,7 @@ const update = async (req, res, next) => {
  * @param {*} next
  * @return res.json
  */
-const remove = async (req, res, next) => {
+exports.remove = async (req, res, next) => {
     try {
         let { id } = req.params
         
@@ -72,11 +72,4 @@ const remove = async (req, res, next) => {
     } catch (err) {
         next(err)
     }
-}
-
-export default {
-    getAll,
-    create,
-    update,
-    remove
 }
