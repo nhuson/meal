@@ -22,7 +22,7 @@ class BaseService {
 	}
 
 	async findAll() {
-		return await knex(this.tableName).all()
+		return await knex(this.tableName).select('*')
 	}
 
 	async findOne(option) {

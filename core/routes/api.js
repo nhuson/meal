@@ -1,6 +1,11 @@
-import { Router } from 'express'
+import {
+	Router
+} from 'express'
 const router = Router()
-import requireAuth from '../middleware/auth'
+import {
+	requireAuth,
+	requireAdminAuth
+} from '../middleware/auth'
 import SchemaValidator from '../middleware/schemaValidator'
 const validateRequest = SchemaValidator(true)
 
@@ -16,11 +21,15 @@ const pickHandler = (handlerDef) => {
 }
 
 //all routes are here
-router.get('/ping', (req, res, next) => { res.json(200, { message: 'pong' }) })
+router.get('/ping', (req, res, next) => {
+	res.json(200, {
+		message: 'pong'
+	})
+})
 router.post('/auth/signup', validateRequest, pickHandler('auth.controller@signup'))
 router.post('/auth/login', validateRequest, pickHandler('auth.controller@login'))
-router.post('/auth/forgot-password',validateRequest,pickHandler('auth.controller@forgotPassword'))
-router.post('/auth/reset-password',validateRequest,pickHandler('auth.controller@resetPassword'))
+router.post('/auth/forgot-password', validateRequest, pickHandler('auth.controller@forgotPassword'))
+router.post('/auth/reset-password', validateRequest, pickHandler('auth.controller@resetPassword'))
 
 // Type ingredient
 router.get('/type-ingredient', requireAuth, pickHandler('typeIngredient.controller@getAll'))
@@ -35,7 +44,15 @@ router.get('/ingredient', requireAuth, pickHandler('ingredient.controller@getAll
 	.delete('/ingredient/:id', requireAuth, pickHandler('ingredient.controller@deleteType'))
 	.post('/ingredient-csv', requireAuth, pickHandler('ingredient.controller@importCsv'))
 
-import upload from '../utils/uploadS3'	
+
+//Category
+router.get('/category', requireAuth, pickHandler('category.controller@getAll'))
+	.post('/category', requireAuth, validateRequest, pickHandler('category.controller@create'))
+	.put('/category/:id', requireAuth, validateRequest, pickHandler('category.controller@update'))
+	.delete('/category/:id', requireAuth, pickHandler('category.controller@remove'))
+
+
+import upload from '../utils/uploadS3'
 router.post('/test-upload', async (req, res, next) => {
 	console.log(await upload.push([req.files.upload], 'test'))
 	res.status(200).json("aaa")

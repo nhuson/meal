@@ -1,5 +1,5 @@
 import createError from 'http-errors'
-import typeIngredientService from '../services/service_file.service'
+import contactService from '../services/contact.service'
 
 /**
  * @route   GET 
@@ -10,7 +10,7 @@ import typeIngredientService from '../services/service_file.service'
  */
 const getAll = async (req, res, next) => {
     try {
-        let data = await typeIngredientService.findAll()
+        let data = await contactService.findAll()
 
         res.status(200).json({
 			success: 'success',
@@ -48,7 +48,7 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         let { id } = req.params
-        const data = await typeIngredientService.findOne({ id})
+        const data = await contactService.findOne({ id})
         if (!data){
             throw createError(404, 'Not found')
         }
@@ -70,7 +70,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         let { id } = req.params
-        const data = await typeIngredientService.findOne({ id})
+        const data = await contactService.findOne({ id})
         if (!data){
             throw createError(404, 'Not found')
         }

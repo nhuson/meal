@@ -16,12 +16,14 @@ module.exports.signup = async (req, res, next) => {
 			throw createError(400, 'Email already exists')
 		}
 
-		const newUser = await userService.create({
+
+		const newUser = {
 			firstname: data.firstname,
 			lastname: data.lastname,
 			email: email,
 			password: userService.hashPassword(data.password),
-		})
+		}
+		await userService.create(newUser)
 
 		delete newUser.password
 		res.status(200).json({
@@ -52,7 +54,7 @@ module.exports.login = async (req, res, next) => {
 		throw createError(403, 'Invalid username or password.')
 	}
 
-	if (user.status == configs.account.BLOCKED){
+	if (user.status == configs.account.BLOCKED) {
 		throw createError(400, 'Your account is blocked.')
 	}
 
@@ -80,7 +82,11 @@ module.exports.forgotPassword = async (req, res, next) => {
 	}
 
 	const recovery_code = uuidv4();
-	await userService.update({recovery_code},{email})
+	await userService.update({
+		recovery_code
+	}, {
+		email
+	})
 
 	res.status(200).json({
 		success: 'success',
@@ -96,15 +102,23 @@ module.exports.forgotPassword = async (req, res, next) => {
 module.exports.resetPassword = async (req, res, next) => {
 	const data = req.body || {}
 	const email = data.email.toLowerCase().trim()
-	const {new_password, recovery_code} = data
-	const options = {email, recovery_code}
+	const {
+		new_password,
+		recovery_code
+	} = data
+	const options = {
+		email,
+		recovery_code
+	}
 
 	const user = await userService.findOne(options)
 	if (!user) {
 		throw createError(404, 'User not found')
 	}
 
-	const updateData = {password: userService.hashPassword(new_password)}
+	const updateData = {
+		password: userService.hashPassword(new_password)
+	}
 	await userService.update(updateData, options)
 
 	res.status(200).json({

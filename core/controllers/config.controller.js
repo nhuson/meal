@@ -13,9 +13,9 @@ const getAll = async (req, res, next) => {
         let data = await configService.findAll()
 
         res.status(200).json({
-			success: 'success',
-			data
-		})
+            success: 'success',
+            data
+        })
     } catch (err) {
         next(err)
     }
@@ -30,9 +30,11 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
     try {
-        
 
-        res.json(200, { success: 'success' })
+
+        res.json(200, {
+            success: 'success'
+        })
     } catch (err) {
         next(err)
     }
@@ -47,10 +49,14 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
     try {
-        let { id } = req.params
-        
+        let {
+            id
+        } = req.params
 
-        res.json(200, { success: 'success' })
+
+        res.json(200, {
+            success: 'success'
+        })
     } catch (err) {
         next(err)
     }
@@ -65,10 +71,14 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
     try {
-        let { id } = req.params
-        
+        let {
+            id
+        } = req.params
 
-        res.json(200, { success: 'success' })
+
+        res.json(200, {
+            success: 'success'
+        })
     } catch (err) {
         next(err)
     }
