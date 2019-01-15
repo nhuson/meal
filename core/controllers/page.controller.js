@@ -1,5 +1,5 @@
 import createError from 'http-errors'
-import ingredientService from '../services/ingredient.service'
+import pageService from '../services/page.service'
 
 /**
  * @route   GET 
@@ -10,7 +10,7 @@ import ingredientService from '../services/ingredient.service'
  */
 const getAll = async (req, res, next) => {
     try {
-        let data = await ingredientService.findAll()
+        let data = await pageService.findAll()
 
         res.status(200).json({
 			success: 'success',
@@ -30,8 +30,8 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
     try {
-        let { title, image, description, unit, type_id } = req.body
-        await ingredientService.create({ title, image, description, unit, type_id })
+        let { title, type, description } = req.body
+        await pageService.create({ title, type, description })
 
         res.json(200, { success: 'success' })
     } catch (err) {
@@ -49,8 +49,8 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         let { id } = req.params
-        let { title, image, description, unit, type_id } = req.body
-        await ingredientService.update({ title, image, description, unit, type_id }, { id })
+        let { title, type, description } = req.body
+        await pageService.update({ title, type, description }, { id })
 
         res.json(200, { success: 'success' })
     } catch (err) {
@@ -68,7 +68,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         let { id } = req.params
-        await ingredientService.delete({ id })
+        await pageService.delete({ id })
 
         res.json(200, { success: 'success' })
     } catch (err) {
