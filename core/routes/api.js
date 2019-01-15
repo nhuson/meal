@@ -29,15 +29,25 @@ router.get('/type-ingredient', requireAuth, pickHandler('typeIngredient.controll
 	.delete('/type-ingredient/:id', requireAuth, pickHandler('typeIngredient.controller@deleteType'))
 
 // Ingredient
-router.get('/ingredient', requireAuth, pickHandler('ingredient.controller@getAll'))
-	.post('/ingredient', requireAuth, validateRequest, pickHandler('ingredient.controller@create'))
-	.put('/ingredient/:id', requireAuth, validateRequest, pickHandler('ingredient.controller@update'))
-	.delete('/ingredient/:id', requireAuth, pickHandler('ingredient.controller@deleteType'))
-	.post('/ingredient-csv', requireAuth, pickHandler('ingredient.controller@importCsv'))
+router.get('/ingredient', requireAuthAdmin, pickHandler('ingredient.controller@getAll'))
+	.post('/ingredient', requireAuthAdmin, validateRequest, pickHandler('ingredient.controller@create'))
+	.put('/ingredient/:id', requireAuthAdmin, validateRequest, pickHandler('ingredient.controller@update'))
+	.delete('/ingredient/:id', requireAuthAdmin, pickHandler('ingredient.controller@deleteType'))
+	.post('/ingredient-csv', requireAuthAdmin, pickHandler('ingredient.controller@importCsv'))
 
-import upload from '../utils/uploadS3'	
-router.post('/test-upload', async (req, res, next) => {
-	console.log(await upload.push([req.files.upload], 'test'))
-	res.status(200).json("aaa")
-})
+// Page
+router.get('/page', requireAuthAdmin, pickHandler('page.controller@getAll'))
+.post('/page', requireAuthAdmin, validateRequest, pickHandler('page.controller@create'))
+.put('/page/:id', requireAuthAdmin, validateRequest, pickHandler('page.controller@update'))
+.delete('/page/:id', requireAuthAdmin, pickHandler('page.controller@remove'))
+
+// Versions
+router.get('/version', requireAuthAdmin, pickHandler('version.controller@getAll'))
+.put('/version/:id', requireAuthAdmin, validateRequest, pickHandler('version.controller@update'))
+
+// import upload from '../utils/uploadS3'	
+// router.post('/test-upload', async (req, res, next) => {
+// 	console.log(await upload.push([req.files.upload], 'test'))
+// 	res.status(200).json("aaa")
+// })
 export default router

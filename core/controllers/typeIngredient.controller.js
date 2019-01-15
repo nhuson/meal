@@ -87,7 +87,7 @@ const deleteType = async (req, res, next) => {
     }
 }
 
-export default {
+export {
     getAll,
     create,
     update,

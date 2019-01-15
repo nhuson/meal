@@ -1,11 +1,11 @@
 import BaseService from './base.service'
 
 class ServiceReplate extends BaseService {
-    constructor() {
+	constructor() {
 		super()
 		this.tableName = '$table_name'
-    }
-    
+	}
+
 
 }
 
