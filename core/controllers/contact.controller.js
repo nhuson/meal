@@ -11,11 +11,10 @@ import contactService from '../services/contact.service'
 const getAll = async (req, res, next) => {
     try {
         let data = await contactService.findAll()
-
         res.status(200).json({
-			success: 'success',
-			data
-		})
+            success: 'success',
+            data
+        })
     } catch (err) {
         next(err)
     }
@@ -30,9 +29,14 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
     try {
-        
+        const { title, messages } = req.body
+        await contactService.create({
+            title,
+            messages,
+            user_id: req.user.id
+        })
 
-        res.json(200, { success: 'success' })
+        res.json(200, { success: 'success '})
     } catch (err) {
         next(err)
     }
@@ -74,6 +78,8 @@ const remove = async (req, res, next) => {
         if (!data){
             throw createError(404, 'Not found')
         }
+
+        await contactService.delete({id})
 
         res.json(200, { success: 'success' })
     } catch (err) {

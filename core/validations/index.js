@@ -1,11 +1,13 @@
 import signupSchema from './signup.schema'
 import loginSchema from './login.schema'
-import forgotPassSchema from './forgotPass.schema'
-import resetPassSchema from './resetPass.schema'
+import forgotPassSchema from './forgot_pass.schema'
+import resetPassSchema from './reset_pass.schema'
 import typeIngredientSchema from './type_ingredient.schema'
 import ingredientSchema from './ingredient.schema'
 import pageSchema from './page.schema'
 import versionSchema from './versions.schema'
+import categorySchema from './category.schema'
+import contactSchema from './contact.schema'
 
 module.exports = {
 	'/auth/signup': signupSchema,
@@ -16,4 +18,6 @@ module.exports = {
 	'/ingredient': ingredientSchema,
 	'/page': pageSchema,
 	'/version': versionSchema,
+	'/category': categorySchema,
+	'/contact': contactSchema
 }

@@ -54,6 +54,12 @@ router.get('/page', requireAuth('admin'), pickHandler('page.controller@getAll'))
 	.put('/page/:id', requireAuth('admin'), validateRequest, pickHandler('page.controller@update'))
 	.delete('/page/:id', requireAuth('admin'), pickHandler('page.controller@remove'))
 
+
+// Contact
+router.get('/contact', requireAuth('admin'), pickHandler('contact.controller@getAll'))
+	.post('/contact', requireAuth(), validateRequest, pickHandler('contact.controller@create'))
+	.delete('/contact/:id', requireAuth('admin'), pickHandler('contact.controller@remove'))
+
 // Versions
 router.get('/version', requireAuth(), pickHandler('version.controller@getAll'))
 	.put('/version/:id', requireAuth('admin'), validateRequest, pickHandler('version.controller@update'))
