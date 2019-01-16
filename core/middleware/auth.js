@@ -22,17 +22,24 @@ module.exports = (role) => {
 			if (decodedToken.exp < now) {
 				throw createError(401, 'Unauthorized.')
 			}
+
+			let user = userService.findByEmail(decodedToken.data.email)
+			if (!user) throw createError(401, 'Unauthorized.')
+			if(!role === req.user.role.toUpperCase()) throw createError(401, 'Unauthorized.')
+			req.user = user
+			
+			next()
 	
-			req.user = decodedToken.data
-			if (role && req.user){
-				if (role === req.user.role.toUpperCase()){
-					next()
-				} else {
-					throw createError(401, 'Unauthorized.')
-				}
-			} else {
-				next()
-			}
+			// req.user = decodedToken.data
+			// if (role && req.user){
+			// 	if (role === req.user.role.toUpperCase()){
+			// 		next()
+			// 	} else {
+			// 		throw createError(401, 'Unauthorized.')
+			// 	}
+			// } else {
+			// 	next()
+			// }
 		})
 	}
 }
