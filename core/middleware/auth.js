@@ -29,6 +29,8 @@ module.exports = (role) => {
 				req.user = user
 
 				next()
+			}).catch(err => {
+				throw createError(500, err)
 			})
 			
 			// req.user = decodedToken.data
