@@ -24,8 +24,8 @@ module.exports = (role) => {
 			}
 
 			userService.findByEmail(decodedToken.data.email).then(user => {
-				if (!user) throw new Error(401, 'Unauthorized.')
-				if(!role === user.role.toUpperCase()) throw new Error(401, 'Unauthorized.')
+				if (!user) throw new Error('Unauthorized.')
+				if(!role === user.role.toUpperCase()) throw new Error('Unauthorized.')
 				req.user = user
 
 				next()
