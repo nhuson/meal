@@ -24,25 +24,14 @@ module.exports = (role) => {
 			}
 
 			userService.findByEmail(decodedToken.data.email).then(user => {
-				if (!user) throw new Error('Unauthorized.')
-				if (role && !role === user.role.toUpperCase()) throw new Error('Unauthorized.')
+				if (!user) res.status(401).json({message: 'Unauthorized.'})
+				if (role && role !== user.role.toUpperCase()) res.status(401).json({message: 'Unauthorized.'})
 				req.user = user
 
 				next()
 			}).catch(err => {
-				throw createError(500, err)
+				res.status(500).json({message: 'Internal server error'})
 			})
-			
-			// req.user = decodedToken.data
-			// if (role && req.user){
-			// 	if (role === req.user.role.toUpperCase()){
-			// 		next()
-			// 	} else {
-			// 		throw createError(401, 'Unauthorized.')
-			// 	}
-			// } else {
-			// 	next()
-			// }
 		})
 	}
 }

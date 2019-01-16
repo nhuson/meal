@@ -22,6 +22,7 @@ module.exports.signup = async (req, res, next) => {
 			lastname: data.lastname,
 			email: email,
 			password: userService.hashPassword(data.password),
+			role: 'USER'
 		}
 		await userService.create(newUser)
 
