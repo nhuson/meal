@@ -27,10 +27,10 @@ module.exports = (role) => {
 				if (!user) throw createError(401, 'Unauthorized.')
 				if(!role === user.role.toUpperCase()) throw createError(401, 'Unauthorized.')
 				req.user = user
+				
+				next()
 			})
 			
-			next()
-	
 			// req.user = decodedToken.data
 			// if (role && req.user){
 			// 	if (role === req.user.role.toUpperCase()){
