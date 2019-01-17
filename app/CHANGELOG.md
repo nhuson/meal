@@ -154,4 +154,4 @@
 ## [1.0.0] 2018-01-29
 ### Original Release
 - Added Material-UI as base framework
-- Added design from Material Dashboard by Creative Tim
+- Added design from Material Dashboard by Meal Plan

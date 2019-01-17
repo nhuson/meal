@@ -15,7 +15,7 @@
     "google",
     "twitter"
   ],
-  "license": "Creative TIM License",
+  "license": "Meal Plan License",
   "ignore": [
     "**/.*",
     "node_modules",
