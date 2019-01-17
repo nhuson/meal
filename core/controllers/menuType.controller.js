@@ -1,5 +1,6 @@
 import createError from 'http-errors'
-import mealService from '../services/meal.service'
+import menuTypeService from '../services/menuType.service'
+import _ from 'lodash'
 
 /**
  * @route   GET 
@@ -10,7 +11,7 @@ import mealService from '../services/meal.service'
  */
 const getAll = async (req, res, next) => {
     try {
-        let data = await mealService.findAll()
+        let data = await menuTypeService.findAll()
 
         res.status(200).json({
 			success: 'success',
@@ -30,24 +31,10 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
     try {
-        const { title, instruction , image, time, serving,
-                calorie, count_rate, rate, is_pro, cate_id,
-                menu_id, allergi_id } = req.body
-
-        console.log(req.body)
-        await mealService.create({
+        const { title, description } = req.body
+        await menuTypeService.create({
             title,
-            instruction,
-            image,
-            time,
-            serving,
-            calorie,
-            count_rate,
-            rate,
-            is_pro,
-            cate_id,
-            menu_id,
-            allergi_id
+            description
         })
 
         res.json(200, { success: 'success' })
@@ -66,10 +53,23 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         let { id } = req.params
-        const data = await mealService.findOne({ id})
-        if (!data){
+        const menuType = await menuTypeService.findOne({ id})
+        if (!menuType){
             throw createError(404, 'Not found')
         }
+
+        let putData = {
+            title: req.body.title,
+            description: req.body.description
+        }
+        putData = _(putData)
+                .omit(_.isUndefined)
+                .omit(_.isNull)
+                .value()
+
+        
+        const updateData = {...menuType, ...putData}
+        await menuTypeService.update(updateData, {id})
 
 
         res.json(200, { success: 'success' })
@@ -88,12 +88,12 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         let { id } = req.params
-        const data = await mealService.findOne({ id})
+        const data = await menuTypeService.findOne({ id})
         if (!data){
             throw createError(404, 'Not found')
         }
-        
-        await mealService.delete({id})
+
+        await menuTypeService.delete({id})
 
         res.json(200, { success: 'success' })
     } catch (err) {

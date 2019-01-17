@@ -16,6 +16,7 @@ app.use(crossAllowOrigin)
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(bodyParser.raw())
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
 //Routes
 app.use('/api/v1', api)

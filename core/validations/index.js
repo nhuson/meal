@@ -8,6 +8,9 @@ import pageSchema from './page.schema'
 import versionSchema from './versions.schema'
 import categorySchema from './category.schema'
 import contactSchema from './contact.schema'
+import menuTypeSchema from './menu_type.schema'
+import allergiTypeSchema from './allergiType.schema'
+import mealSchema from './meal.schema'	
 
 module.exports = {
 	'/auth/signup': signupSchema,
@@ -19,5 +22,8 @@ module.exports = {
 	'/page': pageSchema,
 	'/version': versionSchema,
 	'/category': categorySchema,
-	'/contact': contactSchema
+	'/contact': contactSchema,
+	'/menu-type': menuTypeSchema,
+	'/allergi-type': allergiTypeSchema,
+	'/meal': mealSchema
 }

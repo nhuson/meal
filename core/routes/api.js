@@ -65,6 +65,26 @@ router.get('/version', requireAuth(), pickHandler('version.controller@getAll'))
 	.put('/version/:id', requireAuth('admin'), validateRequest, pickHandler('version.controller@update'))
 
 
+//MenuType
+router.get('/menu-type', requireAuth(), pickHandler('menuType.controller@getAll'))
+	.post('/menu-type', requireAuth('admin'), validateRequest, pickHandler('menuType.controller@create'))
+	.put('/menu-type/:id', requireAuth('admin'), validateRequest, pickHandler('menuType.controller@update'))
+	.delete('/menu-type/:id', requireAuth('admin'), pickHandler('menuType.controller@remove'))
+
+
+//AllergiType
+router.get('/allergi-type',requireAuth(), pickHandler('allergiType.controller@getAll'))
+	.post('/allergi-type', requireAuth('admin'), validateRequest, pickHandler('allergiType.controller@create'))
+	.put('/allergi-type/:id', requireAuth('admin'), validateRequest, pickHandler('allergiType.controller@update'))
+	.delete('/allergi-type/:id',requireAuth('admin'), pickHandler('allergiType.controller@remove'))
+
+
+//Meal
+router.get('/meal', pickHandler('meal.controller@getAll'))
+	.post('/meal', validateRequest, pickHandler('meal.controller@create'))
+	.put('/meal/:id', validateRequest, pickHandler('meal.controller@update'))
+	.delete('/meal/:id', pickHandler('meal.controller@remove'))
+	
 // import upload from '../utils/uploadS3'
 // router.post('/test-upload', async (req, res, next) => {
 // 	console.log(await upload.push([req.files.upload], 'test'))
