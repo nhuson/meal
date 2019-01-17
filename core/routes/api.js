@@ -35,7 +35,7 @@ router.get('/type-ingredient', requireAuth(), pickHandler('typeIngredient.contro
 	.delete('/type-ingredient/:id', requireAuth('admin'), pickHandler('typeIngredient.controller@deleteType'))
 
 // Ingredient
-router.get('/ingredient', requireAuth('admin'), pickHandler('ingredient.controller@getAll'))
+router.get('/ingredient', requireAuth(), pickHandler('ingredient.controller@getAll'))
 	.post('/ingredient', requireAuth('admin'), validateRequest, pickHandler('ingredient.controller@create'))
 	.put('/ingredient/:id', requireAuth('admin'), validateRequest, pickHandler('ingredient.controller@update'))
 	.delete('/ingredient/:id', requireAuth('admin'), pickHandler('ingredient.controller@deleteType'))

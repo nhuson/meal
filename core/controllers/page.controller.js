@@ -31,9 +31,11 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
     try {
         let { title, type, description } = req.body
+        let page = await ingredientService.findOne({ title })
+        if (page) throw createError(400,'This page already exists')
         await pageService.create({ title, type, description })
 
-        res.json(200, { success: 'success' })
+        res.json(200, { success: 'success', message: 'The page has been successfully created.' })
     } catch (err) {
         next(err)
     }
@@ -49,10 +51,26 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         let { id } = req.params
-        let { title, type, description } = req.body
-        await pageService.update({ title, type, description }, { id })
+        const dataUpdate = await ingredientService.findOne({ id})
+        if (!dataUpdate){
+            throw createError(404, 'Ingredient not found')
+        }
+        let putData = {
+            title: req.body.title,
+            description: req.body.description,
+            type: req.body.type,
+        }
+        putData = _(putData)
+                .omit(_.isUndefined)
+                .omit(_.isNull)
+                .value()
 
-        res.json(200, { success: 'success' })
+        await pageService.update({...dataUpdate, ...putData}, { id })
+
+        res.json(200, {
+            success: 'success',
+            message: 'The page has been successfully updated.'
+        })
     } catch (err) {
         next(err)
     }
@@ -68,9 +86,16 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         let { id } = req.params
+        const dataDel = await ingredientService.findOne({ id})
+        if (!dataDel){
+            throw createError(404, 'Ingredient not found')
+        }
         await pageService.delete({ id })
 
-        res.json(200, { success: 'success' })
+        res.json(200, {
+            success: 'success',
+            message: 'The page has been successfully deleted.'
+        })
     } catch (err) {
         next(err)
     }
