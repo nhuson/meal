@@ -31,8 +31,9 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
     try {
         let { title, type, description } = req.body
-        let page = await ingredientService.findOne({ title })
+        let page = await pageService.findOne({ title })
         if (page) throw createError(400,'This page already exists')
+
         await pageService.create({ title, type, description })
 
         res.json(200, { success: 'success', message: 'The page has been successfully created.' })
@@ -51,9 +52,9 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         let { id } = req.params
-        const dataUpdate = await ingredientService.findOne({ id})
+        const dataUpdate = await pageService.findOne({ id})
         if (!dataUpdate){
-            throw createError(404, 'Ingredient not found')
+            throw createError(404, 'Page not found')
         }
         let putData = {
             title: req.body.title,
@@ -86,9 +87,9 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         let { id } = req.params
-        const dataDel = await ingredientService.findOne({ id})
+        const dataDel = await pageService.findOne({ id})
         if (!dataDel){
-            throw createError(404, 'Ingredient not found')
+            throw createError(404, 'Page not found')
         }
         await pageService.delete({ id })
 

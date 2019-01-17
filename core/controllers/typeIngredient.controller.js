@@ -96,7 +96,7 @@ const update = async (req, res, next) => {
 const deleteType = async (req, res, next) => {
     try {
         let { id } = req.params
-        const dataDel = await categoryService.findOne({ id})
+        const dataDel = await typeIngredientService.findOne({ id})
         if (!dataDel){
             throw createError(404, 'Type ingredient not found')
         }

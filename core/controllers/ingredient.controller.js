@@ -88,7 +88,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         let { id } = req.params
-        const dataDel = await categoryService.findOne({ id})
+        const dataDel = await ingredientService.findOne({ id})
         if (!dataDel){
             throw createError(404, 'Ingredient not found')
         }
