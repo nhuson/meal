@@ -25,7 +25,7 @@ module.exports = (role) => {
 
 			userService.findByEmail(decodedToken.data.email).then(user => {
 				if (!user) res.status(401).json({message: 'Unauthorized.'})
-				if (role && role !== user.role.toUpperCase()) res.status(401).json({message: 'Unauthorized.'})
+				if (role && role.toUpperCase() !== user.role.toUpperCase()) res.status(401).json({message: 'Unauthorized.'})
 				req.user = user
 
 				next()
