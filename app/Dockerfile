@@ -1,7 +1,8 @@
 FROM node:carbon-alpine
-RUN mkdir -p /home/node/meal-app/node_modules && chown -R node:node /home/node/meal-app
+RUN mkdir -p /home/node/meal-app
 WORKDIR /home/node/meal-app
-COPY package.json ./
+COPY . .
+ENV PATH /home/node/meal-app/node_modules/.bin:$PATH
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache --virtual .build-deps \
@@ -15,8 +16,6 @@ RUN apk update \
     make \
     python \
     bash git openssh \
-    && npm install 
-COPY . .
-COPY --chown=node:node . .
-USER node
-EXPOSE 3000
+    && npm install \
+    && npm audit fix
+EXPOSE 8080

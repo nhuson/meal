@@ -12,8 +12,8 @@ services:
       - "8080:8080"
     depends_on:
       - "api"
-    volumes:
-      - ./app:/home/node/meal-app
+    # volumes:
+    #   - ./app:/home/node/meal-app
     environment:
       NODE_ENV: "development"
     networks:
