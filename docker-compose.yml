@@ -1,6 +1,23 @@
 version: "3"
 
 services:
+  app:
+    restart: always
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: npm start
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "api"
+    volumes:
+      - ./app:/home/node/meal-app
+    environment:
+      NODE_ENV: "development"
+    networks:
+      - frontent
   api:
     restart: always
     container_name: api
@@ -19,6 +36,7 @@ services:
       NODE_ENV: "development"
     networks:
       - backend
+      - frontent
   db:
     restart: always
     container_name: database
@@ -47,3 +65,4 @@ volumes:
   data:
 networks:
   backend:
+  frontent:
