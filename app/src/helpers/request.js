@@ -1,6 +1,6 @@
 import axios from "axios";
 import { authHeader } from "./auth-header";
-import { serviceConstants } from "../constants/service.constants";
+import { serviceConstants } from "../constants";
 
 const client = axios.create({
   baseURL: serviceConstants.API_URL,

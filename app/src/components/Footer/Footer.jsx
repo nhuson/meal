@@ -41,7 +41,7 @@ function Footer({ ...props }) {
             &copy; {1900 + new Date().getYear()}{" "}
             <a href={null} className={classes.a}>
               Meal Plan
-            </a>, made with love for life
+            </a>, made with love for lifefdsf
           </span>
         </p>
       </div>
