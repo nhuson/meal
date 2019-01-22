@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createBrowserHistory } from "history";
+import history from './helpers/history'
 import { Router, Route, Switch } from "react-router-dom";
 import store from "./helpers/store"
 import { PrivateRoute } from "./routes/privateRoute.jsx";
@@ -10,11 +10,10 @@ import "assets/css/material-dashboard-react.css?v=1.5.0";
 import indexRoutes from "routes/index.jsx";
 import Login from "./containers/Auth/LoginContainer"
 
-const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hist}>
+    <Router history={history}>
       <Switch>
         <Route exact path="/login" component={Login} />
         {indexRoutes.map((prop, key) => {
