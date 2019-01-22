@@ -1,1 +1,3 @@
-export * from './alert.actions'
+export * from './alert.action'
+export * from './auth.action'
+

@@ -39,7 +39,10 @@
      margin-left: 4px;
  }
  /* end hyperlink */
- 
+ .icon-loging {
+    margin-right: -12px;
+    margin-left: 8px;
+ }
  /* dropdown */
  .dropdown-menu {
      border: none;
@@ -159,9 +162,7 @@
      -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, .13);
              box-shadow: 0 10px 20px rgba(0, 0, 0, .13);
  }
- .btn > i {
-     margin-left: 0 !important;
- }
+
  .btn.btn-lg {
      padding: .6rem 1.1rem;
      font-size: 18px;

@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom"
 import "../../assets/css/bootstrap/bootstrap.min.css"
 import "../../assets/css/login.css"
+import "../../assets/css/font-awesome.min.css"
 
 export default class Login extends Component {
   render() {
-    const { handleChange, handleSubmit, validation, state } = this.props;
+    const { handleChange, handleSubmit, validation, state, loggingIn } = this.props;
     return (
       <section className="section">
         <div className="container mt-5">
@@ -33,6 +34,7 @@ export default class Login extends Component {
                         noValidate
                         value={state.email}
                         onChange={handleChange}
+                        disabled={loggingIn}
                       />
                       {validation.email.isInvalid && (
                         <div className="invalid-feedback d-block">
@@ -56,6 +58,7 @@ export default class Login extends Component {
                         noValidate
                         value={state.password}
                         onChange={handleChange}
+                        disabled={loggingIn}
                       />
                       {validation.password.isInvalid && (
                         <div className="invalid-feedback d-block">
@@ -85,21 +88,18 @@ export default class Login extends Component {
                         type="submit"
                         className="btn btn-primary btn-block"
                         tabIndex={4}
+                        disabled={loggingIn}
                       >
-                        Login
+                        Login {loggingIn ? (<i className="fa fa-spinner fa-spin icon-loging"></i>) : ''}
                       </button>
                     </div>
                   </form>
-                  {/* <div className="text-muted text-center">
-                    Don't have an account?{" "}
-                    <Link to="./register">Create One</Link>
-                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-    );
+    )
   }
 }

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 import store from "./helpers/store"
-
+import { PrivateRoute } from "./routes/privateRoute.jsx";
 import "assets/css/material-dashboard-react.css?v=1.5.0";
 
 import indexRoutes from "routes/index.jsx";
@@ -18,7 +18,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/login" component={Login} />
         {indexRoutes.map((prop, key) => {
-          return <Route path={prop.path} component={prop.component} key={key} />;
+          return <PrivateRoute path={prop.path} component={prop.component} key={key} />;
         })}
       </Switch>
     </Router>

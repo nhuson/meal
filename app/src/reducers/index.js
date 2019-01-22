@@ -1,8 +1,10 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "redux"
 import alert from './alert.reducer'
+import loading from './loading.reducer'
 
 const rootReducer = combineReducers({
-    alert
+    alert,
+    loading
 });
 
 export default rootReducer;
