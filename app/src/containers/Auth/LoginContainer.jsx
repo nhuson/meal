@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { fetchLogin } from "../../actions"
 import FormValidator from "../../helpers/formValidation"
 import { loginValidations } from "../../validates"
-import Login from "../../layouts/Auth/Login"
+import Login from "../../views/Auth/Login"
 
 class LoginContainer extends Component {
 	constructor(props) {

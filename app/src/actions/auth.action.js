@@ -6,14 +6,22 @@ export const fetchLogin = user => {
        try {
             dispatch(loging())
             let res = await userLogin(user)
+            
        }catch(err) {
             dispatch(error(err))
+            dispatch(inputAllow())
        }
     }
 
     function loging() {
         return {
             type: loadingConstants.LOADING
+        }
+    }
+
+    function inputAllow() {
+        return {
+            type: loadingConstants.DONE
         }
     }
 
