@@ -15,10 +15,10 @@ const alert = (state = initialState, action) => {
             return {
                 type: "danger",
                 message: action.message,
-                status: true
+                status: action.status
             };
         case alertConstants.CLEAR:
-            return {};
+            return { status: action.status }
         default:
             return state;
     }

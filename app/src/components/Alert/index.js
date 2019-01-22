@@ -4,7 +4,9 @@ import AddAlert from "@material-ui/icons/AddAlert"
 import ErrorAlert from "@material-ui/icons/Error"
 import WarningAlert from "@material-ui/icons/Warning"
 import InfoAlert from "@material-ui/icons/Info"
-import Snackbar from "../Snackbar/Snackbar";
+import Snackbar from "../Snackbar/Snackbar"
+import { connect } from "react-redux"
+import { alertActions } from "../../actions"
 
 class Alert extends React.Component{
     constructor(props) {
@@ -12,10 +14,6 @@ class Alert extends React.Component{
         this.state = {
             open: false
         }
-    }
-
-    componentWillMount() {
-        this.setState({ open: this.props.open })
     }
 
     getIcon (type) {
@@ -52,10 +50,21 @@ class Alert extends React.Component{
     }
 
     componentDidMount() {
+        this.setState({ open: this.props.open })
         setTimeout(function(){
-            this.setState({open: false});
+            this.setState({open: false})
+            this.props.clearError()
         }.bind(this),6000)
     }
 }
 
-export default Alert
+
+const mapDispatchToProps =  (dispatch, props) => {
+	return {
+		clearError: () => {
+			dispatch(alertActions.clear())
+		}
+	}
+}
+
+export default connect(null, mapDispatchToProps)(Alert)
