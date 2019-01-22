@@ -87,7 +87,7 @@ router.get('/meal', pickHandler('meal.controller@getAll'))
 	
 // import upload from '../utils/uploadS3'
 // router.post('/test-upload', async (req, res, next) => {
-// 	console.log(await upload.push([req.files.upload], 'test'))
+// 	console.log(await upload.push([req.files.upload], 'users/avatar'))
 // 	res.status(200).json("aaa")
 // })
 
