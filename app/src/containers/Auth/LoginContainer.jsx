@@ -4,7 +4,6 @@ import { fetchLogin } from "../../actions"
 import FormValidator from "../../helpers/formValidation"
 import { loginValidations } from "../../validates"
 import Login from "../../layouts/Auth/Login"
-import Loader from "../../components/Loader"
 
 class LoginContainer extends Component {
 	constructor(props) {
