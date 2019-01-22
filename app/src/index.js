@@ -8,6 +8,7 @@ import store from "./helpers/store"
 import "assets/css/material-dashboard-react.css?v=1.5.0";
 
 import indexRoutes from "routes/index.jsx";
+import Login from "./containers/Auth/LoginContainer"
 
 const hist = createBrowserHistory();
 
@@ -15,6 +16,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
       <Switch>
+        <Route exact path="/login" component={Login} />
         {indexRoutes.map((prop, key) => {
           return <Route path={prop.path} component={prop.component} key={key} />;
         })}

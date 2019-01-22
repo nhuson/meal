@@ -20,7 +20,7 @@ const dashboardRoutes = [
     icon: Person,
     component: UserProfile
   },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;
