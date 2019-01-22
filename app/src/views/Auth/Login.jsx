@@ -15,7 +15,7 @@ export default class Login extends Component {
         <div className="container mt-5">
           <div className="row">
             <div className="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-              <div className="login-brand">Meal Life</div>
+              <div className="login-brand">Meal Plan</div>
               <div className="card card-primary">
                 <div className="card-header">
                   <h4>Login</h4>
@@ -48,9 +48,9 @@ export default class Login extends Component {
                     <div className="form-group">
                       <label htmlFor="password" className="d-block">
                         Password
-                        <div className="float-right">
+                        {/* <div className="float-right">
                           <Link to="./forgotpsw">Forgot Password?</Link>
-                        </div>
+                        </div> */}
                       </label>
                       <input
                         id="password"
@@ -69,7 +69,7 @@ export default class Login extends Component {
                         </div>
                       )}
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <div className="custom-control custom-checkbox">
                         <input
                           type="checkbox"
@@ -85,7 +85,7 @@ export default class Login extends Component {
                           Remember Me
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                       <button
                         type="submit"
