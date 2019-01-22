@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux"
 import PropTypes from "prop-types";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
@@ -283,4 +284,15 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Dashboard);
+
+const DashboardStyle = withStyles(dashboardStyle)(Dashboard)
+
+const mapStateToProps = state => {
+  console.log(state, '===========')
+  return {
+    loading: state.loading.status,
+		errorAlert: state.alert
+  }
+}
+
+export default connect(mapStateToProps, null)(DashboardStyle)
