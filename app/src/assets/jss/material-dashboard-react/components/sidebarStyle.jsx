@@ -8,7 +8,8 @@ import {
   infoColor,
   successColor,
   warningColor,
-  dangerColor
+  dangerColor,
+  whiteColor
 } from "assets/jss/material-dashboard-react.jsx";
 
 const sidebarStyle = theme => ({
@@ -107,7 +108,6 @@ const sidebarStyle = theme => ({
       height: "100%",
       content: '""',
       display: "block",
-      background: "#000",
       opacity: ".8"
     }
   },
@@ -125,14 +125,14 @@ const sidebarStyle = theme => ({
     display: "block",
     textDecoration: "none",
     "&:hover,&:focus,&:visited,&": {
-      color: "#FFFFFF"
+      color: "#dc3545"
     }
   },
   itemLink: {
     width: "auto",
     transition: "all 300ms linear",
     margin: "10px 15px 0",
-    borderRadius: "3px",
+    borderRadius: "30px",
     position: "relative",
     display: "block",
     padding: "10px 15px",
@@ -158,7 +158,7 @@ const sidebarStyle = theme => ({
     color: "#FFFFFF"
   },
   whiteFont: {
-    color: "#FFFFFF"
+    color: "#dc3545"
   },
   purple: {
     backgroundColor: primaryColor,
@@ -204,6 +204,16 @@ const sidebarStyle = theme => ({
       "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)",
     "&:hover": {
       backgroundColor: dangerColor,
+      boxShadow:
+        "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)"
+    }
+  },
+  white: {
+    backgroundColor : whiteColor,
+    boxShadow:
+      "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)",
+    "&:hover": {
+      backgroundColor: whiteColor,
       boxShadow:
         "0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)"
     }
