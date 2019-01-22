@@ -39,7 +39,7 @@ class LoginContainer extends Component {
 		let validation = this.submitted
 			? this.validator.validate(this.state)
 			: this.state.validation
-		let { loading } = this.props
+		let { loading, errorAlert } = this.props
 		return (
 			<Login
 				loggingIn={loading}
@@ -47,6 +47,7 @@ class LoginContainer extends Component {
 				handleSubmit={this.handleSubmit}
 				validation={validation}
 				state={this.state}
+				errorAlert={errorAlert}
 			/>
 		)
 	}
@@ -55,7 +56,7 @@ class LoginContainer extends Component {
 const mapStateToProps = state => {
 	return {
 		loading: state.loading.status,
-		error: state.alert
+		errorAlert: state.alert
 	}
 }
 

@@ -20,7 +20,8 @@ export const fetchLogin = user => {
     function error(message) {
         return {
             type: alertConstants.ERROR,
-            message
+            message,
+            status: true
         }
     }
 }

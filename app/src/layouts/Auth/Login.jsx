@@ -7,10 +7,11 @@ import Alert from "../../components/Alert"
 
 export default class Login extends Component {
   render() {
-    const { handleChange, handleSubmit, validation, state, loggingIn } = this.props;
+    const { handleChange, handleSubmit, validation, state, loggingIn, errorAlert } = this.props;
     return (
       <section className="section">
-		<Alert />
+	  	{errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
+		
         <div className="container mt-5">
           <div className="row">
             <div className="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">

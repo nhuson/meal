@@ -1,16 +1,21 @@
 import { alertConstants } from "../constants";
-
-const alert = (state = {}, action) => {
+const initialState = {
+    status: false
+}
+const alert = (state = initialState, action) => {
     switch (action.type) {
         case alertConstants.SUCCESS:
             return {
-                type: "alert-success",
-                message: action.message
-            };
+                ...state,
+                type: "success",
+                message: action.message,
+                status: true
+            }
         case alertConstants.ERROR:
             return {
-                type: "alert-danger",
-                message: action.message
+                type: "danger",
+                message: action.message,
+                status: true
             };
         case alertConstants.CLEAR:
             return {};
