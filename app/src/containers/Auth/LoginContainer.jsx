@@ -25,7 +25,7 @@ class LoginContainer extends Component {
 		let { onLoging } = this.props
 		if (validation.isValid) {
 			const user = { email: this.state.email, password: this.state.password }
-			onLoging()
+			onLoging(user)
 		}
 	}
 
@@ -55,14 +55,14 @@ class LoginContainer extends Component {
 const mapStateToProps = state => {
 	return {
 		loading: state.loading.status,
-		state
+		error: state.alert
 	}
 }
 
 const mapDispatchToProps =  (dispatch, props) => {
 	return {
-		onLoging: () => {
-			dispatch(fetchLogin())
+		onLoging: user => {
+			dispatch(fetchLogin(user))
 		}
 	}
 }

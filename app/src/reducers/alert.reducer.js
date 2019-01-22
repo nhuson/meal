@@ -19,4 +19,4 @@ const alert = (state = {}, action) => {
     }
 };
 
-export default alert;
+export default alert

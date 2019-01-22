@@ -3,12 +3,14 @@ import { Link } from "react-router-dom"
 import "../../assets/css/bootstrap/bootstrap.min.css"
 import "../../assets/css/login.css"
 import "../../assets/css/font-awesome.min.css"
+import Alert from "../../components/Alert"
 
 export default class Login extends Component {
   render() {
     const { handleChange, handleSubmit, validation, state, loggingIn } = this.props;
     return (
       <section className="section">
+		<Alert />
         <div className="container mt-5">
           <div className="row">
             <div className="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
