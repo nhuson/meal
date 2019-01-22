@@ -107,6 +107,6 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-	{this.props.errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
+	  {this.props.errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
   }
 }

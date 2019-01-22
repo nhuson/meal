@@ -7,7 +7,7 @@ import MealIcon from "@material-ui/icons/Fastfood";
 
 // core components/views
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
+import UserProfile from "containers/User/UserContainer.jsx";
 import Meal from "views/Meal/Meal.jsx";
 import Settings from "views/Settings/Settings.jsx";
 

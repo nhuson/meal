@@ -41,27 +41,27 @@ function UserProfile(props) {
   return (
     <div>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
+        <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
-              <p className={classes.cardCategoryWhite}>Complete your profile</p>
+              <h4 className={classes.cardTitleWhite}>User List</h4>
+              <p className={classes.cardCategoryWhite}>List users register</p>
             </CardHeader>
             <CardBody>
                 <Table
                   tableHeaderColor="warning"
-                  tableHead={["ID", "Name", "Salary", "Country"]}
+                  tableHead={["ID", "Avatar", "Name", "Email", "Status"]}
                   tableData={[
-                    ["1", "Dakota Rice", "$36,738", "Niger"],
-                    ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                    ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                    ["4", "Philip Chaney", "$38,735", "Korea, South"]
+                    ["1", "Dakota Rice", "$36,738", "Niger", "Block"],
+                    ["2", "Minerva Hooper", "$23,789", "Curaçao", "Block"],
+                    ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Block"],
+                    ["4", "Philip Chaney", "$38,735", "Korea, South", "Block"]
                   ]}
                 />
               </CardBody>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
+        {/* <GridItem xs={12} sm={12} md={4}>
           <Card profile>
             <CardAvatar profile>
               <a href="#pablo" onClick={e => e.preventDefault()}>
@@ -81,7 +81,7 @@ function UserProfile(props) {
               </Button>
             </CardBody>
           </Card>
-        </GridItem>
+        </GridItem> */}
       </GridContainer>
     </div>
   );
