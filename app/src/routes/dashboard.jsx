@@ -3,13 +3,15 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import MealIcon from "@material-ui/icons/Fastfood";
+import ContactIcon from "@material-ui/icons/ContactSupport";
 
 
 // core components/views
-import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
-import Meal from "views/Meal/Meal.jsx";
-import Settings from "views/Settings/Settings.jsx";
+import DashboardPage from "views/Dashboard";
+import UserProfile from "views/UserProfile/UserProfile";
+import Meal from "views/Meal";
+import Contact from "views/Contact"
+import Settings from "views/Settings";
 
 const dashboardRoutes = [
   {
@@ -32,6 +34,13 @@ const dashboardRoutes = [
     navbarName: "Meal",
     icon: MealIcon,
     component: Meal
+  },
+  {
+    path: "/contact",
+    sidebarName: "Contact",
+    navbarName: "Contact",
+    icon: ContactIcon,
+    component: Contact
   },
   {
     path: "/settings",
