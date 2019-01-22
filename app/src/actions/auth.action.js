@@ -6,7 +6,13 @@ export const fetchLogin = user => {
        try {
             dispatch(loging())
             let res = await userLogin(user)
-            
+            if (res && res.data.user.role === 'admin') {
+                dispatch({ type: authConstants.SUCCESS, data: res })
+                dispatch(inputAllow())
+            }else {
+                dispatch(error('You dont have role access!'))
+                dispatch(inputAllow())
+            }
        }catch(err) {
             dispatch(error(err))
             dispatch(inputAllow())
@@ -32,4 +38,5 @@ export const fetchLogin = user => {
             status: true
         }
     }
+
 }
