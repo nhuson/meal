@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import MaterialTable from 'material-table'
+import Loading from '../Loader'
 
 class Table extends Component {
     getActions(actions) {
@@ -53,20 +54,26 @@ class Table extends Component {
 
     render() {
         return (
-            <div style={{ maxWidth: '100%' }}>
-                <MaterialTable
-                    columns={this.props.columns}
-                    data={this.props.data}
-                    title={this.props.title}
-                    actions={this.getActions(this.props.actions)}
-                    options={{
-                        actionsColumnIndex: -1,
-                        // filtering: true,
-                        // selection: true,
-                    }}
-                    detailPanel={this.props.detailPanel}
-                />
+            <div style={{position: 'relative'}}>
+                <div style={{zIndex: '9999', width: '100%', height: '100%', position: 'absolute', top: '0', left: '0', bottom: '0', textAlign: 'center', verticalAlign: 'center'}}><Loading /></div>
+                <div style={{ maxWidth: '100%', opacity: '0.3' }}>
+                    <MaterialTable
+                        columns={this.props.columns}
+                        data={this.props.data}
+                        title={this.props.title}
+                        actions={this.getActions(this.props.actions)}
+                        options={{
+                            actionsColumnIndex: -1,
+                            // filtering: true,
+                            // selection: true,
+                        }}
+                        detailPanel={this.props.detailPanel}
+                        onChangePage={this.props.onChangePage}
+                        onChangeRowsPerPage={this.props.onChangeRowsPerPage}
+                    />
+                </div>
             </div>
+
         )
     }
 }

@@ -1,16 +1,25 @@
-import React from 'react'
-import Loader from 'react-loader-spinner'
+import React from 'react';
+import { PacmanLoader } from 'react-spinners';
 
-export default class Loading extends React.Component {
-    //other logic
+class Loader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: true
+        }
+    }
     render() {
         return (
-            <Loader
-                type="Triangle"
-                color="#00BFFF"
-                height="100"
-                width="100"
-            />
-        );
+            <div className='sweet-loading'>
+                <PacmanLoader
+                    sizeUnit={"px"}
+                    size={15}
+                    color={'#123abc'}
+                    loading={this.state.loading}
+                />
+            </div>
+        )
     }
 }
+
+export default Loader
