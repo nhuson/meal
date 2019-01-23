@@ -11,7 +11,6 @@ export default class Login extends Component {
     return (
       <section className="section">
 	  	{errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
-		
         <div className="container mt-5">
           <div className="row">
             <div className="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">

@@ -9,6 +9,7 @@ export const fetchLogin = user => {
             if (res && res.data.user.role === 'admin') {
                 dispatch({ type: authConstants.SUCCESS, data: res })
                 dispatch(inputAllow())
+                dispatch({type: alertConstants.SUCCESS, status: true, message: `Wellcome ${res.data.user.firstname} ${res.data.user.lastname} logined ^!^`})
             }else {
                 dispatch(error('You dont have role access!'))
                 dispatch(inputAllow())

@@ -30,7 +30,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
+import Alert from "../../components/Alert"
 import { bugs, website, server } from "variables/general.jsx";
 
 import {
@@ -53,9 +53,11 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
   render() {
-    const { classes } = this.props;
+    const { classes, errorAlert } = this.props;
     return (
       <div>
+        {/* Show alert common */}
+        {errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
         <GridContainer>
           <GridItem xs={12} sm={6} md={3}>
             <Card>
@@ -288,7 +290,6 @@ Dashboard.propTypes = {
 const DashboardStyle = withStyles(dashboardStyle)(Dashboard)
 
 const mapStateToProps = state => {
-  console.log(state, '===========')
   return {
     loading: state.loading.status,
 		errorAlert: state.alert
