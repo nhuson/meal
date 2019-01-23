@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import MaterialTable from 'material-table'
 import Loading from '../Loader'
+import '../../assets/css/table.css'
 
 class Table extends Component {
     getActions(actions) {
@@ -55,7 +55,10 @@ class Table extends Component {
     render() {
         return (
             <div style={{ position: 'relative' }}>
-                <div className="loading-table"><Loading /></div>
+                <div>
+                    <div className="loading-table"><Loading /></div>
+                    <div className="loading-disable"></div>
+                </div>
                 <div style={{ maxWidth: '100%', opacity: '0.3' }}>
                     <MaterialTable
                         columns={this.props.columns}
