@@ -1,14 +1,8 @@
 import React from 'react'
 import Table from '../../components/Table/TableTemplate'
 class UserProfile extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            loading: true
-        }
-    }
-
     render() {
+        let { loading } = this.props
         return (
             <Table
                 columns={[
@@ -56,8 +50,13 @@ class UserProfile extends React.Component {
                 ]}
                 onChangePage={(page) => {alert('You clicked user ' + page)}}
                 onChangeRowsPerPage={(perPage) => {alert('You clicked user ' + perPage)}}
+                loading={loading}
             />
         )
+    }
+
+    componentDidMount() {
+        this.props.getUserAvailble()
     }
 }
 

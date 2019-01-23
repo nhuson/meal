@@ -3,6 +3,7 @@ import knex from '../db/database'
 class BaseService {
 	constructor() {
 		this.tableName = ''
+		this.db = knex
 	}
 
 	async create(data) {

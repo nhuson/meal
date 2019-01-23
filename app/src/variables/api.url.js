@@ -1,6 +1,7 @@
 const urlV1 = {
     user: {
-        login: '/auth/login'
+        login: '/auth/login',
+        get_users: '/users'
     }
 }
 

@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React from "react";
+import { connect } from "react-redux"
 import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
@@ -15,9 +16,9 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import dashboardRoutes from "routes/dashboard.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
-
 import logo from "assets/img/reactlogo.png";
 import color from "../../variables/color"
+import Alert from "../../components/Alert"
 
 const switchRoutes = (
 	<Switch>
@@ -66,9 +67,11 @@ class App extends React.Component {
 		window.removeEventListener("resize", this.resizeFunction);
 	}
 	render() {
-		const { classes, ...rest } = this.props;
+		const { classes, errorAlert, ...rest } = this.props;
 		return (
 			<div className={classes.wrapper}>
+				{/* Show alert common */}
+        {errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
 				<Sidebar
 					routes={dashboardRoutes}
 					logoText={"Meal Plan"}
@@ -105,4 +108,13 @@ App.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(App);
+const AppStyle = withStyles(dashboardStyle)(App)
+
+const mapStateToProps = state => {
+  return {
+    loading: state.loading.status,
+		errorAlert: state.alert
+  }
+}
+
+export default connect(mapStateToProps, null)(AppStyle)

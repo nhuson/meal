@@ -52,14 +52,20 @@ class Table extends Component {
         return action
     }
 
+    showLoading(flag) {
+        return flag ? (
+        <div>
+            <div className="loading-table"><Loading /></div>
+            <div className="loading-disable"></div>
+        </div>) : ''
+    }
+
     render() {
+        let { loading } = this.props
         return (
             <div style={{ position: 'relative' }}>
-                <div>
-                    <div className="loading-table"><Loading /></div>
-                    <div className="loading-disable"></div>
-                </div>
-                <div style={{ maxWidth: '100%', opacity: '0.3' }}>
+                {this.showLoading(loading)}
+                <div style={{ maxWidth: '100%', opacity: loading ? '0.3' : '1' }}>
                     <MaterialTable
                         columns={this.props.columns}
                         data={this.props.data}

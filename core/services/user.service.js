@@ -37,6 +37,13 @@ class UserService extends BaseService {
 	async findByEmail(email) {
 		return await this.findOne({ email })
 	}
+
+	async getUserAvailable() {
+		return await this.db.select('id', 'firstname', 'lastname', 'avatar', 'email', 'status', 'role')
+		.where({ role: 'USER', status: 0 })
+		.from('users')
+		.orderBy('created_at', 'desc')		
+	}
 }
 
 export default new UserService()

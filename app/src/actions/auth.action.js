@@ -1,43 +1,24 @@
 import { authConstants, loadingConstants, alertConstants } from '../constants'
 import { userLogin } from '../api'
+import { alertActions } from './alert.action'
+import { loadingActions } from './loading.action'
 
 export const fetchLogin = user => {
     return async dispatch => {
        try {
-            dispatch(loging())
+            dispatch(loadingActions.loading())
             let res = await userLogin(user)
             if (res && res.data.user.role === 'admin') {
                 dispatch({ type: authConstants.SUCCESS, data: res })
-                dispatch(inputAllow())
-                dispatch({type: alertConstants.SUCCESS, status: true, message: `Wellcome ${res.data.user.firstname} ${res.data.user.lastname} logined ^!^`})
+                dispatch(loadingActions.done())
+                dispatch(alertActions.success(`Wellcome ${res.data.user.firstname} ${res.data.user.lastname} logined ^!^`))
             }else {
-                dispatch(error('You dont have role access!'))
-                dispatch(inputAllow())
+                dispatch(alertActions.error('You dont have role access!'))
+                dispatch(loadingActions.done())
             }
        }catch(err) {
-            dispatch(error(err))
-            dispatch(inputAllow())
+            dispatch(alertActions.error(err))
+            dispatch(loadingActions.done())
        }
     }
-
-    function loging() {
-        return {
-            type: loadingConstants.LOADING
-        }
-    }
-
-    function inputAllow() {
-        return {
-            type: loadingConstants.DONE
-        }
-    }
-
-    function error(message) {
-        return {
-            type: alertConstants.ERROR,
-            message,
-            status: true
-        }
-    }
-
 }

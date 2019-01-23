@@ -8,7 +8,7 @@ import ContactIcon from "@material-ui/icons/ContactSupport";
 
 // core components/views
 import DashboardPage from "views/Dashboard";
-import UserProfile from "views/UserProfile";
+import UserProfile from "containers/User/UserContainer";
 import Meal from "views/Meal";
 import Contact from "views/Contact"
 import Settings from "views/Settings";
