@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from '../../components/Table/Table'
+import Table from '../../components/Table/TableTemplate'
 class UserProfile extends React.Component {
     constructor(props) {
         super(props)

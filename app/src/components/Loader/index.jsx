@@ -14,7 +14,7 @@ class Loader extends React.Component {
                 <PacmanLoader
                     sizeUnit={"px"}
                     size={15}
-                    color={'#123abc'}
+                    color={'#db3545'}
                     loading={this.state.loading}
                 />
             </div>

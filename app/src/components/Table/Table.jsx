@@ -1,81 +1,73 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import MaterialTable from 'material-table'
-import Loading from '../Loader'
+import React from "react";
+import PropTypes from "prop-types";
+// @material-ui/core components
+import withStyles from "@material-ui/core/styles/withStyles";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+// core components
+import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
 
-class Table extends Component {
-    getActions(actions) {
-        let action = actions.map(act => {
-            if (act.name === 'edit') {
-                return {
-                    icon: 'edit',
-                    tooltip: 'Edit',
-                    onClick: act.onClick,
-                    iconProps: {
-                        style: {
-                            fontSize: 15,
-                            color: act.color,
-                        }
-                    }
-                }
-            }
-
-            if (act.name === 'delete') {
-                return {
-                    icon: 'delete',
-                    tooltip: 'Delete',
-                    onClick: act.onClick,
-                    iconProps: {
-                        style: {
-                            fontSize: 15,
-                            color: act.color,
-                        }
-                    }
-                }
-            }
-
-            if (act.name === 'show') {
-                return {
-                    icon: 'visibility',
-                    tooltip: 'Show',
-                    onClick: act.onClick,
-                    iconProps: {
-                        style: {
-                            fontSize: 15,
-                            color: act.color,
-                        }
-                    }
-                }
-            }
-        })
-
-        return action
-    }
-
-    render() {
-        return (
-            <div style={{position: 'relative'}}>
-                <div style={{zIndex: '9999', width: '100%', height: '100%', position: 'absolute', top: '0', left: '0', bottom: '0', textAlign: 'center', verticalAlign: 'center'}}><Loading /></div>
-                <div style={{ maxWidth: '100%', opacity: '0.3' }}>
-                    <MaterialTable
-                        columns={this.props.columns}
-                        data={this.props.data}
-                        title={this.props.title}
-                        actions={this.getActions(this.props.actions)}
-                        options={{
-                            actionsColumnIndex: -1,
-                            // filtering: true,
-                            // selection: true,
-                        }}
-                        detailPanel={this.props.detailPanel}
-                        onChangePage={this.props.onChangePage}
-                        onChangeRowsPerPage={this.props.onChangeRowsPerPage}
-                    />
-                </div>
-            </div>
-
-        )
-    }
+function CustomTable({ ...props }) {
+  const { classes, tableHead, tableData, tableHeaderColor } = props;
+  return (
+    <div className={classes.tableResponsive}>
+      <Table className={classes.table}>
+        {tableHead !== undefined ? (
+          <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
+            <TableRow>
+              {tableHead.map((prop, key) => {
+                return (
+                  <TableCell
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    key={key}
+                  >
+                    {prop}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+        ) : null}
+        <TableBody>
+          {tableData.map((prop, key) => {
+            return (
+              <TableRow key={key}>
+                {prop.map((prop, key) => {
+                  return (
+                    <TableCell className={classes.tableCell} key={key}>
+                      {prop}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </div>
+  );
 }
 
-export default Table
+CustomTable.defaultProps = {
+  tableHeaderColor: "gray"
+};
+
+CustomTable.propTypes = {
+  classes: PropTypes.object.isRequired,
+  tableHeaderColor: PropTypes.oneOf([
+    "warning",
+    "primary",
+    "danger",
+    "success",
+    "info",
+    "rose",
+    "gray"
+  ]),
+  tableHead: PropTypes.arrayOf(PropTypes.string),
+  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
+};
+
+export default withStyles(tableStyle)(CustomTable);
