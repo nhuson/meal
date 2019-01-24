@@ -76,8 +76,6 @@ class Table extends Component {
                         options={{
                             ...this.props.options,
                             actionsColumnIndex: -1,
-                            pageSize: this.props.per_page,
-                            pageSizeOptions: config.PAGE_SIZE_OPTION,
                             paging: false
                             // filtering: true,
                             // selection: true,
