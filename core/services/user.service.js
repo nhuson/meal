@@ -42,11 +42,14 @@ class UserService extends BaseService {
 	async getUserAvailable(option) {
 		let { page, per_page } = option
 		if (page < 0 || per_page < 0) {
-			throw createError(401, 'Page and per page not found')
+			throw createError(400, 'Invalid request params')
 		}
 		let totalRecord = await this.db.where({ role: 'USER', status: 0 }).from('users').count('id as total')
-		let totalPage = Math.ceil(totalRecord[0].total / per_page)
+		if (totalRecord[0].total <= 0){
+			return []
+		}
 
+		let totalPage = Math.ceil(totalRecord[0].total / per_page)
 		if (page > totalPage) {
 			page = totalPage
 		}

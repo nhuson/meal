@@ -17,8 +17,8 @@ class UserProfile extends React.Component {
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
                     if (!rowData.avatar)
-                        return (<UserAvatar style={{color: '#fff'}} size="36" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1', '#d38fda']}/>)
-                    return (<UserAvatar size="36" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
+                        return (<UserAvatar style={{color: '#fff'}} size="45" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1', '#d38fda']}/>)
+                    return (<UserAvatar size="45" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
                 }
             },
             { title: 'Fullname', field: 'fullname' },
@@ -33,7 +33,7 @@ class UserProfile extends React.Component {
                 count={totalRecord}
                 page={this.state.currentPage}
                 per_page={this.state.pageSize}
-                title="List User"
+                title="List Users"
                 actions={[
                     {
                         name: 'delete', onClick: (event, rowData) => {
