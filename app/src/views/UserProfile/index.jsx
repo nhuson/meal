@@ -17,8 +17,8 @@ class UserProfile extends React.Component {
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
                     if (!rowData.avatar)
-                        return (<UserAvatar style={{color: '#fff'}} size="36" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1']}/>)
-                    return (<UserAvatar size="36" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
+                        return (<UserAvatar style={{color: '#fff'}} size="45" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1']}/>)
+                    return (<UserAvatar size="45" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
                 }
             },
             { title: 'Fullname', field: 'fullname' },
@@ -30,7 +30,7 @@ class UserProfile extends React.Component {
             <Table
                 columns={columns}
                 data={users}
-                title="List User"
+                title="List Users"
                 actions={[
                     {
                         name: 'edit', onClick: (event, rowData) => {

@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { getUserAvailble } from '../../actions'
-
 import UserProfile from "../../views/UserProfile"
 
 class UserContainer extends Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 // @material-ui/icons
-import AddAlert from "@material-ui/icons/AddAlert"
+import Check from "@material-ui/icons/Check"
 import ErrorAlert from "@material-ui/icons/Error"
 import WarningAlert from "@material-ui/icons/Warning"
 import InfoAlert from "@material-ui/icons/Info"
@@ -19,7 +19,7 @@ class Alert extends React.Component{
     getIcon (type) {
         switch(type) {
             case "success":
-                return AddAlert
+                return Check
                 break
             case "danger":
                 return ErrorAlert
