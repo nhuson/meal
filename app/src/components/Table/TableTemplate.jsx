@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MaterialTable from 'material-table'
 import Loading from '../Loader'
 import '../../assets/css/table.css'
+import config from '../../variables/config'
 
 class Table extends Component {
     getActions(actions) {
@@ -72,7 +73,10 @@ class Table extends Component {
                         title={this.props.title}
                         actions={this.getActions(this.props.actions)}
                         options={{
+                            ...this.props.options,
                             actionsColumnIndex: -1,
+                            pageSize: config.PAGE_SIZE,
+                            pageSizeOptions: config.PAGE_SIZE_OPTION
                             // filtering: true,
                             // selection: true,
                         }}

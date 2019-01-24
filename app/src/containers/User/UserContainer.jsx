@@ -19,15 +19,15 @@ class UserContainer extends Component {
 
 const mapStateToProps = state => {
 	return {
-		users: state.users,
+		users: state.user.users,
 		loading: state.loading.status
 	}
 }
 
 const mapDispatchToProps = (dispatch, props) => {
 	return {
-		getUserAvailble: () => {
-			dispatch(getUserAvailble())
+		getUserAvailble: (currentPage, pageSize) => {
+			dispatch(getUserAvailble(currentPage, pageSize))
 		}
 	}
 }

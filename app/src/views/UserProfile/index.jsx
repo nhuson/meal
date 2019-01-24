@@ -1,21 +1,35 @@
 import React from 'react'
 import Table from '../../components/Table/TableTemplate'
+import config from '../../variables/config'
+import UserAvatar from 'react-user-avatar'
+
 class UserProfile extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            pageSize: config.PAGE_SIZE,
+            currentPage: 1,
+        }
+    }
     render() {
-        let { loading } = this.props
+        let { loading, users } = this.props
+        let columns = [
+            {
+                title: 'Avatar', field: 'avatar', render: (rowData) => {
+                    if (!rowData.avatar)
+                        return (<UserAvatar style={{color: '#fff'}} size="36" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1']}/>)
+                    return (<UserAvatar size="36" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
+                }
+            },
+            { title: 'Fullname', field: 'fullname' },
+            { title: 'Email', field: 'email' },
+            { title: 'Role', field: 'role' },
+            { title: 'Status', field: 'status', lookup: { 0: 'Active', 1: 'Blocked' } }
+        ]
         return (
             <Table
-                columns={[
-                    { title: 'Adi', field: 'name' },
-                    { title: 'Soyad', field: 'surname' },
-                    { title: 'Dogum', field: 'birthYear', type: 'numeric' },
-                    { title: 'Dog', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
-                ]}
-                data={[
-                    { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-                    { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-                    { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 }
-                ]}
+                columns={columns}
+                data={users}
                 title="List User"
                 actions={[
                     {
@@ -48,15 +62,23 @@ class UserProfile extends React.Component {
                         },
                     }
                 ]}
-                onChangePage={(page) => {alert('You clicked user ' + page)}}
-                onChangeRowsPerPage={(perPage) => {alert('You clicked user ' + perPage)}}
+                onChangePage={(page) => {
+                    this.setState({
+                        currentPage: page++
+                    })
+                }}
+                onChangeRowsPerPage={(perPage) => {
+                    this.setState({
+                        pageSize: perPage
+                    })
+                }}
                 loading={loading}
             />
         )
     }
 
     componentDidMount() {
-        this.props.getUserAvailble()
+        this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)
     }
 }
 

@@ -27,6 +27,7 @@
     "react-scripts": "1.1.5",
     "react-spinners": "^0.5.1",
     "react-swipeable-views": "0.12.17",
+    "react-user-avatar": "^1.10.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
