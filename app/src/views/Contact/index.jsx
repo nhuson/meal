@@ -1,10 +1,9 @@
 import React from 'react'
-import UserAvatar from 'react-user-avatar'
 import Table from '../../components/Table/TableTemplate'
-import EditForm from './edit.form'
 import config from '../../variables/config'
+import UserAvatar from 'react-user-avatar'
 
-class UserProfile extends React.Component {
+class Contact extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -13,7 +12,7 @@ class UserProfile extends React.Component {
         }
     }
     render() {
-        let { loading, users, totalRecord, totalPage } = this.props
+        let { loading, contacts, totalRecord} = this.props
         let columns = [
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
@@ -31,17 +30,17 @@ class UserProfile extends React.Component {
             },
             { title: 'Fullname', field: 'fullname' },
             { title: 'Email', field: 'email' },
-            { title: 'Role', field: 'role' },
-            { title: 'Status', field: 'status', lookup: { 0: 'Active', 1: 'Blocked' } }
+            { title: 'Title', field: 'title' },
+            { title: 'Messages', field: 'messages'}
         ]
         return (
             <Table
                 columns={columns}
-                data={users}
+                data={contacts}
                 count={totalRecord}
                 page={this.state.currentPage}
                 per_page={this.state.pageSize}
-                title="List Users"
+                title='List Contacts'
                 actions={[
                     {
                         name: 'delete', onClick: (event, rowData) => {
@@ -54,22 +53,24 @@ class UserProfile extends React.Component {
                         tooltip: `Show detail user`,
                         render: rowData => {
                             return (
-                                <EditForm user={rowData} />
+                                <div
+                                    style={{
+                                        fontSize: 100,
+                                        textAlign: 'center',
+                                        color: 'white',
+                                        backgroundColor: '#43A047',
+                                    }}
+                                >
+                                    {rowData.name}
+                                </div>
                             )
                         },
                     }
                 ]}
-                options={{exportButton: true}}
                 onChangePage={(event, page) => {
                     this.changePage(event, page)
                 }}
-                onChangeRowsPerPage={(event, perPage) => {
-                    let pageSize = parseInt(perPage.key)
-                    this.setState({
-                        pageSize
-                    })
-                    this.props.getUserAvailble(this.state.currentPage, pageSize)
-                }}
+                onChangeRowsPerPage={(perPage) => {}}
                 loading={loading}
             />
         )
@@ -78,7 +79,7 @@ class UserProfile extends React.Component {
     changePage(event, page) {
         let currentPage = page + 1
         if (event) {
-            this.props.getUserAvailble(currentPage, this.state.pageSize)
+            this.props.fetchContact(currentPage, this.state.pageSize)
             this.setState({
                 currentPage: page
             })
@@ -86,8 +87,8 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)
+        this.props.fetchContact(this.state.currentPage, this.state.pageSize)
     }
 }
 
-export default UserProfile
+export default Contact

@@ -8,7 +8,7 @@ import { PrivateRoute } from "./routes/privateRoute.jsx";
 import "assets/css/material-dashboard-react.css?v=1.5.0";
 
 import indexRoutes from "routes/index.jsx";
-import Login from "./containers/Auth/LoginContainer"
+import Login from "./containers/LoginContainer"
 
 
 ReactDOM.render(
