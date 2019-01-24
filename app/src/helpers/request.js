@@ -9,7 +9,6 @@ import {
 const client = axios.create({
 	baseURL: serviceConstants.API_URL,
 	timeout: 30000, //30 seconds
-	headers: authHeader()
 });
 
 const request = (method = "GET", url, data = null, params = null) => {
@@ -41,6 +40,7 @@ const request = (method = "GET", url, data = null, params = null) => {
 
 	return client({
 			method: method,
+			headers: authHeader(),
 			url: url,
 			params: params,
 			data: data
