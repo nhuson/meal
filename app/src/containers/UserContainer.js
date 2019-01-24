@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { getUserAvailble } from '../../actions'
-import UserProfile from "../../views/UserProfile"
+import { getUserAvailable } from '../actions'
+import UserProfile from "../views/UserProfile"
 
 class UserContainer extends Component {
 	render() {
@@ -30,7 +30,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
 	return {
 		getUserAvailble: (currentPage, pageSize) => {
-			dispatch(getUserAvailble(currentPage, pageSize))
+			dispatch(getUserAvailable(currentPage, pageSize))
 		}
 	}
 }

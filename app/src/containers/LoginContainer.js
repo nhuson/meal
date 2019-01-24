@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { fetchLogin } from "../../actions"
-import FormValidator from "../../helpers/formValidation"
-import { loginValidations } from "../../validates"
-import Login from "../../views/Auth/Login"
+import { fetchLogin } from "../actions"
+import FormValidator from "../helpers/formValidation"
+import { loginValidations } from "../validates"
+import Login from "../views/Auth/Login"
 
 class LoginContainer extends Component {
 	constructor(props) {

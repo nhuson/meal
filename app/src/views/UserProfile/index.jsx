@@ -17,8 +17,15 @@ class UserProfile extends React.Component {
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
                     if (!rowData.avatar)
-                        return (<UserAvatar style={{color: '#fff'}} size="45" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1', '#d38fda']}/>)
-                    return (<UserAvatar size="45" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
+                        return (
+                            <UserAvatar style={{color: '#fff'}}
+                                size="45"
+                                name={rowData.fullname.toUpperCase()} 
+                                colors={['#22cd69', '#e77d00', '#8f43b1', '#d38fda', '#2196f3', '#1a237e', '#009688', '#388e3c']}/>)
+                    return (<UserAvatar 
+                                size="45" 
+                                name={rowData.fullname.toUpperCase()} 
+                                src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
                 }
             },
             { title: 'Fullname', field: 'fullname' },

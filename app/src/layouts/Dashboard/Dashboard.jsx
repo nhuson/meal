@@ -1,20 +1,14 @@
-/* eslint-disable */
 import React from "react";
 import { connect } from "react-redux"
 import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
-// creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-
 import dashboardRoutes from "routes/dashboard.jsx";
-
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import logo from "assets/img/reactlogo.png";
 import color from "../../variables/color"

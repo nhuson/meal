@@ -8,9 +8,9 @@ import ContactIcon from "@material-ui/icons/ContactSupport";
 
 // core components/views
 import DashboardPage from "views/Dashboard";
-import UserProfile from "containers/User/UserContainer";
+import User from "containers/UserContainer";
 import Meal from "views/Meal";
-import Contact from "views/Contact"
+import Contact from "containers/ContactContainer"
 import Settings from "views/Settings";
 
 const dashboardRoutes = [
@@ -26,7 +26,7 @@ const dashboardRoutes = [
     sidebarName: "User",
     navbarName: "User",
     icon: PersonIcon,
-    component: UserProfile
+    component: User
   },
   {
     path: "/meal",
