@@ -63,12 +63,13 @@ class UserProfile extends React.Component {
                 onChangePage={(event, page) => {
                     this.changePage(event, page)
                 }}
-                onChangeRowsPerPage={(perPage) => {
-                    // console.log(perPage, '========')
-                    // this.setState({
-                    //     pageSize: perPage
-                    // })
-                    // this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)
+                onChangeRowsPerPage={(event, perPage) => {
+                    console.log(perPage.key, '========')
+                    let pageSize = parseInt(perPage.key)
+                    this.setState({
+                        pageSize
+                    })
+                    this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)
                 }}
                 loading={loading}
             />
