@@ -41,7 +41,7 @@ class UserService extends BaseService {
 
 	async getUserAvailable(option) {
 		let { page, per_page } = option
-		if (!page || !per_page || page < 0 || per_page < 0) {
+		if (page < 0 || per_page < 0) {
 			throw createError(400, 'Invalid request params')
 		}
 		let totalRecord = await this.db.where({ role: 'USER', status: 0 }).from('users').count('id as total')
@@ -53,13 +53,23 @@ class UserService extends BaseService {
 		if (page > totalPage) {
 			page = totalPage
 		}
+		if (page === 0) {
+			page = 1
+		}
+
 		let offset = (page - 1) * per_page
 
-		return await this.db.select('id', this.db.raw("CONCAT(lastname, ' ', firstname) as fullname"), 'avatar', 'email', 'status', 'role')
+		let users = await this.db.select('id', this.db.raw("CONCAT(lastname, ' ', firstname) as fullname"), 'avatar', 'email', 'status', 'role')
 							.where({ role: 'USER', status: 0 })
 							.from('users')
 							.limit(per_page).offset(offset)
-							.orderBy('created_at', 'desc')	
+							.orderBy('created_at', 'desc')
+		
+		return {
+			users,
+			total_page: totalPage,
+			total_record: totalRecord[0].total
+		}
 	}
 }
 

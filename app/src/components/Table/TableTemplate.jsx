@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MaterialTable from 'material-table'
+import TablePagination from '@material-ui/core/TablePagination';
 import Loading from '../Loader'
 import '../../assets/css/table.css'
 import config from '../../variables/config'
@@ -75,12 +76,26 @@ class Table extends Component {
                         options={{
                             ...this.props.options,
                             actionsColumnIndex: -1,
-                            pageSize: config.PAGE_SIZE,
-                            pageSizeOptions: config.PAGE_SIZE_OPTION
+                            pageSize: this.props.per_page,
+                            pageSizeOptions: config.PAGE_SIZE_OPTION,
+                            paging: false
                             // filtering: true,
                             // selection: true,
                         }}
                         detailPanel={this.props.detailPanel}
+                    />
+                    <TablePagination
+                        rowsPerPageOptions={config.PAGE_SIZE_OPTION}
+                        component="div"
+                        count={this.props.count}
+                        rowsPerPage={this.props.per_page}
+                        page={this.props.page}
+                        backIconButtonProps={{
+                            'aria-label': 'Previous Page',
+                        }}
+                        nextIconButtonProps={{
+                            'aria-label': 'Next Page',
+                        }}
                         onChangePage={this.props.onChangePage}
                         onChangeRowsPerPage={this.props.onChangeRowsPerPage}
                     />

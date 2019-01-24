@@ -8,16 +8,16 @@ class UserProfile extends React.Component {
         super(props)
         this.state = {
             pageSize: config.PAGE_SIZE,
-            currentPage: 1,
+            currentPage: 0,
         }
     }
     render() {
-        let { loading, users } = this.props
+        let { loading, users, totalRecord, totalPage } = this.props
         let columns = [
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
                     if (!rowData.avatar)
-                        return (<UserAvatar style={{color: '#fff'}} size="45" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1']}/>)
+                        return (<UserAvatar style={{color: '#fff'}} size="45" name={rowData.fullname.toUpperCase()} colors={['#22cd69', '#e77d00', '#8f43b1', '#d38fda']}/>)
                     return (<UserAvatar size="45" name={rowData.fullname.toUpperCase()} src={`${config.S3_URL}/100x100/${rowData.avatar}`}/>)    
                 }
             },
@@ -30,13 +30,11 @@ class UserProfile extends React.Component {
             <Table
                 columns={columns}
                 data={users}
+                count={totalRecord}
+                page={this.state.currentPage}
+                per_page={this.state.pageSize}
                 title="List Users"
                 actions={[
-                    {
-                        name: 'edit', onClick: (event, rowData) => {
-                            alert('You clicked user ' + rowData.name)
-                        }, color: 'green'
-                    },
                     {
                         name: 'delete', onClick: (event, rowData) => {
                             alert('You clicked user ' + rowData.name)
@@ -62,19 +60,29 @@ class UserProfile extends React.Component {
                         },
                     }
                 ]}
-                onChangePage={(page) => {
-                    this.setState({
-                        currentPage: page++
-                    })
+                onChangePage={(event, page) => {
+                    this.changePage(event, page)
                 }}
                 onChangeRowsPerPage={(perPage) => {
-                    this.setState({
-                        pageSize: perPage
-                    })
+                    // console.log(perPage, '========')
+                    // this.setState({
+                    //     pageSize: perPage
+                    // })
+                    // this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)
                 }}
                 loading={loading}
             />
         )
+    }
+
+    changePage(event, page) {
+        let currentPage = page + 1
+        if (event) {
+            this.props.getUserAvailble(currentPage, this.state.pageSize)
+            this.setState({
+                currentPage: page
+            })
+        }
     }
 
     componentDidMount() {
