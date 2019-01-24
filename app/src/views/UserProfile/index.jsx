@@ -64,12 +64,11 @@ class UserProfile extends React.Component {
                     this.changePage(event, page)
                 }}
                 onChangeRowsPerPage={(event, perPage) => {
-                    console.log(perPage.key, '========')
                     let pageSize = parseInt(perPage.key)
                     this.setState({
                         pageSize
                     })
-                    this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)
+                    this.props.getUserAvailble(this.state.currentPage, pageSize)
                 }}
                 loading={loading}
             />
