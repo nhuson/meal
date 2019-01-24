@@ -1,4 +1,3 @@
-import createError from 'http-errors'
 import userService from '../services/user.service'
 
 /**
@@ -10,7 +9,7 @@ import userService from '../services/user.service'
  */
 const getUser = async (req, res, next) => {
 	try {
-        let data = await userService.getUserAvailable()
+        let data = await userService.getUserAvailable({ page: parseInt(req.query.page), per_page: parseInt(req.query.per_page) })
 
         res.status(200).json({
             success: 'success',
@@ -21,6 +20,6 @@ const getUser = async (req, res, next) => {
     }
 }
 
-export default {
+export {
 	getUser
 }

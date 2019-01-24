@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import createError from 'http-errors'
 import { omit } from 'lodash'
 import BaseService from './base.service'
 import configs from '../config'
@@ -38,11 +39,24 @@ class UserService extends BaseService {
 		return await this.findOne({ email })
 	}
 
-	async getUserAvailable() {
+	async getUserAvailable(option) {
+		let { page, per_page } = option
+		if (!page || !per_page || page < 0 || per_page < 0) {
+			throw createError(401, 'Page and per_page not found')
+		}
+		let totalRecord = await this.db.where({ role: 'USER', status: 0 }).from('users').count('id as total')
+		let totalPage = Math.ceil(totalRecord[0].total / per_page)
+
+		if (page > totalPage) {
+			page = totalPage
+		}
+		let offset = (page - 1) * per_page
+
 		return await this.db.select('id', 'firstname', 'lastname', 'avatar', 'email', 'status', 'role')
-		.where({ role: 'USER', status: 0 })
-		.from('users')
-		.orderBy('created_at', 'desc')		
+							.where({ role: 'USER', status: 0 })
+							.from('users')
+							.limit(per_page).offset(offset)
+							.orderBy('created_at', 'desc')	
 	}
 }
 
