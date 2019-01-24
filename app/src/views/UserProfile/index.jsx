@@ -1,7 +1,8 @@
 import React from 'react'
-import Table from '../../components/Table/TableTemplate'
-import config from '../../variables/config'
 import UserAvatar from 'react-user-avatar'
+import Table from '../../components/Table/TableTemplate'
+import EditForm from './edit.form'
+import config from '../../variables/config'
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -53,20 +54,12 @@ class UserProfile extends React.Component {
                         tooltip: `Show detail user`,
                         render: rowData => {
                             return (
-                                <div
-                                    style={{
-                                        fontSize: 100,
-                                        textAlign: 'center',
-                                        color: 'white',
-                                        backgroundColor: '#43A047',
-                                    }}
-                                >
-                                    {rowData.name}
-                                </div>
+                                <EditForm user={rowData} />
                             )
                         },
                     }
                 ]}
+                options={{exportButton: true}}
                 onChangePage={(event, page) => {
                     this.changePage(event, page)
                 }}

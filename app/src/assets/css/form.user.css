@@ -1,0 +1,12 @@
+.formEditUser{
+    padding: 20px;
+}
+
+.formEditUser .userFormDetail{
+    padding-left: 20px;
+}
+
+.formEditUser .userFormDetail .inputUser {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
