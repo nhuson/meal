@@ -6,11 +6,13 @@ import UserProfile from "../../views/UserProfile"
 
 class UserContainer extends Component {
 	render() {
-		let { users, getUserAvailble, loading } = this.props
+		let { users, getUserAvailble, totalRecord, totalPage, loading } = this.props
 		return (
 			<UserProfile
 				loading={loading}
 				users={users}
+				totalRecord={totalRecord}
+				totalPage={totalPage}
 				getUserAvailble={getUserAvailble}
 			/>
 		)
@@ -20,6 +22,8 @@ class UserContainer extends Component {
 const mapStateToProps = state => {
 	return {
 		users: state.user.users,
+		totalRecord: state.user.total_record,
+		totalPage: state.user.total_page,
 		loading: state.loading.status
 	}
 }
