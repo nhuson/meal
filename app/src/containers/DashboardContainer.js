@@ -11,8 +11,8 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import dashboardRoutes from "routes/dashboard.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import logo from "assets/img/reactlogo.png";
-import color from "../../variables/color"
-import Alert from "../../components/Alert"
+import color from "../variables/color"
+import Alert from "../components/Alert"
 
 const switchRoutes = (
 	<Switch>
@@ -24,7 +24,7 @@ const switchRoutes = (
 	</Switch>
 );
 
-class App extends React.Component {
+class DashboardContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -98,11 +98,11 @@ class App extends React.Component {
 	}
 }
 
-App.propTypes = {
+DashboardContainer.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-const AppStyle = withStyles(dashboardStyle)(App)
+const AppStyle = withStyles(dashboardStyle)(DashboardContainer)
 
 const mapStateToProps = state => {
   return {

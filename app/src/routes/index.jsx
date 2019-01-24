@@ -1,4 +1,4 @@
-import Dashboard from 'layouts/Dashboard/Dashboard'
+import Dashboard from '../containers/DashboardContainer'
 
 const indexRoutes = [{ path: '/', component: Dashboard }]
 

@@ -40,7 +40,7 @@ class Contact extends React.Component {
                 count={totalRecord}
                 page={this.state.currentPage}
                 per_page={this.state.pageSize}
-                title="List Contacts"
+                title='List Contacts'
                 actions={[
                     {
                         name: 'delete', onClick: (event, rowData) => {
