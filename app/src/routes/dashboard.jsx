@@ -7,11 +7,11 @@ import ContactIcon from "@material-ui/icons/ContactSupport";
 
 
 // core components/views
-import DashboardPage from "views/Dashboard";
+import DashboardPage from "views/dashboard";
 import User from "containers/UserContainer";
-import Meal from "views/Meal";
+import Meal from "containers/meal/MainContainer";
 import Contact from "containers/ContactContainer"
-import Settings from "views/Settings";
+import Settings from "containers/SettingsContainer";
 
 const dashboardRoutes = [
   {

@@ -3,9 +3,9 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 const styles = {}
 
-function Meal(props) {
+function MenuType(props) {
 	const { classes } = props
-	return <div />
+	return <div>Category</div>
 }
 
-export default withStyles(styles)(Meal)
+export default withStyles(styles)(MenuType)

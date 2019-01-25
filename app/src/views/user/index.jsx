@@ -1,7 +1,7 @@
 import React from 'react'
 import UserAvatar from 'react-user-avatar'
 import Table from '../../components/Table/TableTemplate'
-import EditForm from './edit.form'
+import EditForm from './EditForm'
 import config from '../../variables/config'
 
 class UserProfile extends React.Component {

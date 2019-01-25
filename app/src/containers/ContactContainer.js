@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { getContactAvailable} from '../actions'
-import Contact from "../views/Contact"
+import Contact from "../views/contact"
 
 class ContactContainer extends Component {
 	render() {

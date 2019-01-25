@@ -72,7 +72,6 @@ class DashboardContainer extends React.Component {
 					logo={logo}
 					background={color.MAIN}
 					handleDrawerToggle={this.handleDrawerToggle}
-
 					open={this.state.mobileOpen}
 					color={color.MENU_ACTIVE}
 					{...rest}

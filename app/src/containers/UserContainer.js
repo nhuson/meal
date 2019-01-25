@@ -1,13 +1,13 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { getUserAvailable } from '../actions'
-import UserProfile from "../views/UserProfile"
+import User from "../views/user"
 
 class UserContainer extends Component {
 	render() {
 		let { users, getUserAvailble, totalRecord, totalPage, loading } = this.props
 		return (
-			<UserProfile
+			<User
 				loading={loading}
 				users={users}
 				totalRecord={totalRecord}
