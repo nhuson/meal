@@ -5,7 +5,7 @@ import history from './helpers/history'
 import { Router, Route, Switch } from "react-router-dom";
 import store from "./helpers/store"
 import { PrivateRoute } from "./routes/privateRoute.jsx";
-import "assets/css/material-dashboard-react.css?v=1.5.0";
+import "assets/css/main.css?v=1.5.0";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors'
 

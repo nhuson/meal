@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom"
 import "../../assets/css/bootstrap/bootstrap.min.css"
 import "../../assets/css/login.css"
-import "../../assets/css/font-awesome.min.css"
+import "../../assets/css/font-awesome/font-awesome.min.css"
 import Alert from "../../components/Alert"
 
 export default class Login extends Component {
