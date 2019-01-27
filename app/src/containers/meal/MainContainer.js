@@ -7,8 +7,9 @@ import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
 
 import Meal from './MealContainer'
 import MenuType from './MenuTypeContainer'
-import Category from './CategoryContainer';      
+import Category from './CategoryContainer';
 import Ingredient from './IngredientContainer';
+import Allergies from './AllergiesContainer';
 
 class MainContainer extends Component {
 	render() {
@@ -17,33 +18,39 @@ class MainContainer extends Component {
 				<GridContainer>
 					<GridItem xs={12} sm={12} md={12}>
 						<CustomTabs
-						headerColor="danger"
-						tabs={[
-							{
-								tabName: "Meal",
-								tabContent: (
-									<Meal/>
-							)
-							},
-							{
-								tabName: "Category",
-								tabContent: (
-									<Category/>
-							)
-							},
-							{
-								tabName: "MenuType",
-								tabContent: (
-									<MenuType/>
-								)
-							},
-							{
-								tabName: "Ingredient",
-								tabContent: (
-									<Ingredient/>
-								)
-							}
-						]}
+							headerColor="danger"
+							tabs={[
+								{
+									tabName: "Meal",
+									tabContent: (
+										<Meal />
+									)
+								},
+								{
+									tabName: "Ingredient",
+									tabContent: (
+										<Ingredient />
+									)
+								},
+								{
+									tabName: "Category",
+									tabContent: (
+										<Category />
+									)
+								},
+								{
+									tabName: "MenuType",
+									tabContent: (
+										<MenuType />
+									)
+								},
+								{
+									tabName: "Allergies And Restrictions",
+									tabContent: (
+										<Allergies />
+									)
+								}
+							]}
 						/>
 					</GridItem>
 				</GridContainer>

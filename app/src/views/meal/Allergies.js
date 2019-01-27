@@ -13,7 +13,7 @@ const styles = {
 };
 
 
-function Category(props) {
+function Allergies(props) {
 	const { classes } = props;
 	return (
 		<div>
@@ -55,4 +55,4 @@ function Category(props) {
 	);
 }
 
-export default withStyles(styles)(Category)
+export default withStyles(styles)(Allergies)
