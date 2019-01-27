@@ -59,7 +59,7 @@ class UserService extends BaseService {
 
 		let offset = (page - 1) * per_page
 
-		let users = await this.db.select('id', this.db.raw("CONCAT(lastname, ' ', firstname) as fullname"), 'lastname', 'firstname', 'avatar', 'email', 'status', 'role')
+		let users = await this.db.select('id', this.db.raw("CONCAT(firstname, ' ', lastname) as fullname"), 'lastname', 'firstname', 'avatar', 'email', 'status', 'role')
 							.where({ role: 'USER', status: 0 })
 							.from('users')
 							.limit(per_page).offset(offset)

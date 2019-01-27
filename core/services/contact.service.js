@@ -43,4 +43,4 @@ class ContactService extends BaseService {
   }
 }
 
-  export default new ContactService()
+export default new ContactService()
