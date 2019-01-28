@@ -32,7 +32,7 @@ class AllergiesList extends React.Component {
 					{
                         name: 'edit', onClick: (event, rowData) => {
                             alert('You clicked user ' + rowData.name)
-                        }, color: '	',
+                        }, color: 'green',
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {

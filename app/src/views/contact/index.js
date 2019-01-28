@@ -43,28 +43,14 @@ class Contact extends React.Component {
                 title='List Contacts'
                 actions={[
                     {
+                        name: 'edit', onClick: (event, rowData) => {
+                            alert('You clicked user ' + rowData.name)
+                        }, color: 'green'
+                    },
+                    {
                         name: 'delete', onClick: (event, rowData) => {
                             alert('You clicked user ' + rowData.name)
                         }, color: 'green'
-                    }
-                ]}
-                detailPanel={[
-                    {
-                        tooltip: `Show detail user`,
-                        render: rowData => {
-                            return (
-                                <div
-                                    style={{
-                                        fontSize: 100,
-                                        textAlign: 'center',
-                                        color: 'white',
-                                        backgroundColor: '#43A047',
-                                    }}
-                                >
-                                    {rowData.name}
-                                </div>
-                            )
-                        },
                     }
                 ]}
                 onChangePage={(event, page) => {
