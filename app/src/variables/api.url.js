@@ -5,6 +5,12 @@ const urlV1 = {
     },
     contact: {
         get_contacts: '/contact'
+    },
+    category: {
+        get_categories: '/category'
+    },
+    menuType: {
+        get_menus: '/menu-type'
     }
 }
 

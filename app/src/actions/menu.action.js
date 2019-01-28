@@ -1,16 +1,16 @@
-import { categoryConstant } from '../constants'
+import { menuConstant } from '../constants'
 import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
-import { getCategories } from '../api'
+import { getMenus } from '../api'
 
-export const getCategoriesAvailable = (pageNumber, pageSize) => {
+export const getMenusAvailable = (pageNumber, pageSize) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			let resp = await getCategories(pageNumber, pageSize)
+			let resp = await getMenus(pageNumber, pageSize)
 			dispatch({
-                type: categoryConstant.GET_CATEGORIES,
-                categories: resp.data.categories,
+                type: menuConstant.GET_MENUS,
+                menus: resp.data.menus,
                 total_page: resp.data.total_page,
                 total_record: resp.data.total_record
              })

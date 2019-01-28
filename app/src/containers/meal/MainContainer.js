@@ -39,7 +39,7 @@ class MainContainer extends Component {
 									)
 								},
 								{
-									tabName: "MenuType",
+									tabName: "Menu-Type",
 									tabContent: (
 										<MenuType />
 									)
