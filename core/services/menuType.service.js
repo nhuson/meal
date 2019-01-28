@@ -36,7 +36,7 @@ class MenuTypeService extends BaseService {
 			.orderBy('created_at', 'desc')
 
 		return {
-			menus,
+			menus	,
 			total_page: totalPage,
 			total_record: totalRecord[0].total,
 		}

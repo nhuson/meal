@@ -10,12 +10,22 @@ import _ from 'lodash'
  */
 const getAll = async (req, res, next) => {
 	try {
-		let data = await allergiTypeService.findAll()
-
-		res.status(200).json({
-			success: 'success',
-			data,
-		})
+		if (!req.query.page || !req.query.per_page) {
+			let data = await allergiTypeService.findAll()
+			res.status(200).json({
+				success: 'success',
+				data,
+			})
+		} else {
+			let data = await allergiTypeService.getAllergiesAvailable({
+				page: parseInt(req.query.page),
+				per_page: parseInt(req.query.per_page),
+			})
+			res.status(200).json({
+				success: 'success',
+				data,
+			})
+		}
 	} catch (err) {
 		next(err)
 	}

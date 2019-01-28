@@ -6,6 +6,7 @@ import user from './user.reducer'
 import contact from './contact.reducer'
 import category from './category.reducer'
 import menu from './menu.reducer'
+import allergy from './allergy.reducer'
 
 const rootReducer = combineReducers({
     alert,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     user,
     contact,
     category,
-    menu
+    menu,
+    allergy
 });
 
 export default rootReducer;

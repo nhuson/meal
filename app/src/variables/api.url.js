@@ -11,6 +11,9 @@ const urlV1 = {
     },
     menuType: {
         get_menus: '/menu-type'
+    },
+    allergyType: {
+        get_allergies: '/allergy-type'
     }
 }
 

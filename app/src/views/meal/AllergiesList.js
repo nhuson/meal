@@ -3,7 +3,7 @@ import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
 import moment from 'moment'
 
-class CategoryList extends React.Component {
+class AllergiesList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -12,7 +12,7 @@ class CategoryList extends React.Component {
         }
     }
     render() {
-        let { loading, categories, totalRecord} = this.props
+        let { loading, allergies, totalRecord} = this.props
         let columns = [
             { title: 'Title', field: 'title' },
 			{ title: 'Description', field: 'description' },
@@ -23,7 +23,7 @@ class CategoryList extends React.Component {
         return (
             <Table
                 columns={columns}
-                data={categories}
+                data={allergies}
                 count={totalRecord}
                 page={this.state.currentPage}
                 per_page={this.state.pageSize}
@@ -53,7 +53,7 @@ class CategoryList extends React.Component {
     changePage(event, page) {
         let currentPage = page + 1
         if (event) {
-            this.props.fetchCategories(currentPage, this.state.pageSize)
+            this.props.fetchAllergies(currentPage, this.state.pageSize)
             this.setState({
                 currentPage: page
             })
@@ -61,8 +61,8 @@ class CategoryList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchCategories(this.state.currentPage, this.state.pageSize)
+        this.props.fetchAllergies(this.state.currentPage, this.state.pageSize)
     }
 }
 
-export default CategoryList
+export default AllergiesList

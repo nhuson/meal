@@ -16,7 +16,7 @@ class MenuTypeList extends React.Component {
         let columns = [
             { title: 'Title', field: 'title' },
 			{ title: 'Description', field: 'description' },
-			{ title: 'Created', field: 'created_at',  render: (rowData) => {
+			{ title: 'Created Date', field: 'created_at',  render: (rowData) => {
 				 return moment(rowData).format('MM/DD/YYYY')
 				} }
         ]
@@ -27,7 +27,7 @@ class MenuTypeList extends React.Component {
                 count={totalRecord}
                 page={this.state.currentPage}
                 per_page={this.state.pageSize}
-                title='List Menu-Type'
+                title='List Menu-Type	'
                 actions={[
 					{
                         name: 'edit', onClick: (event, rowData) => {
