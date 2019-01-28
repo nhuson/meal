@@ -5,8 +5,6 @@ class MenuTypeService extends BaseService {
 		super()
 		this.tableName = 'menu_types'
 	}
-
-
 }
 
 export default new MenuTypeService()

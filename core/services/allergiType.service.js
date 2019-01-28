@@ -5,8 +5,6 @@ class AllergiTypeService extends BaseService {
 		super()
 		this.tableName = 'allergi_types'
 	}
-
-
 }
 
 export default new AllergiTypeService()

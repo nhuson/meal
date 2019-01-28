@@ -5,8 +5,6 @@ class PageService extends BaseService {
 		super()
 		this.tableName = 'pages'
 	}
-
-
 }
 
 export default new PageService()

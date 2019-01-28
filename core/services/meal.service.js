@@ -1,12 +1,10 @@
 import BaseService from './base.service'
 
 class MealService extends BaseService {
-    constructor() {
+	constructor() {
 		super()
 		this.tableName = 'meals'
-    }
-    
-
+	}
 }
 
 export default new MealService()

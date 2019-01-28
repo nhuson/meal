@@ -18,7 +18,7 @@ class MainContainer extends Component {
 				<GridContainer>
 					<GridItem xs={12} sm={12} md={12}>
 						<CustomTabs
-							headerColor="danger"
+							headerColor="primary"
 							tabs={[
 								{
 									tabName: "Meal",
