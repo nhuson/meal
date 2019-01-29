@@ -4,17 +4,17 @@ import config from '../../variables/config'
 import moment from 'moment'
 import ConfirmPopup from '../../components/ConfirmPopup'
 
-class MenuTypeList extends React.Component {
+class IngredientList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
-            menuId: -1
+            ingredientId: -1
         }
     }
     render() {
-        let { loading, menus, totalRecord} = this.props
+        let { loading, ingredients, totalRecord} = this.props
         let columns = [
             { title: 'Title', field: 'title' },
 			{ title: 'Description', field: 'description' },
@@ -30,16 +30,16 @@ class MenuTypeList extends React.Component {
                     description = "This menu type will be deleted from the database and don't display for later."
                     handeDisagree={this.props.handlePopupDisagree}
                     handleAgree= {() => {
-                        this.props.handlePopupAgree(this.state.menuId)
+                        this.props.handlePopupAgree(this.state.ingredientId)
                     }}
                 />
                 <Table
                     columns={columns}
-                    data={menus}
+                    data={ingredients}
                     count={totalRecord}
                     page={this.state.currentPage}
                     per_page={this.state.pageSize}
-                    title='List Menu-Type	'
+                    title='List Ingredients'
                     actions={[
                         {
                             name: 'edit', onClick: (event, rowData) => {
@@ -48,7 +48,7 @@ class MenuTypeList extends React.Component {
                         },
                         {
                             name: 'delete', onClick: (event, rowData) => {
-                                this.setState({menuId: rowData.id})
+                                this.setState({ingredientId: rowData.id})
                                 this.props.handleDelete()
                             }, color: 'green',
                         }
@@ -67,7 +67,7 @@ class MenuTypeList extends React.Component {
     changePage(event, page) {
         let currentPage = page + 1
         if (event) {
-            this.props.fetchMenus(currentPage, this.state.pageSize)
+            this.props.fetchIngredients(currentPage, this.state.pageSize)
             this.setState({
                 currentPage: page
             })
@@ -75,8 +75,8 @@ class MenuTypeList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchMenus(this.state.currentPage, this.state.pageSize)
+        this.props.fetchIngredients(this.state.currentPage, this.state.pageSize)
     }
 }
 
-export default MenuTypeList
+export default IngredientList

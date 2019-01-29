@@ -10,6 +10,7 @@ class CategoryList extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
+            catId: -1
         }
     }
     render() {
@@ -28,7 +29,9 @@ class CategoryList extends React.Component {
                     title='Are you sure you want to delete this category?'
                     description = "This category will be deleted from the database and don't display for later."
                     handeDisagree={this.props.handlePopupDisagree}
-                    handleAgree={this.props.handlePopupAgree}
+                    handleAgree={() => {
+                        this.props.handlePopupAgree(this.state.catId)
+                    }}
                 />
             <Table
                 columns={columns}
@@ -45,6 +48,7 @@ class CategoryList extends React.Component {
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {
+                            this.setState({catId: rowData.id})
                             this.props.handleDelete()
                         }, color: 'green',
 					}

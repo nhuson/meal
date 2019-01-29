@@ -8,6 +8,8 @@ import category from './category.reducer'
 import menu from './menu.reducer'
 import allergy from './allergy.reducer'
 import confirmPopup from './confirm.popup.reducer'
+import typeIngredient from './type.ingredient.reducer'
+import ingredient from './ingredient.reducer'
 
 const rootReducer = combineReducers({
     alert,
@@ -18,7 +20,9 @@ const rootReducer = combineReducers({
     category,
     menu,
     allergy,
-    confirmPopup
+    confirmPopup,
+    typeIngredient,
+    ingredient
 });
 
 export default rootReducer;

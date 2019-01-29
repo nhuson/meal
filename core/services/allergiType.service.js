@@ -29,7 +29,7 @@ class AllergiTypeService extends BaseService {
 
 		let offset = (page - 1) * per_page
 		let allergies = await this.db
-			.select('created_at', 'title', 'description')
+			.select('id','created_at', 'title', 'description')
 			.from('allergi_types')
 			.limit(per_page)
 			.offset(offset)

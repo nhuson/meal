@@ -29,7 +29,7 @@ class MenuTypeService extends BaseService {
 
 		let offset = (page - 1) * per_page
 		let menus = await this.db
-			.select('created_at', 'title', 'description')
+			.select('id', 'created_at', 'title', 'description')
 			.from('menu_types')
 			.limit(per_page)
 			.offset(offset)

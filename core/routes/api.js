@@ -77,7 +77,7 @@ router
 	.delete(
 		'/ingredient/:id',
 		requireAuth('admin'),
-		pickHandler('ingredient.controller@deleteType'),
+		pickHandler('ingredient.controller@remove'),
 	)
 	.post(
 		'/ingredient-csv',

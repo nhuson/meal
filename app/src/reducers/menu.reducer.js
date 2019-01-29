@@ -1,7 +1,7 @@
 import { menuConstant } from "../constants"
 
 const initialState = {
-	categories: [],
+	menus: [],
 	total_page: 0,
 	total_record: 0
 }
@@ -14,6 +14,12 @@ const menu = (state = initialState, action) => {
 				total_page: action.total_page,
 				total_record: action.total_record
 			}
+			break
+		case menuConstant.DELETE_MENU:
+		{
+			let menus = state.menus.filter(menu => menu.id != action.menuId)
+			return {...state, menus}
+		}
 			break
 		default:
 			return state

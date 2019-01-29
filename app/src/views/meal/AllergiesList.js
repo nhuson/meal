@@ -10,6 +10,7 @@ class AllergiesList extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
+            allergyId: -1
         }
     }
     render() {
@@ -28,7 +29,9 @@ class AllergiesList extends React.Component {
                     title='Are you sure you want to delete this allergy?'
                     description = "This allergy will be deleted from the database and don't display for later."
                     handeDisagree={this.props.handlePopupDisagree}
-                    handleAgree={this.props.handlePopupAgree}
+                    handleAgree={() => {
+                        this.props.handlePopupAgree(this.state.allergyId)
+                    }}
                 />
                 <Table
                     columns={columns}
@@ -45,6 +48,7 @@ class AllergiesList extends React.Component {
                         },
                         {
                             name: 'delete', onClick: (event, rowData) => {
+                                this.setState({allergyId: rowData.id})
                                 this.props.handleDelete()
                             }, color: 'green',
                         }

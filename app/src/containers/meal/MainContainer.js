@@ -10,7 +10,7 @@ import MenuType from './MenuTypeContainer'
 import Category from './CategoryContainer';
 import Ingredient from './IngredientContainer';
 import Allergies from './AllergiesContainer';
-
+import TypeIngredient from './TypeIngredientContainer'
 class MainContainer extends Component {
 	render() {
 		return (
@@ -24,6 +24,12 @@ class MainContainer extends Component {
 									tabName: "Meal",
 									tabContent: (
 										<Meal />
+									)
+								},
+								{
+									tabName: "Ingredient-Type",
+									tabContent: (
+										<TypeIngredient />
 									)
 								},
 								{

@@ -1,21 +1,21 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import AllergiesList from '../../views/meal/AllergiesList'
-import { getAllergiesAvailable, deleteAllergy} from '../../actions'
+import TypeIngredientList from '../../views/meal/TypeIngredientList'
+import { getTypeIngredientsAvailable, deleteTypeIngredient} from '../../actions'
 import { confirmPopupActions } from "../../actions"
 
-class AllergiesContainer extends Component {
+class TypeIngredientContainer extends Component {
 	render() {
-		let { allergies, fetchAllergies, totalRecord, totalPage, loading,
+		let { typeIngredients, fetchTypeIngredients, totalRecord, totalPage, loading,
 			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
 		return (
 			<div>
-				<AllergiesList
+				<TypeIngredientList
 					loading={loading}
-					allergies={allergies}
+					typeIngredients={typeIngredients}
 					totalRecord={totalRecord}
 					totalPage={totalPage}
-					fetchAllergies={fetchAllergies}
+					fetchTypeIngredients={fetchTypeIngredients}
 					handleDelete={handleDelete}
 					openConfirmPopup={openConfirmPopup}
 					handlePopupDisagree={handlePopupDisagree}
@@ -28,9 +28,9 @@ class AllergiesContainer extends Component {
 
 const mapStateToProps = state => {
 	return {
-		allergies: state.allergy.allergies,
-		totalRecord: state.allergy.total_record,
-		totalPage: state.allergy.total_page,
+		typeIngredients: state.typeIngredient.typeIngredients,
+		totalRecord: state.typeIngredient.total_record,
+		totalPage: state.typeIngredient.total_page,
 		loading: state.loading.status,
 		openConfirmPopup: state.confirmPopup.open
 	}
@@ -38,8 +38,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
 	return {
-		fetchAllergies: (currentPage, pageSize) => {
-			dispatch(getAllergiesAvailable(currentPage, pageSize))
+		fetchTypeIngredients: (currentPage, pageSize) => {
+			dispatch(getTypeIngredientsAvailable(currentPage, pageSize))
 		},
 		handleDelete: () => {
 			dispatch(confirmPopupActions.open())
@@ -47,11 +47,11 @@ const mapDispatchToProps = (dispatch, props) => {
 		handlePopupDisagree: () => {
 			dispatch(confirmPopupActions.disagree())
 		},
-		handlePopupAgree: (allergyId) => {
+		handlePopupAgree: (typeIngredientId) => {
 			dispatch(confirmPopupActions.agree())
-			dispatch(deleteAllergy(allergyId))
+			dispatch(deleteTypeIngredient(typeIngredientId))
 		}
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllergiesContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TypeIngredientContainer)

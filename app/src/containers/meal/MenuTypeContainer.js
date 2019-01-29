@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import MenuTypeList from '../../views/meal/MenuTypeList'
-import { getMenusAvailable} from '../../actions'
+import { getMenusAvailable, deleteMenu} from '../../actions'
 import { confirmPopupActions } from "../../actions"
 
 class MenuTypeContainer extends Component {
@@ -47,8 +47,9 @@ const mapDispatchToProps = (dispatch, props) => {
 		handlePopupDisagree: () => {
 			dispatch(confirmPopupActions.disagree())
 		},
-		handlePopupAgree: () => {
+		handlePopupAgree: (menuId) => {
 			dispatch(confirmPopupActions.agree())
+			dispatch(deleteMenu(menuId))
 		}
 	}
 }

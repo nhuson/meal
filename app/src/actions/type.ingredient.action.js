@@ -1,16 +1,16 @@
-import { allergyConstant } from '../constants'
+import { typeIngredientConstant } from '../constants'
 import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
-import { getAllergies, deleteAllergy as da } from '../api'
+import { getTypeIngredients, deleteTypeIngredient as dti } from '../api'
 
-export const getAllergiesAvailable = (pageNumber, pageSize) => {
+export const getTypeIngredientsAvailable = (pageNumber, pageSize) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			let resp = await getAllergies(pageNumber, pageSize)
+			let resp = await getTypeIngredients(pageNumber, pageSize)
 			dispatch({
-                type: allergyConstant.GET_ALLERGIES,
-                allergies: resp.data.allergies,
+                type: typeIngredientConstant.GET_TYPE_INGREDIENTS,
+                typeIngredients: resp.data.typeIngredients,
                 total_page: resp.data.total_page,
                 total_record: resp.data.total_record
              })
@@ -22,14 +22,14 @@ export const getAllergiesAvailable = (pageNumber, pageSize) => {
 	}
 }
 
-export const deleteAllergy = (allergyId) => {
+export const deleteTypeIngredient = (typeIngredientId) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			await da(allergyId)
+			await dti(typeIngredientId)
 			dispatch({
-                type: allergyConstant.DELETE_ALLERGY,
-                allergyId
+                type: typeIngredientConstant.DELETE_TYPE_INGREDIENT,
+                typeIngredientId
              })
 			dispatch(loadingActions.done())
 		}catch(err) {

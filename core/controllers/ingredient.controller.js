@@ -10,12 +10,22 @@ import ingredientService from '../services/ingredient.service'
  */
 const getAll = async (req, res, next) => {
 	try {
-		let data = await ingredientService.findAll()
-
-		res.status(200).json({
-			success: 'success',
-			data,
-		})
+		if (!req.query.page || !req.query.per_page) {
+			let data = await ingredientService.findAll()
+			res.status(200).json({
+				success: 'success',
+				data,
+			})
+		} else {
+			let data = await ingredientService.getIngredientsAvailable({
+				page: parseInt(req.query.page),
+				per_page: parseInt(req.query.per_page),
+			})
+			res.status(200).json({
+				success: 'success',
+				data,
+			})
+		}
 	} catch (err) {
 		next(err)
 	}

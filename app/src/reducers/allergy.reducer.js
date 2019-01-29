@@ -6,7 +6,7 @@ const initialState = {
 	total_record: 0
 }
 
-const category = (state = initialState, action) => {
+const allergy = (state = initialState, action) => {
 	switch (action.type) {
 		case allergyConstant.GET_ALLERGIES:
 			return { ...state,
@@ -15,9 +15,15 @@ const category = (state = initialState, action) => {
 				total_record: action.total_record
 			}
 			break
+		case allergyConstant.DELETE_ALLERGY:
+			{
+				let allergies = state.allergies.filter(allergy => allergy.id != action.allergyId)
+				return {...state, allergies}
+			}
+			break
 		default:
 			return state
 	}
 }
 
-export default category
+export default allergy

@@ -48,12 +48,10 @@ const mapDispatchToProps = (dispatch, props) => {
 		handlePopupDisagree: () => {
 			dispatch(confirmPopupActions.disagree())
 		},
-		handlePopupAgree: () => {
+		handlePopupAgree: (catId) => {
 			dispatch(confirmPopupActions.agree())
-		},
-		// deleteCategory: (cat_id) => {
-		// 	dispatch(deleteCategory(cat_id))
-		// }
+			dispatch(deleteCategory(catId))
+		}
 	}
 }
 

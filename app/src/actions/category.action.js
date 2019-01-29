@@ -22,14 +22,14 @@ export const getCategoriesAvailable = (pageNumber, pageSize) => {
 	}
 }
 
-export const deleteCategory = (cat_id) => {
+export const deleteCategory = (catId) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			await dc(cat_id)
+			await dc(catId)
 			dispatch({
                 type: categoryConstant.DELETE_CATEGORY,
-                category_id: cat_id
+                categoryId: catId
              })
 			dispatch(loadingActions.done())
 		}catch(err) {
