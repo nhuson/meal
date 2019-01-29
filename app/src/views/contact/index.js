@@ -2,15 +2,14 @@ import React from 'react'
 import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
 import UserAvatar from 'react-user-avatar'
-import ConfirmPopup from '../common/ConfirmPopup'
+import ConfirmPopup from '../../components/ConfirmPopup'
 
-class Contact extends React.Component {
+class ContactList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             pageSize: config.PAGE_SIZE,
-            currentPage: 0,
-            popupOpen: false
+            currentPage: 0
         }
     }
     render() {
@@ -37,12 +36,13 @@ class Contact extends React.Component {
         ]
         return (
             <div>
-                {this.state.popupOpen ? 
-                (<ConfirmPopup 
-                    open={this.state.popupOpen} 
+                 <ConfirmPopup 
+                    open={this.props.openConfirmPopup} 
                     title='Are you sure you want to delete this contact?'
                     description = "This contact will be deleted from the database and don't display for later."
-                />) : ''}
+                    handeDisagree={this.props.handlePopupDisagree}
+                    handleAgree={this.props.handlePopupAgree}
+                />
 
                 <Table
                 columns={columns}
@@ -59,7 +59,7 @@ class Contact extends React.Component {
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {
-                            this.setState({...this.state, popupOpen: true})
+                            this.props.handleDelete()
                         }, color: 'green'
                     }
                 ]}
@@ -88,4 +88,4 @@ class Contact extends React.Component {
     }
 }
 
-export default Contact
+export default ContactList

@@ -1,10 +1,10 @@
 import React from 'react'
 import UserAvatar from 'react-user-avatar'
 import Table from '../../components/Table/TableTemplate'
-import EditForm from './EditForm'
 import config from '../../variables/config'
+import ConfirmPopup from '../../components/ConfirmPopup'
 
-class UserProfile extends React.Component {
+class UserList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -35,43 +35,47 @@ class UserProfile extends React.Component {
             { title: 'Status', field: 'status', lookup: { 0: 'Active', 1: 'Blocked' } }
         ]
         return (
-            <Table
-                columns={columns}
-                data={users}
-                count={totalRecord}
-                page={this.state.currentPage}
-                per_page={this.state.pageSize}
-                title="List Users"
-                actions={[
-                    {
-                        name: 'delete', onClick: (event, rowData) => {
-                            alert('You clicked user ' + rowData.name)
-                        }, color: 'green'
-                    }
-                ]}
-                detailPanel={[
-                    {
-                        tooltip: `Show detail user`,
-                        render: rowData => {
-                            return (
-                                <EditForm user={rowData} />
-                            )
+            <div>
+                <ConfirmPopup 
+                    open={this.props.openConfirmPopup} 
+                    title='Are you sure you want to delete this user?'
+                    description = "This user will be deleted from the database and don't display for later."
+                    handeDisagree={this.props.handlePopupDisagree}
+                    handleAgree={this.props.handlePopupAgree}
+                />
+                <Table
+                    columns={columns}
+                    data={users}
+                    count={totalRecord}
+                    page={this.state.currentPage}
+                    per_page={this.state.pageSize}
+                    title="List Users"
+                    actions={[
+                        {
+                            name: 'edit', onClick: (event, rowData) => {
+                                alert('You clicked user ' + rowData.name)
+                            }, color: 'green',
                         },
-                    }
-                ]}
-                options={{exportButton: true}}
-                onChangePage={(event, page) => {
-                    this.changePage(event, page)
-                }}
-                onChangeRowsPerPage={(event, perPage) => {
-                    let pageSize = parseInt(perPage.key)
-                    this.setState({
-                        pageSize
-                    })
-                    this.props.getUserAvailble(this.state.currentPage, pageSize)
-                }}
-                loading={loading}
-            />
+                        {
+                            name: 'delete', onClick: (event, rowData) => {
+                                this.props.handleDelete()
+                            }, color: 'green'
+                        }
+                    ]}
+                    options={{exportButton: true}}
+                    onChangePage={(event, page) => {
+                        this.changePage(event, page)
+                    }}
+                    onChangeRowsPerPage={(event, perPage) => {
+                        let pageSize = parseInt(perPage.key)
+                        this.setState({
+                            pageSize
+                        })
+                        this.props.getUserAvailble(this.state.currentPage, pageSize)
+                    }}
+                    loading={loading}
+                />
+            </div>
         )
     }
 
@@ -90,4 +94,4 @@ class UserProfile extends React.Component {
     }
 }
 
-export default UserProfile
+export default UserList

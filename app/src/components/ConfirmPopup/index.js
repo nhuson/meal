@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import Button from "../CustomButtons/Button.jsx";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,19 +9,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 class ConfirmPopup extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            open: false
-        }
     }
 
-    handleClose = () => {
-      this.setState({ open: false });
-    };
-  
     render() {
       return (
           <Dialog
-            open={this.state.open}
+            open={this.props.open}
             onClose={this.handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
@@ -34,18 +27,15 @@ class ConfirmPopup extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button 
-                    onClick={this.handleClose} 
+                    onClick={this.props.handeDisagree} 
                     color="primary">
-                Cancel
+                Disagree
               </Button>
               <Button 
-                    onClick={ () => {
-                        this.handleClose
-                        this.props.handleAccept
-                    }} 
+                    onClick={this.props.handleAgree} 
                     color="primary" 
                     autoFocus>
-                Ok
+                Agree
               </Button>
             </DialogActions>
           </Dialog>

@@ -4,6 +4,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import MealIcon from "@material-ui/icons/Fastfood";
 import ContactIcon from "@material-ui/icons/ContactSupport";
+import LogoutIcon from "@material-ui/icons/AssignmentReturn";
 
 
 // core components/views
@@ -49,7 +50,13 @@ const dashboardRoutes = [
     icon: SettingsIcon,
     component: Settings
   },
-  // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { 
+    path: "/login", 
+    sidebarName: "Logout",
+    navbarName: "Logout",
+    icon: LogoutIcon,
+    component: ''
+  }
 ];
 
 export default dashboardRoutes;

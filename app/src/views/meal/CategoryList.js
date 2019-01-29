@@ -2,6 +2,7 @@ import React from 'react'
 import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
 import moment from 'moment'
+import ConfirmPopup from '../../components/ConfirmPopup'
 
 class CategoryList extends React.Component {
     constructor(props) {
@@ -21,6 +22,14 @@ class CategoryList extends React.Component {
 				} }
         ]
         return (
+            <div>
+                <ConfirmPopup 
+                    open={this.props.openConfirmPopup} 
+                    title='Are you sure you want to delete this category?'
+                    description = "This category will be deleted from the database and don't display for later."
+                    handeDisagree={this.props.handlePopupDisagree}
+                    handleAgree={this.props.handlePopupAgree}
+                />
             <Table
                 columns={columns}
                 data={categories}
@@ -36,7 +45,7 @@ class CategoryList extends React.Component {
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {
-                            alert('You clicked user ' + rowData.name)
+                            this.props.handleDelete()
                         }, color: 'green',
 					}
 				
@@ -47,6 +56,7 @@ class CategoryList extends React.Component {
                 onChangeRowsPerPage={(perPage) => {}}
                 loading={loading}
             />
+            </div>
         )
     }
 
