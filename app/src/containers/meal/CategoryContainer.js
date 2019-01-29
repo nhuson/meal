@@ -1,13 +1,13 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import CategoryList from '../../views/meal/CategoryList'
-import { getCategoriesAvailable} from '../../actions'
+import { getCategoriesAvailable, deleteCategory} from '../../actions'
 import { confirmPopupActions } from "../../actions"
 
 class CategoryContainer extends Component {
 	render() {
 		let { categories, fetchCategories, totalRecord, totalPage, loading, 
-			handleDeleteContact, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
+			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree, deleteCategory } = this.props
 		return (
 			<div>
 				<CategoryList
@@ -16,10 +16,11 @@ class CategoryContainer extends Component {
 					totalRecord={totalRecord}
 					totalPage={totalPage}
 					fetchCategories={fetchCategories}
-					handleDelete={handleDeleteContact}
+					handleDelete={handleDelete}
 					openConfirmPopup={openConfirmPopup}
 					handlePopupDisagree={handlePopupDisagree}
 					handlePopupAgree={handlePopupAgree}
+					deleteCategory={deleteCategory}
 				/>
 			</div>
 		)
@@ -41,7 +42,7 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchCategories: (currentPage, pageSize) => {
 			dispatch(getCategoriesAvailable(currentPage, pageSize))
 		},
-		handleDeleteContact: () => {
+		handleDelete: () => {
 			dispatch(confirmPopupActions.open())
 		},
 		handlePopupDisagree: () => {
@@ -49,6 +50,9 @@ const mapDispatchToProps = (dispatch, props) => {
 		},
 		handlePopupAgree: () => {
 			dispatch(confirmPopupActions.agree())
+		},
+		deleteCategory: (cat_id) => {
+			dispatch(deleteCategory(cat_id))
 		}
 	}
 }

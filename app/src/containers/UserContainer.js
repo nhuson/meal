@@ -7,7 +7,7 @@ import { confirmPopupActions } from "../actions"
 class UserContainer extends Component {
 	render() {
 		let { users, getUserAvailble, totalRecord, totalPage, loading,
-			handleDeleteContact, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
+			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
 		return (
 			<UserList
 				loading={loading}
@@ -15,7 +15,7 @@ class UserContainer extends Component {
 				totalRecord={totalRecord}
 				totalPage={totalPage}
 				getUserAvailble={getUserAvailble}
-				handleDelete={handleDeleteContact}
+				handleDelete={handleDelete}
 				openConfirmPopup={openConfirmPopup}
 				handlePopupDisagree={handlePopupDisagree}
 				handlePopupAgree={handlePopupAgree}
@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch, props) => {
 		getUserAvailble: (currentPage, pageSize) => {
 			dispatch(getUserAvailable(currentPage, pageSize))
 		},
-		handleDeleteContact: () => {
+		handleDelete: () => {
 			dispatch(confirmPopupActions.open())
 		},
 		handlePopupDisagree: () => {

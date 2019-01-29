@@ -1,4 +1,5 @@
 import { categoryConstant } from "../constants"
+import _ from 'lodash'
 
 const initialState = {
 	categories: [],
@@ -13,6 +14,15 @@ const category = (state = initialState, action) => {
 				categories: action.categories,
 				total_page: action.total_page,
 				total_record: action.total_record
+			}
+			break
+		case categoryConstant.DELETE_CATEGORY:
+			{
+				_.remove(state.categories, function(category){
+					return category.id = cat_id
+				})
+				state.total_record -= 1
+				return {...state}
 			}
 			break
 		default:

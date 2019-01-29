@@ -29,7 +29,7 @@ class CategoryService extends BaseService {
 
 		let offset = (page - 1) * per_page
 		let categories = await this.db
-			.select('created_at', 'title', 'description')
+			.select('id', 'created_at', 'title', 'description')
 			.from('categories')
 			.limit(per_page)
 			.offset(offset)

@@ -7,7 +7,7 @@ import { confirmPopupActions } from "../../actions"
 class AllergiesContainer extends Component {
 	render() {
 		let { allergies, fetchAllergies, totalRecord, totalPage, loading,
-			handleDeleteContact, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
+			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
 		return (
 			<div>
 				<AllergiesList
@@ -16,7 +16,7 @@ class AllergiesContainer extends Component {
 					totalRecord={totalRecord}
 					totalPage={totalPage}
 					fetchAllergies={fetchAllergies}
-					handleDelete={handleDeleteContact}
+					handleDelete={handleDelete}
 					openConfirmPopup={openConfirmPopup}
 					handlePopupDisagree={handlePopupDisagree}
 					handlePopupAgree={handlePopupAgree}
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchAllergies: (currentPage, pageSize) => {
 			dispatch(getAllergiesAvailable(currentPage, pageSize))
 		},
-		handleDeleteContact: () => {
+		handleDelete: () => {
 			dispatch(confirmPopupActions.open())
 		},
 		handlePopupDisagree: () => {
