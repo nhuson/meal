@@ -34,8 +34,6 @@ class AllergiTypeService extends BaseService {
 			.limit(per_page)
 			.offset(offset)
 			.orderBy('created_at', 'desc')
-
-			console.log(allergies)
 		return {
 			allergies	,
 			total_page: totalPage,

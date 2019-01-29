@@ -2,6 +2,7 @@ import React from 'react'
 import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
 import UserAvatar from 'react-user-avatar'
+import ConfirmPopup from '../common/ConfirmPopup'
 
 class Contact extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Contact extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
+            popupOpen: false
         }
     }
     render() {
@@ -34,7 +36,15 @@ class Contact extends React.Component {
             { title: 'Messages', field: 'messages'}
         ]
         return (
-            <Table
+            <div>
+                {this.state.popupOpen ? 
+                (<ConfirmPopup 
+                    open={this.state.popupOpen} 
+                    title='Are you sure you want to delete this contact?'
+                    description = "This contact will be deleted from the database and don't display for later."
+                />) : ''}
+
+                <Table
                 columns={columns}
                 data={contacts}
                 count={totalRecord}
@@ -49,7 +59,7 @@ class Contact extends React.Component {
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {
-                            alert('You clicked user ' + rowData.name)
+                            this.setState({...this.state, popupOpen: true})
                         }, color: 'green'
                     }
                 ]}
@@ -59,6 +69,7 @@ class Contact extends React.Component {
                 onChangeRowsPerPage={(perPage) => {}}
                 loading={loading}
             />
+            </div>
         )
     }
 
