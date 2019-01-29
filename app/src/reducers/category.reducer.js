@@ -18,11 +18,11 @@ const category = (state = initialState, action) => {
 			break
 		case categoryConstant.DELETE_CATEGORY:
 			{
-				_.remove(state.categories, function(category){
-					return category.id = cat_id
-				})
-				state.total_record -= 1
-				return {...state}
+				// _.remove(state.categories, function(category){
+				// 	return category.id = cat_id
+				// })
+				// state.total_record -= 1
+				// return {...state}
 			}
 			break
 		default:
