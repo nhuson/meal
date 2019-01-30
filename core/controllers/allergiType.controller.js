@@ -46,7 +46,7 @@ const create = async (req, res, next) => {
 			description,
 		})
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -79,7 +79,7 @@ const update = async (req, res, next) => {
 		const updateData = { ...allergiType, ...putData }
 		await allergiTypeService.update(updateData, { id })
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -102,7 +102,7 @@ const remove = async (req, res, next) => {
 
 		await allergiTypeService.delete({ id })
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}

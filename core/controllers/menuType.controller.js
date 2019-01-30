@@ -47,7 +47,7 @@ const create = async (req, res, next) => {
 			description,
 		})
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -80,7 +80,7 @@ const update = async (req, res, next) => {
 		const updateData = { ...menuType, ...putData }
 		await menuTypeService.update(updateData, { id })
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -103,7 +103,7 @@ const remove = async (req, res, next) => {
 
 		await menuTypeService.delete({ id })
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}

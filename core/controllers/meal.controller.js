@@ -61,7 +61,7 @@ const create = async (req, res, next) => {
 			allergi_id,
 		})
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -82,7 +82,7 @@ const update = async (req, res, next) => {
 			throw createError(404, 'Not found')
 		}
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -105,7 +105,7 @@ const remove = async (req, res, next) => {
 
 		await mealService.delete({ id })
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}

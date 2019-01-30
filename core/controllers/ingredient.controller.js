@@ -45,7 +45,7 @@ const create = async (req, res, next) => {
 		if (ingredient) throw createError(400, 'This ingredient already exists')
 		await ingredientService.create({ title, image, description, unit, type_id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The Ingredient has been successfully created.',
 		})
@@ -82,7 +82,7 @@ const update = async (req, res, next) => {
 
 		await ingredientService.update({ ...dataUpdate, ...putData }, { id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The Ingredient has been successfully updated.',
 		})
@@ -107,7 +107,7 @@ const remove = async (req, res, next) => {
 		}
 		await ingredientService.delete({ id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The Ingredient has been successfully deleted.',
 		})

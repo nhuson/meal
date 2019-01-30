@@ -54,7 +54,7 @@ const create = async (req, res, next) => {
 			image,
 		})
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The category has been successfully created.',
 		})
@@ -91,7 +91,7 @@ const update = async (req, res, next) => {
 		const updateData = { ...category, ...putData }
 		await categoryService.update(updateData, { id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 		})
 	} catch (err) {
@@ -116,7 +116,7 @@ const remove = async (req, res, next) => {
 
 		await categoryService.delete({ id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The category has been successfully deleted.',
 		})

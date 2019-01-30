@@ -50,7 +50,7 @@ const create = async (req, res, next) => {
 			image,
 		})
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The type ingredient has been successfully created.',
 		})
@@ -84,7 +84,7 @@ const update = async (req, res, next) => {
 			.value()
 		await typeIngredientService.update({ ...dataUpdate, ...putData }, { id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The type ingredient has been successfully updated.',
 		})
@@ -109,7 +109,7 @@ const deleteType = async (req, res, next) => {
 		}
 		await typeIngredientService.delete({ id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The type ingredient has been successfully deleted.',
 		})

@@ -71,7 +71,7 @@ const update = async (req, res, next) => {
 
 		await pageService.update({ ...dataUpdate, ...putData }, { id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The page has been successfully updated.',
 		})
@@ -96,7 +96,7 @@ const remove = async (req, res, next) => {
 		}
 		await pageService.delete({ id })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The page has been successfully deleted.',
 		})

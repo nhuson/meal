@@ -30,7 +30,7 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -49,7 +49,7 @@ const update = async (req, res, next) => {
 		let { version, os, url, force } = req.body
 		versionService.update({ version, os, url, force }, { id })
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
@@ -66,7 +66,7 @@ const remove = async (req, res, next) => {
 	try {
 		let { id } = req.params
 
-		res.json(200, { success: 'success' })
+		res.status(200).json({ success: 'success' })
 	} catch (err) {
 		next(err)
 	}
