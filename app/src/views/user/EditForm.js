@@ -12,6 +12,9 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Switch from '@material-ui/core/Switch'
+import FormValidator from "../../helpers/formValidation"
+import { userValidations } from "../../validates"
+
 const styles = {
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
@@ -32,17 +35,22 @@ const styles = {
 }
 
 class UserProfile extends React.Component {
-    state = {
-        status: true,
-        firstname: '',
-        lastname: '',
-        email: ''
+    constructor(props) {
+        super(props)
+        this.validator = new FormValidator(userValidations)
+        this.submitted = false
+        this.state = {
+            status: 1,
+            firstname: '',
+            lastname: '',
+            email: '',
+            validation: this.validator.valid()
+        }
     }
-
-
 
     render() {
         const { classes } = this.props
+        let validation = this.submitted ? this.validator.validate(this.state) : this.state.validation
         return (
             <div>
                 <GridContainer>
@@ -60,21 +68,33 @@ class UserProfile extends React.Component {
                                             <CustomInput
                                                 labelText="First Name"
                                                 id="firstname"
+                                                error={validation.firstname.isInvalid ? true : false}
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
                                                 onChange={this.handleChange('firstname')}
                                             />
+                                            {validation.firstname.isInvalid && (
+                                                <div className="invalid-feedback d-block">
+                                                {validation.firstname.message}
+                                                </div>
+                                            )}
                                         </GridItem>
                                         <GridItem xs={12} sm={12} md={6}>
                                             <CustomInput
                                                 labelText="Last Name"
                                                 id="lastname"
+                                                error={validation.lastname.isInvalid ? true : false}
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
                                                 onChange={this.handleChange('lastname')}
                                             />
+                                            {validation.lastname.isInvalid && (
+                                                <div className="invalid-feedback d-block">
+                                                {validation.lastname.message}
+                                                </div>
+                                            )}
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
@@ -82,12 +102,17 @@ class UserProfile extends React.Component {
                                             <CustomInput
                                                 labelText="Email"
                                                 id="email"
-                                                error
+                                                error={validation.email.isInvalid ? true : false}
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
                                                 onChange={this.handleChange('email')}
                                             />
+                                            {validation.email.isInvalid && (
+                                                <div className="invalid-feedback d-block">
+                                                {validation.email.message}
+                                                </div>
+                                            )}
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
@@ -96,7 +121,7 @@ class UserProfile extends React.Component {
                                             <Switch
                                                 checked={this.state.status}
                                                 onChange={this.handleSelect('status')}
-                                                value="0"
+                                                value="1"
                                             />
                                         </GridItem>
                                     </GridContainer>
@@ -114,12 +139,18 @@ class UserProfile extends React.Component {
     }
 
     handleSelect = name => event => {
-        this.setState({ [name]: event.target.checked })
+        let status = event.target.checked ? 1 : 0
+        this.setState({ [name]: status })
     }
 
     handleSubmit = e => {
         e.preventDefault()
-        console.log(this.state)
+        const validation = this.validator.validate(this.state)
+		this.setState({ validation })
+        this.submitted = true
+        if (validation.isValid) {
+			console.log(this.state)
+		}
     }
 
     handleChange = name => event => {
