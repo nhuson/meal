@@ -49,7 +49,7 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        const { classes } = this.props
+        const { classes, user } = this.props
         let validation = this.submitted ? this.validator.validate(this.state) : this.state.validation
         return (
             <div>
@@ -72,6 +72,7 @@ class UserProfile extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
+                                                value={user.firstname}
                                                 onChange={this.handleChange('firstname')}
                                             />
                                             {validation.firstname.isInvalid && (
@@ -88,6 +89,7 @@ class UserProfile extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
+                                                value={user.lastname}
                                                 onChange={this.handleChange('lastname')}
                                             />
                                             {validation.lastname.isInvalid && (
@@ -106,6 +108,7 @@ class UserProfile extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
+                                                value={user.email}
                                                 onChange={this.handleChange('email')}
                                             />
                                             {validation.email.isInvalid && (
@@ -157,6 +160,13 @@ class UserProfile extends React.Component {
         this.setState({
 			[name]: event.target.value
 		})
+    }
+
+    componentDidMount() {
+        let status = this.props.user.status == 0 ? 1 : 0
+        this.setState({
+            status
+        })
     }
 }
 

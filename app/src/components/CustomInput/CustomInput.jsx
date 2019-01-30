@@ -22,7 +22,8 @@ function CustomInput({ ...props }) {
     inputProps,
     error,
     success,
-    onChange
+    onChange,
+    value
   } = props;
 
   const labelClasses = classNames({
@@ -59,6 +60,7 @@ function CustomInput({ ...props }) {
         }}
         id={id}
         onChange={onChange}
+        value={value}
         {...inputProps}
       />
       {error ? (

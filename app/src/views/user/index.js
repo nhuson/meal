@@ -12,6 +12,7 @@ class UserList extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
+            userEdit: ''
         }
     }
     render() {
@@ -46,7 +47,7 @@ class UserList extends React.Component {
                     handleAgree={this.props.handlePopupAgree}
                 />
                 <Modal open={openModal} handleClose={handleClose} title="Edit user">
-                    <EditFrom />
+                    <EditFrom user={this.state.userEdit} />
                 </Modal>
                 <Table
                     columns={columns}
@@ -59,6 +60,9 @@ class UserList extends React.Component {
                         {
                             name: 'edit', onClick: (event, rowData) => {
                                 this.props.handleEdit(rowData.id)
+                                this.setState({
+                                    userEdit: rowData
+                                })
                             }, color: 'green',
                         },
                         {
