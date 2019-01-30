@@ -3,6 +3,8 @@ import UserAvatar from 'react-user-avatar'
 import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
 import ConfirmPopup from '../../components/ConfirmPopup'
+import Modal from '../../components/Modal'
+import EditFrom from './EditForm'
 
 class UserList extends React.Component {
     constructor(props) {
@@ -13,7 +15,7 @@ class UserList extends React.Component {
         }
     }
     render() {
-        let { loading, users, totalRecord, totalPage } = this.props
+        let { loading, users, totalRecord, totalPage, openModal, handleClose } = this.props
         let columns = [
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
@@ -43,6 +45,9 @@ class UserList extends React.Component {
                     handeDisagree={this.props.handlePopupDisagree}
                     handleAgree={this.props.handlePopupAgree}
                 />
+                <Modal open={openModal} handleClose={handleClose} title="Edit user">
+                    <EditFrom />
+                </Modal>
                 <Table
                     columns={columns}
                     data={users}
@@ -53,7 +58,7 @@ class UserList extends React.Component {
                     actions={[
                         {
                             name: 'edit', onClick: (event, rowData) => {
-                                alert('You clicked user ' + rowData.name)
+                                this.props.handleEdit(rowData.id)
                             }, color: 'green',
                         },
                         {
