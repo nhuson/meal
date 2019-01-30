@@ -72,7 +72,7 @@ class UserProfile extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
-                                                value={user.firstname}
+                                                value={this.state.firstname}
                                                 onChange={this.handleChange('firstname')}
                                             />
                                             {validation.firstname.isInvalid && (
@@ -89,7 +89,7 @@ class UserProfile extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
-                                                value={user.lastname}
+                                                value={this.state.lastname}
                                                 onChange={this.handleChange('lastname')}
                                             />
                                             {validation.lastname.isInvalid && (
@@ -108,7 +108,7 @@ class UserProfile extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
-                                                value={user.email}
+                                                value={this.state.email}
                                                 onChange={this.handleChange('email')}
                                             />
                                             {validation.email.isInvalid && (
@@ -163,8 +163,12 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        let status = this.props.user.status == 0 ? 1 : 0
+        let { user } = this.props
+        let status = user.status == 0 ? 1 : 0
         this.setState({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
             status
         })
     }
