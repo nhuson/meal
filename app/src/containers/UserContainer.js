@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { getUserAvailable } from '../actions'
+import { user, confirmPopupActions, modalAction } from '../actions'
 import UserList from "../views/user"
-import { confirmPopupActions, modalAction } from "../actions"
 
 class UserContainer extends Component {
 	render() {
@@ -42,7 +41,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
 	return {
 		getUserAvailble: (currentPage, pageSize) => {
-			dispatch(getUserAvailable(currentPage, pageSize))
+			dispatch(user.getUserAvailable(currentPage, pageSize))
 		},
 		handleDelete: () => {
 			dispatch(confirmPopupActions.open())
