@@ -49,7 +49,7 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        const { classes, user } = this.props
+        const { classes } = this.props
         let validation = this.submitted ? this.validator.validate(this.state) : this.state.validation
         return (
             <div>
@@ -130,7 +130,7 @@ class UserProfile extends React.Component {
                                     </GridContainer>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button color="primary" style={{ marginRight: 20 }}>Close</Button>
+                                    <Button color="primary" style={{ marginRight: 20 }} onClick={this.props.handleClose} >Close</Button>
                                     <Button color="primary" type="submit">Update</Button>
                                 </CardFooter>
                             </Card>

@@ -47,7 +47,10 @@ class UserList extends React.Component {
                     handleAgree={this.props.handlePopupAgree}
                 />
                 <Modal open={openModal} handleClose={handleClose} title="Edit user">
-                    <EditFrom user={this.state.userEdit} />
+                    <EditFrom 
+                        user={this.state.userEdit}
+                        handleClose={handleClose}
+                    />
                 </Modal>
                 <Table
                     columns={columns}
