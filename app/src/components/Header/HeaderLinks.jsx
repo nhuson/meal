@@ -37,7 +37,7 @@ class HeaderLinks extends React.Component {
     const { open } = this.state;
     return (
       <div>
-        <div className={classes.manager}>
+        {/* <div className={classes.manager}>
           <Button
             buttonRef={node => {
               this.anchorEl = node;
@@ -129,7 +129,7 @@ class HeaderLinks extends React.Component {
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
-        </Button>
+        </Button> */}
       </div>
     );
   }

@@ -4,14 +4,15 @@ import PersonIcon from "@material-ui/icons/Person";
 import SettingsIcon from "@material-ui/icons/Settings";
 import MealIcon from "@material-ui/icons/Fastfood";
 import ContactIcon from "@material-ui/icons/ContactSupport";
+import LogoutIcon from "@material-ui/icons/AssignmentReturn";
 
 
 // core components/views
-import DashboardPage from "views/Dashboard";
+import DashboardPage from "views/dashboard";
 import User from "containers/UserContainer";
-import Meal from "views/Meal";
+import Meal from "containers/meal/MainContainer";
 import Contact from "containers/ContactContainer"
-import Settings from "views/Settings";
+import Settings from "containers/SettingsContainer";
 
 const dashboardRoutes = [
   {
@@ -49,7 +50,13 @@ const dashboardRoutes = [
     icon: SettingsIcon,
     component: Settings
   },
-  // { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { 
+    path: "/login", 
+    sidebarName: "Logout",
+    navbarName: "Logout",
+    icon: LogoutIcon,
+    component: ''
+  }
 ];
 
 export default dashboardRoutes;

@@ -5,8 +5,6 @@ class VersionService extends BaseService {
 		super()
 		this.tableName = 'versions'
 	}
-
-
 }
 
 export default new VersionService()

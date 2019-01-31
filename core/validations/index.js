@@ -10,7 +10,7 @@ import categorySchema from './category.schema'
 import contactSchema from './contact.schema'
 import menuTypeSchema from './menu_type.schema'
 import allergiTypeSchema from './allergiType.schema'
-import mealSchema from './meal.schema'	
+import mealSchema from './meal.schema'
 
 module.exports = {
 	'/auth/signup': signupSchema,
@@ -25,5 +25,5 @@ module.exports = {
 	'/contact': contactSchema,
 	'/menu-type': menuTypeSchema,
 	'/allergi-type': allergiTypeSchema,
-	'/meal': mealSchema
+	'/meal': mealSchema,
 }

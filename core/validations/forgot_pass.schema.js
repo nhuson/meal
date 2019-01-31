@@ -4,5 +4,5 @@ module.exports = Joi.object({
 	email: Joi.string()
 		.email()
 		.lowercase()
-		.required()
+		.required(),
 })

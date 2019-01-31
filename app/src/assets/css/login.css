@@ -307,28 +307,6 @@
    background-size: 40px;
    padding-right: 60px;
  }
- .form-control.creditcard.visa {
-   background-image: url("../img/visa.png");
- }
- .form-control.creditcard.americanexpress {
-   background-image: url("../img/americanexpress.png");
- }
- .form-control.creditcard.dinersclub {
-   background-image: url("../img/dinersclub.png");
- }
- .form-control.creditcard.discover {
-   background-image: url("../img/discover.png");
- }
- .form-control.creditcard.jcb {
-   background-image: url("../img/jcb.png");
- }
- .form-control.creditcard.mastercard {
-   background-image: url("../img/mastercard.png");
- }
- .form-control.creditcard.visa {
-   background-image: url("../img/visa.png");
- }
- /* end form control */
  
  /* list unstyled */
  .list-unstyled-border li {
@@ -671,7 +649,6 @@
      width: 100%;
      height: 100%;
      background-color: rgba(255,255,255,.5);
-     background-image: url('../img/spinner.svg');
      background-size: 30px;
      background-repeat: no-repeat;
      background-position: center;
@@ -1002,7 +979,6 @@
  }
  div.dataTables_wrapper div.dataTables_processing {
      font-size: 0 !important;
-     background-image: url('../img/spinner.svg') !important;
      background-color: #fff;
      background-size: 100%;
      width: 50px !important;
@@ -1063,29 +1039,6 @@
  }
  /*end summary*/
  
- /*browser*/
- .browser {
-     display: inline-block;
-     width: 60px;
-     height: 60px;
-     background-size: 100%;
- }
- .browser.browser-chrome {
-     background-image: url('../img/browsers/chrome.png');
- }
- .browser.browser-firefox {
-     background-image: url('../img/browsers/firefox.png');
- }
- .browser.browser-internet-explorer {
-     background-image: url('../img/browsers/internet-explorer.png');
- }
- .browser.browser-opera {
-     background-image: url('../img/browsers/opera.png');
- }
- .browser.browser-safari {
-     background-image: url('../img/browsers/safari.png');
- }
- /*end browser*/
  
  /*fullcalendar*/
  .fc-toolbar h2 {
@@ -1501,7 +1454,6 @@
      margin-bottom: 10px;
  }
  .card-chat .chat-content .chat-item.chat-typing .chat-details .chat-text {
-     background-image: url('../img/typing.svg');
      height: 40px;
      width: 60px;
      background-position: center;

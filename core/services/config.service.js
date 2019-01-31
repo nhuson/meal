@@ -1,12 +1,10 @@
 import BaseService from './base.service'
 
 class ConfigService extends BaseService {
-    constructor() {
+	constructor() {
 		super()
 		this.tableName = 'configs'
-    }
-    
-
+	}
 }
 
 export default new ConfigService()

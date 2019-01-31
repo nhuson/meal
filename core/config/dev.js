@@ -15,6 +15,6 @@ module.exports = {
 		port: process.env.REDIS_PORT,
 		db: process.env.REDIS_DB,
 		prefix: process.env.REDIS_PREFIX,
-		timetolive: 86400
-	}
-};
+		timetolive: 86400,
+	},
+}

@@ -44,8 +44,11 @@ class UserService extends BaseService {
 		if (page < 0 || per_page < 0) {
 			throw createError(400, 'Invalid request params')
 		}
-		let totalRecord = await this.db.where({ role: 'USER', status: 0 }).from('users').count('id as total')
-		if (totalRecord[0].total <= 0){
+		let totalRecord = await this.db
+			.where({ role: 'USER', status: 0 })
+			.from('users')
+			.count('id as total')
+		if (totalRecord[0].total <= 0) {
 			return []
 		}
 
@@ -59,16 +62,27 @@ class UserService extends BaseService {
 
 		let offset = (page - 1) * per_page
 
-		let users = await this.db.select('id', this.db.raw("CONCAT(lastname, ' ', firstname) as fullname"), 'lastname', 'firstname', 'avatar', 'email', 'status', 'role')
-							.where({ role: 'USER', status: 0 })
-							.from('users')
-							.limit(per_page).offset(offset)
-							.orderBy('created_at', 'desc')
-		
+		let users = await this.db
+			.select(
+				'id',
+				this.db.raw("CONCAT(firstname, ' ', lastname) as fullname"),
+				'lastname',
+				'firstname',
+				'avatar',
+				'email',
+				'status',
+				'role',
+			)
+			.where({ role: 'USER', status: 0 })
+			.from('users')
+			.limit(per_page)
+			.offset(offset)
+			.orderBy('created_at', 'desc')
+
 		return {
 			users,
 			total_page: totalPage,
-			total_record: totalRecord[0].total
+			total_record: totalRecord[0].total,
 		}
 	}
 }

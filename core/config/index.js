@@ -3,10 +3,10 @@ const configs = {
 	production: { config: 'prod', env: '.env.prod' },
 }
 
-const currentEnvironment = process.env.NODE_ENV || 'development';
-const envPath = configs[currentEnvironment].env;
+const currentEnvironment = process.env.NODE_ENV || 'development'
+const envPath = configs[currentEnvironment].env
 require('dotenv').config({ path: envPath })
-console.log(`Loading .env from '${envPath}'`);
+console.log(`Loading .env from '${envPath}'`)
 
 const _default = {
 	server: {
@@ -18,8 +18,8 @@ const _default = {
 	},
 	account: {
 		BLOCKED: 1,
-		ACTIVE: 0		
-	}
+		ACTIVE: 0,
+	},
 }
 
 const config = require(`./${configs[currentEnvironment].config}`)

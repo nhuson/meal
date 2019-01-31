@@ -1,7 +1,7 @@
 import createError from 'http-errors'
 import userService from '../services/user.service'
 import configs from '../config'
-import uuidv4 from 'uuid/v4';
+import uuidv4 from 'uuid/v4'
 
 /**
  * @route   POST api/auth/signup
@@ -16,23 +16,22 @@ module.exports.signup = async (req, res, next) => {
 			throw createError(400, 'Email already exists')
 		}
 
-
 		const newUser = {
 			firstname: data.firstname,
 			lastname: data.lastname,
 			email: email,
 			password: userService.hashPassword(data.password),
-			role: 'USER'
+			role: 'USER',
 		}
 		await userService.create(newUser)
 
 		delete newUser.password
 		res.status(200).json({
 			success: 'success',
-			message: "The user was successfully created!",
+			message: 'The user was successfully created!',
 			data: {
 				token: userService.tokenForUser(newUser),
-			}
+			},
 		})
 	} catch (error) {
 		next(error)
@@ -62,11 +61,11 @@ module.exports.login = async (req, res, next) => {
 	delete user.password
 	res.status(200).json({
 		success: 'success',
-		message: "You have been successfully logged in!",
+		message: 'You have been successfully logged in!',
 		data: {
 			token: userService.tokenForUser(user),
-			user: user
-		}
+			user: user,
+		},
 	})
 }
 
@@ -82,18 +81,20 @@ module.exports.forgotPassword = async (req, res, next) => {
 		throw createError(404, 'User not found')
 	}
 
-	const recovery_code = uuidv4();
-	await userService.update({
-		recovery_code
-	}, {
-		email
-	})
+	const recovery_code = uuidv4()
+	await userService.update(
+		{
+			recovery_code,
+		},
+		{
+			email,
+		},
+	)
 
 	res.status(200).json({
 		success: 'success',
-		message: "Please check your email to get your recovery code.",
+		message: 'Please check your email to get your recovery code.',
 	})
-
 }
 
 /**
@@ -103,13 +104,10 @@ module.exports.forgotPassword = async (req, res, next) => {
 module.exports.resetPassword = async (req, res, next) => {
 	const data = req.body || {}
 	const email = data.email.toLowerCase().trim()
-	const {
-		new_password,
-		recovery_code
-	} = data
+	const { new_password, recovery_code } = data
 	const options = {
 		email,
-		recovery_code
+		recovery_code,
 	}
 
 	const user = await userService.findOne(options)
@@ -118,12 +116,12 @@ module.exports.resetPassword = async (req, res, next) => {
 	}
 
 	const updateData = {
-		password: userService.hashPassword(new_password)
+		password: userService.hashPassword(new_password),
 	}
 	await userService.update(updateData, options)
 
 	res.status(200).json({
 		success: 'success',
-		message: "Your password has been reset successfully.",
+		message: 'Your password has been reset successfully.',
 	})
 }
