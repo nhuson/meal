@@ -24,7 +24,7 @@ const menu = (state = initialState, action) => {
 		case menuConstant.UPDATE_MENU:
 		{
 			let menus = state.menus.filter(menu => menu.id != action.menu.id)
-			menus.push(action.menu)
+			menus.unshift(action.menu)
 			return {...state, menus}
 		}
 			break

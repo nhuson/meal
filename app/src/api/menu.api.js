@@ -10,5 +10,5 @@ export const deleteMenu = async (menuId) => {
 }
 
 export const updateMenu = async (menu) => {
-	return await request('PUT', `${apiUrl.menuType.update_menu}/${menu.id}`,{menu})
+	return await request('PUT', `${apiUrl.menuType.update_menu}/${menu.id}`,menu)
 }
