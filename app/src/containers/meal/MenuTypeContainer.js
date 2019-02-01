@@ -17,33 +17,37 @@ class MenuTypeContainer extends Component {
 
 	handleEdit = (menu) => {
 		this.setState({menu})
-		this.props.onEdit()
+		this.props.openEditPopup()
 	}
 
 	handleDelete = (menu) => {
 		this.setState({menu})
-		this.props.onDelete()
+		this.props.openConfirmPopup()
 	}
 
 	render() {
-		let {openModal, menus, fetchMenus, totalRecord, totalPage, loading,
-			openConfirmPopup, onModalClose, onPopupDisagree, onPopupAgree , onUpdate} = this.props
+		let {menus, fetchMenus, totalRecord, totalPage, loading,
+			openConfirm, deleteMenu, closeConfirmPopup,
+			openModal, closeEditPopup, updateMenu} = this.props
 
 		return (
 			<div>
 				<Modal open={openModal}>
                     <EditMenuType 
 						menu={this.state.menu}
-						handleClose={onModalClose}
-						handleUpdate={onUpdate}
+						handleClose={closeEditPopup}
+						handleUpdate={updateMenu}
                     />
                 </Modal>
 				<ConfirmPopup 
-                    open={openConfirmPopup} 
+                    open={openConfirm} 
                     title='Are you sure you want to delete this menu type?'
                     description = "This menu type will be deleted from the database and don't display for later."
-                    handeDisagree={onPopupDisagree}
-                    handleAgree= {() => {onPopupAgree(this.state.menu.id)}}
+                    handeDisagree={closeConfirmPopup}
+                    handleAgree= {() => {
+						closeConfirmPopup()
+						deleteMenu(this.state.menu.id)
+					}}
                 />
 				<MenuTypeList
 					loading={loading}
@@ -65,7 +69,7 @@ const mapStateToProps = state => {
 		totalRecord: state.menu.total_record,
 		totalPage: state.menu.total_page,
 		loading: state.loading.status,
-		openConfirmPopup: state.confirmPopup.open,
+		openConfirm: state.confirmPopup.open,
 		openModal: state.modal.status
 	}
 }
@@ -75,25 +79,23 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchMenus: (currentPage, pageSize) => {
 			dispatch(getMenusAvailable(currentPage, pageSize))
 		},
-		onDelete: () => {
-			dispatch(confirmPopupActions.open())
+		deleteMenu: (menuId) => {
+			dispatch(deleteMenu(menuId))
 		},
-		onEdit: () => {
-			dispatch(modalAction.openModal())
-		},
-		onUpdate: (menu) => {
-			dispatch(modalAction.closeModal())
+		updateMenu: (menu) => {
 			dispatch(updateMenu(menu))
 		},
-		onModalClose: () => {
+		openConfirmPopup: () => {
+			dispatch(confirmPopupActions.open())
+		},
+		closeConfirmPopup: () => {
+			dispatch(confirmPopupActions.close())
+		},
+		openEditPopup: () => {
+			dispatch(modalAction.openModal())
+		},
+		closeEditPopup: () => {
 			dispatch(modalAction.closeModal())
-		},
-		onPopupDisagree: () => {
-			dispatch(confirmPopupActions.disagree())
-		},
-		onPopupAgree: (menuId) => {
-			dispatch(confirmPopupActions.agree())
-			dispatch(deleteMenu(menuId))
 		}
 	}
 }

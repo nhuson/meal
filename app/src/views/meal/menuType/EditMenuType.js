@@ -111,6 +111,7 @@ class EditMenuType extends React.Component {
 		this.setState({ validation })
         this.submitted = true
         if (validation.isValid) {
+            this.props.handleClose()
 			this.props.handleUpdate({
                 id: this.state.id,
                 title: this.state.title,
