@@ -63,8 +63,6 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
 	try {
 		let { id } = req.params
-		console.log(id)
-		console.log(req.body)
 		const menuType = await menuTypeService.findOne({ id })
 		if (!menuType) {
 			throw createError(404, 'Not found')
