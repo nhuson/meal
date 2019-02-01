@@ -21,6 +21,13 @@ const menu = (state = initialState, action) => {
 			return {...state, menus}
 		}
 			break
+		case menuConstant.UPDATE_MENU:
+		{
+			let menus = state.menus.filter(menu => menu.id != action.menu.id)
+			menus.push(action.menu)
+			return {...state, menus}
+		}
+			break
 		default:
 			return state
 	}

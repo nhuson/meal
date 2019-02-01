@@ -8,3 +8,7 @@ export const getMenus = async (pageNumber, pageSize) => {
 export const deleteMenu = async (menuId) => {
 	return await request('DELETE', `${apiUrl.menuType.delete_menu}/${menuId}`)
 }
+
+export const updateMenu = async (menu) => {
+	return await request('PUT', `${apiUrl.menuType.update_menu}/${menu.id}`,{menu})
+}
