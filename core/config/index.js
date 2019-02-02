@@ -17,8 +17,8 @@ const _default = {
 		algorithm: process.env.JWT_ALGORITHM,
 	},
 	account: {
-		BLOCKED: 1,
-		ACTIVE: 0,
+		BLOCKED: 0,
+		ACTIVE: 1,
 	},
 }
 

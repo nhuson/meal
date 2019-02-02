@@ -184,12 +184,11 @@ class UserProfile extends React.Component {
 
     componentDidMount() {
         let { user } = this.props
-        let status = user.status == 0 ? 1 : 0
         this.setState({
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            status
+            status: user.status
         })
     }
 }

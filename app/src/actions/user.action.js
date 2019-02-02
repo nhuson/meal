@@ -1,6 +1,7 @@
 import { userConstant } from '../constants'
 import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
+import { modalAction } from './modal.action'
 import { userApi } from '../api'
 
 export const user = {
@@ -23,8 +24,10 @@ export const user = {
 			try {
 				dispatch(loadingActions.requesting())
 				let resp = await userApi.updateUser(id, data)
-				dispatch({ type: userConstant.UPDATE_USER, user: {message: resp.message, id, data} })
+				dispatch({ type: userConstant.UPDATE_USER, user: { id, data } })
 				dispatch(loadingActions.requestDone())
+				dispatch(modalAction.closeModal())
+				dispatch(alertActions.success(resp.message))
 			}catch(err) {
 				dispatch(alertActions.error(err))
 				dispatch(loadingActions.requestDone())

@@ -54,7 +54,7 @@ class Alert extends React.Component{
         setTimeout(function(){
             this.setState({open: false})
             this.props.clearError()
-        }.bind(this),6000)
+        }.bind(this),4000)
     }
 }
 

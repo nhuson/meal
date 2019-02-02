@@ -1,4 +1,5 @@
 import userService from '../services/user.service'
+import createError from 'http-errors'
 import _ from 'lodash'
 /**
  * @route   GET
@@ -39,11 +40,12 @@ const updateUser = async (req, res, next) => {
 		}
 
 		let putData = {
-			firstname: req.body.title,
-			lastname: req.body.description,
-			email: req.body.image,
+			firstname: req.body.firstname,
+			lastname: req.body.lastname,
+			email: req.body.email,
 			status: req.body.status,
 		}
+
 		putData = _(putData)
 			.omit(_.isUndefined)
 			.omit(_.isNull)

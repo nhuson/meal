@@ -15,7 +15,7 @@ exports.up = function(knex, Promise) {
 			.notNull()
 		t.string('password', 100).notNull()
 		t.string('avatar', 100).nullable()
-		t.specificType('status', 'tinyint(1)').default(0)
+		t.specificType('status', 'tinyint(1)').default(1)
 	})
 }
 

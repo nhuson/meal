@@ -35,7 +35,7 @@ class UserList extends React.Component {
             { title: 'Fullname', field: 'fullname' },
             { title: 'Email', field: 'email' },
             { title: 'Role', field: 'role' },
-            { title: 'Status', field: 'status', lookup: { 0: 'Active', 1: 'Blocked' } }
+            { title: 'Status', field: 'status', lookup: { 0: 'Blocked', 1: 'Active' } }
         ]
         return (
             <div>
