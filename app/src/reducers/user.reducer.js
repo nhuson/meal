@@ -15,6 +15,12 @@ const user = (state = initialState, action) => {
 				total_record: action.total_record
 			}
 			break
+		case userConstant.UPDATE_USER:
+			let { users } = state
+			console.log(users, '===')
+			return { ...state,
+			}
+			break	
 		default:
 			return state
 	}

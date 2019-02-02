@@ -5,12 +5,13 @@ import UserList from "../views/user"
 
 class UserContainer extends Component {
 	render() {
-		let { users, getUserAvailble, totalRecord, totalPage, loading,
+		let { users, getUserAvailble, totalRecord, totalPage, loading, requesting,
 			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree,
-			handleEdit, openModal, handleClose } = this.props
+			handleOpenFormEdit, openModal, handleClose } = this.props
 		return (
 			<UserList
 				loading={loading}
+				requesting={requesting}
 				users={users}
 				totalRecord={totalRecord}
 				totalPage={totalPage}
@@ -19,9 +20,10 @@ class UserContainer extends Component {
 				openConfirmPopup={openConfirmPopup}
 				handlePopupDisagree={handlePopupDisagree}
 				handlePopupAgree={handlePopupAgree}
-				handleEdit={handleEdit}
+				handleOpenFormEdit={handleOpenFormEdit}
 				openModal={openModal}
 				handleClose={handleClose}
+				handleUpdateUser={this.props.handleUpdateUser}
 			/>
 		)
 	}
@@ -33,6 +35,7 @@ const mapStateToProps = state => {
 		totalRecord: state.user.total_record,
 		totalPage: state.user.total_page,
 		loading: state.loading.status,
+		requesting: state.loading.requesting,
 		openConfirmPopup: state.confirmPopup.open,
 		openModal: state.modal.status
 	}
@@ -52,8 +55,11 @@ const mapDispatchToProps = (dispatch, props) => {
 		handlePopupAgree: () => {
 			dispatch(confirmPopupActions.agree())
 		},
-		handleEdit: (userId) => {
+		handleOpenFormEdit: () => {
 			dispatch(modalAction.openModal())
+		},
+		handleUpdateUser: (id, data) => {
+			dispatch(user.editUser(id, data))
 		},
 		handleClose: () => {
 			dispatch(modalAction.closeModal())
