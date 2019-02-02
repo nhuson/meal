@@ -1,4 +1,4 @@
-import { authConstants, loadingConstants, alertConstants } from '../constants'
+import { authConstants } from '../constants'
 import { userLogin } from '../api'
 import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
@@ -20,5 +20,12 @@ export const fetchLogin = user => {
             dispatch(alertActions.error(err))
             dispatch(loadingActions.done())
        }
+    }
+}
+
+export const logout = () => {
+    return dispatch => {
+        dispatch({ type: authConstants.LOGOUT })
+        dispatch(alertActions.success("Bey, admin logouted!"))
     }
 }

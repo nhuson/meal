@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { user, confirmPopupActions, modalAction } from '../actions'
+import { user, modalAction } from '../actions'
 import UserList from "../views/user"
 
 class UserContainer extends Component {

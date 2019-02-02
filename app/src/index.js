@@ -7,7 +7,7 @@ import store from "./helpers/store"
 import { PrivateRoute } from "./routes/privateRoute.jsx"
 import { PublicRoute } from "./routes/publicRoute.jsx"
 import indexRoutes from "routes/index.jsx";
-import Login from "./containers/LoginContainer"
+import Login from "./containers/auth/LoginContainer"
 
 
 ReactDOM.render(
