@@ -74,10 +74,13 @@ class UserProfile extends React.Component {
                                                 }}
                                                 value={this.state.firstname}
                                                 onChange={this.handleChange('firstname')}
+                                                inputProps={{
+                                                    disabled: this.props.requesting
+                                                }}
                                             />
                                             {validation.firstname.isInvalid && (
                                                 <div className="invalid-feedback d-block">
-                                                {validation.firstname.message}
+                                                    {validation.firstname.message}
                                                 </div>
                                             )}
                                         </GridItem>
@@ -91,10 +94,13 @@ class UserProfile extends React.Component {
                                                 }}
                                                 value={this.state.lastname}
                                                 onChange={this.handleChange('lastname')}
+                                                inputProps={{
+                                                    disabled: this.props.requesting
+                                                }}
                                             />
                                             {validation.lastname.isInvalid && (
                                                 <div className="invalid-feedback d-block">
-                                                {validation.lastname.message}
+                                                    {validation.lastname.message}
                                                 </div>
                                             )}
                                         </GridItem>
@@ -110,10 +116,13 @@ class UserProfile extends React.Component {
                                                 }}
                                                 value={this.state.email}
                                                 onChange={this.handleChange('email')}
+                                                inputProps={{
+                                                    disabled: this.props.requesting
+                                                }}
                                             />
                                             {validation.email.isInvalid && (
                                                 <div className="invalid-feedback d-block">
-                                                {validation.email.message}
+                                                    {validation.email.message}
                                                 </div>
                                             )}
                                         </GridItem>
@@ -125,13 +134,17 @@ class UserProfile extends React.Component {
                                                 checked={this.state.status}
                                                 onChange={this.handleSelect('status')}
                                                 value="1"
+                                                disabled={this.props.requesting}
                                             />
                                         </GridItem>
                                     </GridContainer>
                                 </CardBody>
                                 <CardFooter>
                                     <Button color="primary" style={{ marginRight: 20 }} onClick={this.props.handleClose} >Close</Button>
-                                    <Button color="primary" type="submit">Update</Button>
+                                    <Button color="primary" type="submit" disabled={this.props.loading}>
+                                        Update {this.props.requesting ? (<i className="fa fa-spinner fa-spin icon-loging"></i>) : ''}
+                                    </Button>
+
                                 </CardFooter>
                             </Card>
                         </form>
@@ -148,28 +161,34 @@ class UserProfile extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
+        let { user, handleUpdateUser } = this.props
         const validation = this.validator.validate(this.state)
-		this.setState({ validation })
+        this.setState({ validation })
         this.submitted = true
         if (validation.isValid) {
-			console.log(this.state)
-		}
+            console.log(this.state)
+            handleUpdateUser(user.id, {
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                email: this.state.email,
+                status: this.state.status,
+            })
+        }
     }
 
     handleChange = name => event => {
         this.setState({
-			[name]: event.target.value
-		})
+            [name]: event.target.value
+        })
     }
 
     componentDidMount() {
         let { user } = this.props
-        let status = user.status == 0 ? 1 : 0
         this.setState({
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            status
+            status: user.status
         })
     }
 }

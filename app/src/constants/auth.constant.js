@@ -1,5 +1,6 @@
 export const authConstants = {
     LOGING: "LOGING",
     SUCCESS: "SUCCESS",
-    FALED: "FALED"
+    FALED: "FALED",
+    LOGOUT: "LOGOUT"
 }

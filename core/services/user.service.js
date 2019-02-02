@@ -45,13 +45,12 @@ class UserService extends BaseService {
 			throw createError(400, 'Invalid request params')
 		}
 		let totalRecord = await this.db
-			.where({ role: 'USER', status: 0 })
+			.where({ role: 'USER' })
 			.from('users')
 			.count('id as total')
 		if (totalRecord[0].total <= 0) {
 			return []
 		}
-
 		let totalPage = Math.ceil(totalRecord[0].total / per_page)
 		if (page > totalPage) {
 			page = totalPage
@@ -73,17 +72,23 @@ class UserService extends BaseService {
 				'status',
 				'role',
 			)
-			.where({ role: 'USER', status: 0 })
-			.from('users')
+			.where({ role: 'USER' })
+			.from(this.tableName)
 			.limit(per_page)
 			.offset(offset)
+			.orderBy('status', 'desc')
 			.orderBy('created_at', 'desc')
-
+			
 		return {
 			users,
 			total_page: totalPage,
 			total_record: totalRecord[0].total,
 		}
+	}
+
+	async findUserToUpdate(option) {
+		let user = await this.db.where({ email: option.email }).whereNot({id: option.id}).from(this.tableName).first()
+		return user
 	}
 }
 

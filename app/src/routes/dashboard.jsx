@@ -12,7 +12,8 @@ import DashboardPage from "views/dashboard";
 import User from "containers/UserContainer";
 import Meal from "containers/meal/MainContainer";
 import Contact from "containers/ContactContainer"
-import Settings from "containers/SettingsContainer";
+import Settings from "containers/SettingsContainer"
+import Logout from "containers/auth/LogoutContainer"
 
 const dashboardRoutes = [
   {
@@ -51,11 +52,11 @@ const dashboardRoutes = [
     component: Settings
   },
   { 
-    path: "/login", 
+    path: "/logout", 
     sidebarName: "Logout",
     navbarName: "Logout",
     icon: LogoutIcon,
-    component: ''
+    component: Logout
   }
 ];
 

@@ -1,7 +1,7 @@
 const urlV1 = {
     user: {
         login: '/auth/login',
-        get_users: '/users'
+        user_resource: '/users'
     },
     contact: {
         get_contacts: '/contact'

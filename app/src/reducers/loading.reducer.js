@@ -1,7 +1,8 @@
 import { loadingConstants } from '../constants'
 
 const initialState = {
-    status: false
+    status: false,
+    requesting: false
 }
 
 const loading = (state = initialState, action) => {
@@ -11,6 +12,12 @@ const loading = (state = initialState, action) => {
             break
         case loadingConstants.DONE:
             return { ...state, status: false }
+            break
+        case loadingConstants.REQUESTING:
+            return { ...state, requesting: true }
+            break
+        case loadingConstants.REQUEST_DONE:
+            return { ...state, requesting: false }
             break
         default:
         return state    

@@ -199,7 +199,7 @@ router
 
 //Users
 router.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))
-
+			.put('/users/:id', requireAuth('admin'), pickHandler('user.controller@updateUser'))
 // import upload from '../utils/uploadS3'
 // router.post('/test-upload', async (req, res, next) => {
 // 	console.log(await upload.push([req.files.upload], 'users/avatar'))

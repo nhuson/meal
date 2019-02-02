@@ -16,7 +16,7 @@ class UserList extends React.Component {
         }
     }
     render() {
-        let { loading, users, totalRecord, totalPage, openModal, handleClose } = this.props
+        let { loading, requesting, users, totalRecord, totalPage, openModal, handleClose } = this.props
         let columns = [
             {
                 title: 'Avatar', field: 'avatar', render: (rowData) => {
@@ -35,7 +35,7 @@ class UserList extends React.Component {
             { title: 'Fullname', field: 'fullname' },
             { title: 'Email', field: 'email' },
             { title: 'Role', field: 'role' },
-            { title: 'Status', field: 'status', lookup: { 0: 'Active', 1: 'Blocked' } }
+            { title: 'Status', field: 'status', lookup: { 0: 'Blocked', 1: 'Active' } }
         ]
         return (
             <div>
@@ -49,7 +49,9 @@ class UserList extends React.Component {
                 <Modal open={openModal} handleClose={handleClose} title="Edit user">
                     <EditFrom 
                         user={this.state.userEdit}
+                        requesting={requesting}
                         handleClose={handleClose}
+                        handleUpdateUser={this.props.handleUpdateUser}
                     />
                 </Modal>
                 <Table
@@ -62,16 +64,11 @@ class UserList extends React.Component {
                     actions={[
                         {
                             name: 'edit', onClick: (event, rowData) => {
-                                this.props.handleEdit(rowData.id)
+                                this.props.handleOpenFormEdit()
                                 this.setState({
                                     userEdit: rowData
                                 })
                             }, color: 'green',
-                        },
-                        {
-                            name: 'delete', onClick: (event, rowData) => {
-                                this.props.handleDelete()
-                            }, color: 'green'
                         }
                     ]}
                     options={{exportButton: true}}
