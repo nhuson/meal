@@ -12,7 +12,8 @@ const urlV1 = {
     },
     menuType: {
         get_menus: '/menu-type',
-        delete_menu: '/menu-type'
+        delete_menu: '/menu-type',
+        update_menu: '/menu-type'
     },
     allergyType: {
         get_allergies: '/allergy-type',

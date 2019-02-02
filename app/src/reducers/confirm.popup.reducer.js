@@ -6,12 +6,7 @@ const initialState = {
 }
 const confirmPopup = (state = initialState, action) => {
     switch (action.type) {
-        case confirmPopupConstants.DISAGREE:
-            return {
-                ...state,
-                open: false
-            }
-        case confirmPopupConstants.AGREE:
+        case confirmPopupConstants.CLOSE:
             return {
                 ...state,
                 open: false

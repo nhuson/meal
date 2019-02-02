@@ -1,7 +1,7 @@
 import { menuConstant } from '../constants'
 import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
-import { getMenus, deleteMenu as dm } from '../api'
+import { getMenus, updateMenu as um, deleteMenu as dm } from '../api'
 
 export const getMenusAvailable = (pageNumber, pageSize) => {
 	return async dispatch => {
@@ -30,6 +30,23 @@ export const deleteMenu = (menuId) => {
 			dispatch({
                 type: menuConstant.DELETE_MENU,
                 menuId
+             })
+			dispatch(loadingActions.done())
+		}catch(err) {
+			dispatch(alertActions.error(err))
+			dispatch(loadingActions.done())
+		}
+	}
+}
+
+export const updateMenu = (menu) => {
+	return async dispatch => {
+		try {
+			dispatch(loadingActions.loading())
+			await um(menu)
+			dispatch({
+                type: menuConstant.UPDATE_MENU,
+                menu
              })
 			dispatch(loadingActions.done())
 		}catch(err) {

@@ -15,7 +15,6 @@ class CustomizedDialogDemo extends React.Component {
 		return (
 			<div>
 				<Dialog
-					onClose={this.props.handleClose}
 					aria-labelledby="customized-dialog-title"
 					open={this.props.open}
 				>
