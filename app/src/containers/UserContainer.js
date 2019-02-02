@@ -6,7 +6,6 @@ import UserList from "../views/user"
 class UserContainer extends Component {
 	render() {
 		let { users, getUserAvailble, totalRecord, totalPage, loading, requesting,
-			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree,
 			handleOpenFormEdit, openModal, handleClose } = this.props
 		return (
 			<UserList
@@ -16,10 +15,6 @@ class UserContainer extends Component {
 				totalRecord={totalRecord}
 				totalPage={totalPage}
 				getUserAvailble={getUserAvailble}
-				handleDelete={handleDelete}
-				openConfirmPopup={openConfirmPopup}
-				handlePopupDisagree={handlePopupDisagree}
-				handlePopupAgree={handlePopupAgree}
 				handleOpenFormEdit={handleOpenFormEdit}
 				openModal={openModal}
 				handleClose={handleClose}
@@ -36,7 +31,6 @@ const mapStateToProps = state => {
 		totalPage: state.user.total_page,
 		loading: state.loading.status,
 		requesting: state.loading.requesting,
-		openConfirmPopup: state.confirmPopup.open,
 		openModal: state.modal.status
 	}
 }
@@ -45,15 +39,6 @@ const mapDispatchToProps = (dispatch, props) => {
 	return {
 		getUserAvailble: (currentPage, pageSize) => {
 			dispatch(user.getUserAvailable(currentPage, pageSize))
-		},
-		handleDelete: () => {
-			dispatch(confirmPopupActions.open())
-		},
-		handlePopupDisagree: () => {
-			dispatch(confirmPopupActions.disagree())
-		},
-		handlePopupAgree: () => {
-			dispatch(confirmPopupActions.agree())
 		},
 		handleOpenFormEdit: () => {
 			dispatch(modalAction.openModal())

@@ -73,7 +73,7 @@ class UserService extends BaseService {
 				'role',
 			)
 			.where({ role: 'USER' })
-			.from('users')
+			.from(this.tableName)
 			.limit(per_page)
 			.offset(offset)
 			.orderBy('status', 'desc')
@@ -84,6 +84,11 @@ class UserService extends BaseService {
 			total_page: totalPage,
 			total_record: totalRecord[0].total,
 		}
+	}
+
+	async findUserToUpdate(option) {
+		let user = await this.db.where({ email: option.email }).whereNot({id: option.id}).from(this.tableName).first()
+		return user
 	}
 }
 

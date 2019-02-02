@@ -69,11 +69,6 @@ class UserList extends React.Component {
                                     userEdit: rowData
                                 })
                             }, color: 'green',
-                        },
-                        {
-                            name: 'delete', onClick: (event, rowData) => {
-                                this.props.handleDelete()
-                            }, color: 'green'
                         }
                     ]}
                     options={{exportButton: true}}

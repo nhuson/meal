@@ -38,6 +38,10 @@ const updateUser = async (req, res, next) => {
 		if (!user) {
 			throw createError(404, 'User not found')
 		}
+		const userByEmail = await userService.findUserToUpdate({ email: req.body.email, id })
+		if (userByEmail) {
+			throw createError(404, 'User already exists!')
+		}
 
 		let putData = {
 			firstname: req.body.firstname,
