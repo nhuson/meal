@@ -2,7 +2,6 @@ import React from 'react'
 import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
 import moment from 'moment'
-import ConfirmPopup from '../../components/ConfirmPopup'
 
 class TypeIngredientList extends React.Component {
     constructor(props) {
@@ -10,7 +9,6 @@ class TypeIngredientList extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
-            typeIngredientId: -1
         }
     }
     render() {
@@ -24,15 +22,6 @@ class TypeIngredientList extends React.Component {
         ]
         return (
             <div>
-                <ConfirmPopup 
-                    open={this.props.openConfirmPopup} 
-                    title='Are you sure you want to delete this menu type?'
-                    description = "This menu type will be deleted from the database and don't display for later."
-                    handeDisagree={this.props.handlePopupDisagree}
-                    handleAgree= {() => {
-                        this.props.handlePopupAgree(this.state.typeIngredientId)
-                    }}
-                />
                 <Table
                     columns={columns}
                     data={typeIngredients}
@@ -48,8 +37,7 @@ class TypeIngredientList extends React.Component {
                         },
                         {
                             name: 'delete', onClick: (event, rowData) => {
-                                this.setState({typeIngredientId: rowData.id})
-                                this.props.handleDelete()
+                                this.props.handleDelete(rowData)
                             }, color: 'green',
                         }
                     

@@ -40,6 +40,7 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
+		console.log(req.body)
 		let { title, description, image } = req.body
 		let typeIngredient = await typeIngredientService.findOne({ title })
 		if (typeIngredient) throw createError(400, 'This type ingredient already exists')

@@ -27,8 +27,8 @@ class MenuTypeContainer extends Component {
 
 	render() {
 		let {menus, fetchMenus, totalRecord, totalPage, loading,
-			openConfirm, deleteMenu, closeConfirmPopup,
-			openModal, closeEditPopup, updateMenu} = this.props
+			openConfirm, onDeleteMenu, closeConfirmPopup,
+			openModal, closeEditPopup, onUpdateMenu} = this.props
 
 		return (
 			<div>
@@ -36,7 +36,7 @@ class MenuTypeContainer extends Component {
                     <EditMenuType 
 						menu={this.state.menu}
 						handleClose={closeEditPopup}
-						handleUpdate={updateMenu}
+						handleUpdate={onUpdateMenu}
                     />
                 </Modal>
 				<ConfirmPopup 
@@ -46,7 +46,7 @@ class MenuTypeContainer extends Component {
                     handeDisagree={closeConfirmPopup}
                     handleAgree= {() => {
 						closeConfirmPopup()
-						deleteMenu(this.state.menu.id)
+						onDeleteMenu(this.state.menu.id)
 					}}
                 />
 				<MenuTypeList
@@ -79,10 +79,10 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchMenus: (currentPage, pageSize) => {
 			dispatch(getMenusAvailable(currentPage, pageSize))
 		},
-		deleteMenu: (menuId) => {
+		onDeleteMenu: (menuId) => {
 			dispatch(deleteMenu(menuId))
 		},
-		updateMenu: (menu) => {
+		onUpdateMenu: (menu) => {
 			dispatch(updateMenu(menu))
 		},
 		openConfirmPopup: () => {

@@ -2,24 +2,49 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import TypeIngredientList from '../../views/meal/TypeIngredientList'
 import { getTypeIngredientsAvailable, deleteTypeIngredient} from '../../actions'
-import { confirmPopupActions } from "../../actions"
+import { confirmPopupActions , modalAction} from "../../actions"
+import ConfirmPopup from '../../components/ConfirmPopup'
 
 class TypeIngredientContainer extends Component {
+	constructor(props) {
+        super(props)
+        this.state = {
+            typeIngredient: {}
+		}
+	}
+
+	handleEdit = (typeIngredient) => {
+		this.setState({typeIngredient})
+		this.props.openEditPopup()
+	}
+
+	handleDelete = (typeIngredient) => {
+		this.setState({typeIngredient})
+		this.props.openConfirmPopup()
+	}
+
 	render() {
 		let { typeIngredients, fetchTypeIngredients, totalRecord, totalPage, loading,
-			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
+			openConfirm, closeConfirmPopup, onDeleteTypeIngredient} = this.props
 		return (
 			<div>
+				<ConfirmPopup 
+                    open={openConfirm} 
+                    title='Are you sure you want to delete?'
+                    description = "This ingredient type will be deleted from the database and don't display for later."
+                    handeDisagree={closeConfirmPopup}
+                    handleAgree= {() => {
+						closeConfirmPopup()
+						onDeleteTypeIngredient(this.state.typeIngredient.id)
+					}}
+                />
 				<TypeIngredientList
 					loading={loading}
 					typeIngredients={typeIngredients}
 					totalRecord={totalRecord}
 					totalPage={totalPage}
 					fetchTypeIngredients={fetchTypeIngredients}
-					handleDelete={handleDelete}
-					openConfirmPopup={openConfirmPopup}
-					handlePopupDisagree={handlePopupDisagree}
-					handlePopupAgree={handlePopupAgree}
+					handleDelete={this.handleDelete}
 				/>
 			</div>
 		)
@@ -32,7 +57,7 @@ const mapStateToProps = state => {
 		totalRecord: state.typeIngredient.total_record,
 		totalPage: state.typeIngredient.total_page,
 		loading: state.loading.status,
-		openConfirmPopup: state.confirmPopup.open
+		openConfirm: state.confirmPopup.open
 	}
 }
 
@@ -41,15 +66,23 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchTypeIngredients: (currentPage, pageSize) => {
 			dispatch(getTypeIngredientsAvailable(currentPage, pageSize))
 		},
-		handleDelete: () => {
+		onDeleteTypeIngredient: (id) => {
+			dispatch(deleteTypeIngredient(id))
+		},
+		onUpdateTypeIngredient: (typeIngredient) => {
+
+		},
+		openConfirmPopup: () => {
 			dispatch(confirmPopupActions.open())
 		},
-		handlePopupDisagree: () => {
-			dispatch(confirmPopupActions.disagree())
+		closeConfirmPopup: () => {
+			dispatch(confirmPopupActions.close())
 		},
-		handlePopupAgree: (typeIngredientId) => {
-			dispatch(confirmPopupActions.agree())
-			dispatch(deleteTypeIngredient(typeIngredientId))
+		openEditPopup: () => {
+			dispatch(modalAction.openModal())
+		},
+		closeEditPopup: () => {
+			dispatch(modalAction.closeModal())
 		}
 	}
 }

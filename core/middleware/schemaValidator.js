@@ -56,8 +56,6 @@ module.exports = (useJoiError = false) => {
 							// Send back the JSON error response
 							res.status(422).json(_useJoiError ? JoiError : CustomError)
 						} else {
-							// Replace req.body with the data after Joi validation
-							req.body = data
 							next()
 						}
 					},
