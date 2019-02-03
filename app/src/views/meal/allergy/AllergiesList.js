@@ -1,8 +1,7 @@
 import React from 'react'
-import Table from '../../components/Table/TableTemplate'
-import config from '../../variables/config'
+import Table from '../../../components/Table/TableTemplate'
+import config from '../../../variables/config'
 import moment from 'moment'
-import ConfirmPopup from '../../components/ConfirmPopup'
 
 class AllergiesList extends React.Component {
     constructor(props) {
@@ -10,7 +9,6 @@ class AllergiesList extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
-            allergyId: -1
         }
     }
     render() {
@@ -23,33 +21,22 @@ class AllergiesList extends React.Component {
 				} }
         ]
         return (
-            <div>
-                <ConfirmPopup 
-                    open={this.props.openConfirmPopup} 
-                    title='Are you sure you want to delete this allergy?'
-                    description = "This allergy will be deleted from the database and don't display for later."
-                    handeDisagree={this.props.handlePopupDisagree}
-                    handleAgree={() => {
-                        this.props.handlePopupAgree(this.state.allergyId)
-                    }}
-                />
                 <Table
                     columns={columns}
                     data={allergies}
                     count={totalRecord}
                     page={this.state.currentPage}
                     per_page={this.state.pageSize}
-                    title='List Categories'
+                    title='List Allergies And Restrictions'
                     actions={[
                         {
                             name: 'edit', onClick: (event, rowData) => {
-                                alert('You clicked user ' + rowData.name)
+                                this.props.handleEdit(rowData)
                             }, color: 'green',
                         },
                         {
                             name: 'delete', onClick: (event, rowData) => {
-                                this.setState({allergyId: rowData.id})
-                                this.props.handleDelete()
+                                this.props.handleDelete(rowData)
                             }, color: 'green',
                         }
                     
@@ -60,7 +47,6 @@ class AllergiesList extends React.Component {
                     onChangeRowsPerPage={(perPage) => {}}
                     loading={loading}
                 />
-            </div>
         )
     }
 

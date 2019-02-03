@@ -1,5 +1,5 @@
 import createError from 'http-errors'
-import allergiTypeService from '../services/allergiType.service'
+import allergyTypeService from '../services/allergyType.service'
 import _ from 'lodash'
 /**
  * @route   GET
@@ -11,13 +11,13 @@ import _ from 'lodash'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await allergiTypeService.findAll()
+			let data = await allergyTypeService.findAll()
 			res.status(200).json({
 				success: 'success',
 				data,
 			})
 		} else {
-			let data = await allergiTypeService.getAllergiesAvailable({
+			let data = await allergyTypeService.getAllergiesAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
 			})
@@ -41,7 +41,7 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
 	try {
 		const { title, description } = req.body
-		await allergiTypeService.create({
+		await allergyTypeService.create({
 			title,
 			description,
 		})
@@ -62,7 +62,7 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const allergiType = await allergiTypeService.findOne({ id })
+		const allergiType = await allergyTypeService.findOne({ id })
 		if (!allergiType) {
 			throw createError(404, 'Not found')
 		}
@@ -77,9 +77,12 @@ const update = async (req, res, next) => {
 			.value()
 
 		const updateData = { ...allergiType, ...putData }
-		await allergiTypeService.update(updateData, { id })
+		await allergyTypeService.update(updateData, { id })
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ 
+			success: 'success',
+			message: 'The allergy has been successfully updated.'
+		 })
 	} catch (err) {
 		next(err)
 	}
@@ -95,14 +98,17 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
 	try {
 		let { id } = req.params
-		const data = await allergiTypeService.findOne({ id })
+		const data = await allergyTypeService.findOne({ id })
 		if (!data) {
 			throw createError(404, 'Not found')
 		}
 
-		await allergiTypeService.delete({ id })
+		await allergyTypeService.delete({ id })
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ 
+			success: 'success',
+			message: 'The allergy has been successfully deleted.'
+		 })
 	} catch (err) {
 		next(err)
 	}

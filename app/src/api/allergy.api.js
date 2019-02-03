@@ -8,3 +8,7 @@ export const getAllergies = async (pageNumber, pageSize) => {
 export const deleteAllergy = async (allergyId) => {
 	return await request('DELETE', `${apiUrl.allergyType.main}/${allergyId}`)
 }
+
+export const updateAllergy = async (allergy) => {
+	return await request('PUT', `${apiUrl.allergyType.main}/${allergy.id}`,allergy)
+}
