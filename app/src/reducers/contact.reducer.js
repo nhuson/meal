@@ -15,6 +15,12 @@ const contact = (state = initialState, action) => {
 				total_record: action.total_record
 			}
 			break
+		case contactConstant.DELETE_CONTACT:
+		{
+			let contacts = state.contacts.filter(contact => contact.id != action.contactId)
+			return {...state, contacts}
+		}
+			break
 		default:
 			return state
 	}

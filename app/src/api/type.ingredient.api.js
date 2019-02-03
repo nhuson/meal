@@ -2,9 +2,13 @@ import request from '../helpers/request'
 import apiUrl from '../variables/api.url'
 
 export const getTypeIngredients = async (pageNumber, pageSize) => {
-	return await request("GET", `${apiUrl.typeIngredient.get_typeIngredients}?page=${pageNumber}&per_page=${pageSize}`)
+	return await request("GET", `${apiUrl.typeIngredient.main}?page=${pageNumber}&per_page=${pageSize}`)
 }   
 
 export const deleteTypeIngredient = async (typIngredientId) => {
-	return await request('DELETE', `${apiUrl.typeIngredient.delete_typeIngredient}/${typIngredientId}`)
+	return await request('DELETE', `${apiUrl.typeIngredient.main}/${typIngredientId}`)
+}
+
+export const updateTypeIngredient = async (typeIngredient) => {
+	return await request('PUT', `${apiUrl.typeIngredient.main}/${typeIngredient.id}`,typeIngredient)
 }

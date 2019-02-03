@@ -1,3 +1,4 @@
+import { findIndex } from 'lodash'
 import { typeIngredientConstant } from "../constants"
 
 const initialState = {
@@ -19,6 +20,14 @@ const typeIngredient = (state = initialState, action) => {
 		{
 			let typeIngredients = state.typeIngredients.filter(typeIngredient => typeIngredient.id != action.typeIngredientId)
 			return {...state, typeIngredients}
+		}
+			break
+		case typeIngredientConstant.UPDATE_TYPE_INGREDIENT:
+		{
+			let { typeIngredients } = state
+			let index = findIndex(typeIngredients, {id: action.typeIngredient.id})
+			typeIngredients.splice(index, 1, action.typeIngredient)
+			return { ...state, typeIngredients }
 		}
 			break
 		default:

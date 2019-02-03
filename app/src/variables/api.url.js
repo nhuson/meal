@@ -4,28 +4,22 @@ const urlV1 = {
         user_resource: '/users'
     },
     contact: {
-        get_contacts: '/contact'
+        main: '/contact'
     },
     category: {
-        get_categories: '/category',
-        delete_category: '/category'
+        main: '/category'
     },
     menuType: {
-        get_menus: '/menu-type',
-        delete_menu: '/menu-type',
-        update_menu: '/menu-type'
+        main: '/menu-type'
     },
     allergyType: {
-        get_allergies: '/allergy-type',
-        delete_allergy: '/allergy-type'
+        main: '/allergy-type'
     },
     typeIngredient: {
-        get_typeIngredients: '/type-ingredient',
-        delete_typeIngredient: '/type-ingredient'
+        main: '/type-ingredient'
     },
     ingredient:{
-        get_ingredients: '/ingredient',
-        delete_ingredient: '/ingredient'
+        main: '/ingredient'
     }
 }
 

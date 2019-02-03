@@ -35,15 +35,6 @@ class ContactList extends React.Component {
             { title: 'Messages', field: 'messages'}
         ]
         return (
-            <div>
-                 <ConfirmPopup 
-                    open={this.props.openConfirmPopup} 
-                    title='Are you sure you want to delete this contact?'
-                    description = "This contact will be deleted from the database and don't display for later."
-                    handeDisagree={this.props.handlePopupDisagree}
-                    handleAgree={this.props.handlePopupAgree}
-                />
-
                 <Table
                 columns={columns}
                 data={contacts}
@@ -54,12 +45,12 @@ class ContactList extends React.Component {
                 actions={[
                     {
                         name: 'edit', onClick: (event, rowData) => {
-                            alert('You clicked user ' + rowData.name)
+                            this.props.handleEdit(rowData)
                         }, color: 'green'
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {
-                            this.props.handleDelete()
+                            this.props.handleDelete(rowData)
                         }, color: 'green'
                     }
                 ]}
@@ -69,7 +60,6 @@ class ContactList extends React.Component {
                 onChangeRowsPerPage={(perPage) => {}}
                 loading={loading}
             />
-            </div>
         )
     }
 

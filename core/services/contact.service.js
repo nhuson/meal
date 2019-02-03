@@ -30,6 +30,7 @@ class ContactService extends BaseService {
 		let offset = (page - 1) * per_page
 		let contacts = await this.db
 			.select(
+				'contacts.id',
 				'contacts.created_at',
 				this.db.raw("CONCAT(users.firstname, ' ', users.lastname) as fullname"),
 				'users.email',
