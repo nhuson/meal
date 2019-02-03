@@ -1,3 +1,4 @@
+import {findIndex} from 'lodash'
 import { categoryConstant } from "../constants"
 
 const initialState = {
@@ -20,6 +21,14 @@ const category = (state = initialState, action) => {
 				let categories = state.categories.filter(category => category.id != action.categoryId)
 				return {...state, categories}
 			}
+			break
+		case categoryConstant.UPDATE_CATEGORY:
+		{
+			let { categories } = state
+			let index = findIndex(categories, {id: action.category.id})
+			categories.splice(index, 1, action.category)
+			return { ...state, categories }
+		}
 			break
 		default:
 			return state

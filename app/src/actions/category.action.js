@@ -1,7 +1,7 @@
 import { categoryConstant } from '../constants'
 import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
-import { getCategories, deleteCategory as dc } from '../api'
+import { getCategories, deleteCategory as dc, updateCategory as uc } from '../api'
 
 export const getCategoriesAvailable = (pageNumber, pageSize) => {
 	return async dispatch => {
@@ -26,12 +26,31 @@ export const deleteCategory = (catId) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			await dc(catId)
+			const resp = await dc(catId)
 			dispatch({
                 type: categoryConstant.DELETE_CATEGORY,
                 categoryId: catId
              })
 			dispatch(loadingActions.done())
+			dispatch(alertActions.success(resp.message))
+		}catch(err) {
+			dispatch(alertActions.error(err))
+			dispatch(loadingActions.done())
+		}
+	}
+}
+
+export const updateCategory = (category) => {
+	return async dispatch => {
+		try {
+			dispatch(loadingActions.loading())
+			let resp = await uc(category)
+			dispatch({
+                type: categoryConstant.UPDATE_CATEGORY,
+                category
+             })
+			dispatch(loadingActions.done())
+			dispatch(alertActions.success(resp.message))
 		}catch(err) {
 			dispatch(alertActions.error(err))
 			dispatch(loadingActions.done())

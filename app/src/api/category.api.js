@@ -5,6 +5,10 @@ export const getCategories = async (pageNumber, pageSize) => {
 	return await request("GET", `${apiUrl.category.main}?page=${pageNumber}&per_page=${pageSize}`)
 }
 
-export const deleteCategory = async (cat_id)  => {
-	return await request("DELETE", `${apiUrl.category.main}/${cat_id}`)
+export const deleteCategory = async (categoryId)  => {
+	return await request("DELETE", `${apiUrl.category.main}/${categoryId}`)
+}
+
+export const updateCategory = async (category) => {
+	return await request('PUT', `${apiUrl.category.main}/${category.id}`,category)
 }

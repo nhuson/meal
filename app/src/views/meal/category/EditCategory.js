@@ -30,20 +30,20 @@ const styles = {
     }
 }
 
-class EditMenuType extends React.Component {
+class EditCategory extends React.Component {
     constructor(props) {
         super(props)
         this.validator = new FormValidator(menuValidations)
         this.submitted = false
         this.state = {
-            menu: {},
+            category: {},
             validation: this.validator.valid()
         }
     }
 
     render() {
         const { classes } = this.props
-        let validation = this.submitted ? this.validator.validate(this.state.menu) : this.state.validation
+        let validation = this.submitted ? this.validator.validate(this.state.category) : this.state.validation
         return (
             <div>
                 <GridContainer>
@@ -52,7 +52,7 @@ class EditMenuType extends React.Component {
 
                             <Card>
                                 <CardHeader color="primary">
-                                    <h4 className={classes.cardTitleWhite}>Edit Menu-Type</h4>
+                                    <h4 className={classes.cardTitleWhite}>Edit Category</h4>
                                 </CardHeader>
                                 <CardBody>
                                     <GridContainer>
@@ -64,7 +64,7 @@ class EditMenuType extends React.Component {
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
-                                                value={this.state.menu.title || ''}
+                                                value={this.state.category.title || ''}
                                                 onChange={this.handleChange('title')}
                                             />
                                             {validation.title.isInvalid && (
@@ -84,7 +84,7 @@ class EditMenuType extends React.Component {
                                                     multiline: true,
                                                     rows: 3
                                                 }}
-                                                value={this.state.menu.description || ''}
+                                                value={this.state.category.description || ''}
                                                 onChange={this.handleChange('description')}
                                             />
                                         </GridItem>
@@ -104,25 +104,25 @@ class EditMenuType extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        const validation = this.validator.validate(this.state.menu)
+        const validation = this.validator.validate(this.state.category)
 		this.setState({ validation })
         this.submitted = true
         if (validation.isValid) {
             this.props.handleClose()
-			this.props.handleUpdate(this.state.menu)
+			this.props.handleUpdate(this.state.category)
 		}
     }
 
     handleChange = name => event => {
         this.setState({
-            menu: {...this.state.menu, [name]: event.target.value}
+            category: {...this.state.category, [name]: event.target.value}
         })
     }
 
     componentDidMount() {
-        let { menu } = this.props
-        this.setState({menu})
+        let { category } = this.props
+        this.setState({category})
     }
 }
 
-export default withStyles(styles)(EditMenuType)
+export default withStyles(styles)(EditCategory)
