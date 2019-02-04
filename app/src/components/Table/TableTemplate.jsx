@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MaterialTable from 'material-table'
+import {MTableToolbar} from 'material-table'
 import TablePagination from '@material-ui/core/TablePagination';
 import Loading from '../Loader'
 import '../../assets/css/table.css'
@@ -76,9 +77,8 @@ class Table extends Component {
                         options={{
                             ...this.props.options,
                             actionsColumnIndex: -1,
-                            paging: false
-                            // filtering: true,
-                            // selection: true,
+                            paging: false,
+                            columnsButton: true
                         }}
                         detailPanel={this.props.detailPanel}
                     />

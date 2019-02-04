@@ -1,6 +1,6 @@
 import React from 'react'
-import Table from '../../components/Table/TableTemplate'
-import config from '../../variables/config'
+import Table from '../../../components/Table/TableTemplate'
+import config from '../../../variables/config'
 import moment from 'moment'
 
 class TypeIngredientList extends React.Component {
@@ -32,7 +32,7 @@ class TypeIngredientList extends React.Component {
                     actions={[
                         {
                             name: 'edit', onClick: (event, rowData) => {
-                                alert('You clicked user ' + rowData.name)
+                                this.props.handleEdit(rowData)
                             }, color: 'green',
                         },
                         {

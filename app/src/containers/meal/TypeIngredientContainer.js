@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import TypeIngredientList from '../../views/meal/TypeIngredientList'
-import { getTypeIngredientsAvailable, deleteTypeIngredient} from '../../actions'
+import TypeIngredientList from '../../views/meal/typeIngredient/TypeIngredientList'
+import EditTypeIngredient from '../../views/meal/typeIngredient/EditTypeIngredient'
+import { getTypeIngredientsAvailable, deleteTypeIngredient, updateTypeIngredient} from '../../actions'
 import { confirmPopupActions , modalAction} from "../../actions"
 import ConfirmPopup from '../../components/ConfirmPopup'
+import Modal from '../../components/Modal'
 
 class TypeIngredientContainer extends Component {
 	constructor(props) {
@@ -25,9 +27,17 @@ class TypeIngredientContainer extends Component {
 
 	render() {
 		let { typeIngredients, fetchTypeIngredients, totalRecord, totalPage, loading,
-			openConfirm, closeConfirmPopup, onDeleteTypeIngredient} = this.props
+			openConfirm, closeConfirmPopup, onDeleteTypeIngredient,
+			openModal, closeEditPopup, onUpdateTypeIngredient} = this.props
 		return (
 			<div>
+				<Modal open={openModal}>
+                    <EditTypeIngredient 
+						typeIngredient={this.state.typeIngredient}
+						handleClose={closeEditPopup}
+						handleUpdate={onUpdateTypeIngredient}
+                    />
+                </Modal>
 				<ConfirmPopup 
                     open={openConfirm} 
                     title='Are you sure you want to delete?'
@@ -45,6 +55,7 @@ class TypeIngredientContainer extends Component {
 					totalPage={totalPage}
 					fetchTypeIngredients={fetchTypeIngredients}
 					handleDelete={this.handleDelete}
+					handleEdit={this.handleEdit}
 				/>
 			</div>
 		)
@@ -57,7 +68,8 @@ const mapStateToProps = state => {
 		totalRecord: state.typeIngredient.total_record,
 		totalPage: state.typeIngredient.total_page,
 		loading: state.loading.status,
-		openConfirm: state.confirmPopup.open
+		openConfirm: state.confirmPopup.open,
+		openModal: state.modal.status
 	}
 }
 
@@ -70,7 +82,7 @@ const mapDispatchToProps = (dispatch, props) => {
 			dispatch(deleteTypeIngredient(id))
 		},
 		onUpdateTypeIngredient: (typeIngredient) => {
-
+			dispatch(updateTypeIngredient(typeIngredient))
 		},
 		openConfirmPopup: () => {
 			dispatch(confirmPopupActions.open())

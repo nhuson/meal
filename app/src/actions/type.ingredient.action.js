@@ -42,7 +42,7 @@ export const deleteTypeIngredient = (typeIngredientId) => {
 	}
 }
 
-export const updateMenu = (typeIngredient) => {
+export const updateTypeIngredient = (typeIngredient) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
