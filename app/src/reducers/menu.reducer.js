@@ -1,3 +1,4 @@
+import { findIndex } from 'lodash'
 import { menuConstant } from "../constants"
 
 const initialState = {
@@ -23,9 +24,10 @@ const menu = (state = initialState, action) => {
 			break
 		case menuConstant.UPDATE_MENU:
 		{
-			let menus = state.menus.filter(menu => menu.id != action.menu.id)
-			menus.unshift(action.menu)
-			return {...state, menus}
+			let { menus } = state
+			let index = findIndex(menus, {id: action.menu.id})
+			menus.splice(index, 1, action.menu)
+			return { ...state, menus }
 		}
 			break
 		default:

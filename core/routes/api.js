@@ -171,23 +171,23 @@ router
 
 //AllergiType
 router
-	.get('/allergy-type', requireAuth(), pickHandler('allergiType.controller@getAll'))
+	.get('/allergy-type', requireAuth(), pickHandler('allergyType.controller@getAll'))
 	.post(
 		'/allergy-type',
 		requireAuth('admin'),
 		validateRequest,
-		pickHandler('allergiType.controller@create'),
+		pickHandler('allergyType.controller@create'),
 	)
 	.put(
 		'/allergy-type/:id',
 		requireAuth('admin'),
 		validateRequest,
-		pickHandler('allergiType.controller@update'),
+		pickHandler('allergyType.controller@update'),
 	)
 	.delete(
 		'/allergy-type/:id',
 		requireAuth('admin'),
-		pickHandler('allergiType.controller@remove'),
+		pickHandler('allergyType.controller@remove'),
 	)
 
 //Meal

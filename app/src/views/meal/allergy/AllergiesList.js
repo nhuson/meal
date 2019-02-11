@@ -1,9 +1,9 @@
 import React from 'react'
-import Table from '../../components/Table/TableTemplate'
-import config from '../../variables/config'
+import Table from '../../../components/Table/TableTemplate'
+import config from '../../../variables/config'
 import moment from 'moment'
 
-class TypeIngredientList extends React.Component {
+class AllergiesList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -12,7 +12,7 @@ class TypeIngredientList extends React.Component {
         }
     }
     render() {
-        let { loading, typeIngredients, totalRecord} = this.props
+        let { loading, allergies, totalRecord} = this.props
         let columns = [
             { title: 'Title', field: 'title' },
 			{ title: 'Description', field: 'description' },
@@ -21,18 +21,17 @@ class TypeIngredientList extends React.Component {
 				} }
         ]
         return (
-            <div>
                 <Table
                     columns={columns}
-                    data={typeIngredients}
+                    data={allergies}
                     count={totalRecord}
                     page={this.state.currentPage}
                     per_page={this.state.pageSize}
-                    title='List Ingredient-Type'
+                    title='List Allergies And Restrictions'
                     actions={[
                         {
                             name: 'edit', onClick: (event, rowData) => {
-                                alert('You clicked user ' + rowData.name)
+                                this.props.handleEdit(rowData)
                             }, color: 'green',
                         },
                         {
@@ -48,14 +47,13 @@ class TypeIngredientList extends React.Component {
                     onChangeRowsPerPage={(perPage) => {}}
                     loading={loading}
                 />
-            </div>
         )
     }
 
     changePage(event, page) {
         let currentPage = page + 1
         if (event) {
-            this.props.fetchTypeIngredients(currentPage, this.state.pageSize)
+            this.props.fetchAllergies(currentPage, this.state.pageSize)
             this.setState({
                 currentPage: page
             })
@@ -63,8 +61,8 @@ class TypeIngredientList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchTypeIngredients(this.state.currentPage, this.state.pageSize)
+        this.props.fetchAllergies(this.state.currentPage, this.state.pageSize)
     }
 }
 
-export default TypeIngredientList
+export default AllergiesList

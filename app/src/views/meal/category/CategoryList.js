@@ -1,8 +1,7 @@
 import React from 'react'
-import Table from '../../components/Table/TableTemplate'
-import config from '../../variables/config'
+import Table from '../../../components/Table/TableTemplate'
+import config from '../../../variables/config'
 import moment from 'moment'
-import ConfirmPopup from '../../components/ConfirmPopup'
 
 class CategoryList extends React.Component {
     constructor(props) {
@@ -10,7 +9,6 @@ class CategoryList extends React.Component {
         this.state = {
             pageSize: config.PAGE_SIZE,
             currentPage: 0,
-            catId: -1
         }
     }
     render() {
@@ -23,16 +21,6 @@ class CategoryList extends React.Component {
 				} }
         ]
         return (
-            <div>
-                <ConfirmPopup 
-                    open={this.props.openConfirmPopup} 
-                    title='Are you sure you want to delete this category?'
-                    description = "This category will be deleted from the database and don't display for later."
-                    handeDisagree={this.props.handlePopupDisagree}
-                    handleAgree={() => {
-                        this.props.handlePopupAgree(this.state.catId)
-                    }}
-                />
             <Table
                 columns={columns}
                 data={categories}
@@ -43,13 +31,12 @@ class CategoryList extends React.Component {
                 actions={[
 					{
                         name: 'edit', onClick: (event, rowData) => {
-                            alert('You clicked user ' + rowData.name)
+                            this.props.handleEdit(rowData)
                         }, color: 'green',
                     },
                     {
                         name: 'delete', onClick: (event, rowData) => {
-                            this.setState({catId: rowData.id})
-                            this.props.handleDelete()
+                            this.props.handleDelete(rowData)
                         }, color: 'green',
 					}
 				
@@ -60,7 +47,6 @@ class CategoryList extends React.Component {
                 onChangeRowsPerPage={(perPage) => {}}
                 loading={loading}
             />
-            </div>
         )
     }
 

@@ -1,25 +1,54 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { getContactAvailable} from '../actions'
+import { getContactAvailable, deleteContact} from '../actions'
 import ContactList from "../views/contact"
-import { confirmPopupActions } from "../actions"
+import { confirmPopupActions, modalAction } from "../actions"
+import ConfirmPopup from '../components/ConfirmPopup'
 
 class ContactContainer extends Component {
+	constructor(props) {
+        super(props)
+        this.state = {
+            contact: {}
+		}
+	}
+
+	handleEdit = (contact) => {
+		this.setState({contact})
+		this.props.openEditPopup()
+	}
+
+	handleDelete = (contact) => {
+		console.log(contact)
+		this.setState({contact})
+		this.props.openConfirmPopup()
+	}
+
 	render() {
-		let { contacts, fetchContact, totalRecord, totalPage, loading, handleDeleteContact, 
-			openConfirmPopup, handlePopupDisagree, handlePopupAgree } = this.props
+		let { contacts, fetchContact, totalRecord, totalPage, loading, 
+			openConfirm, closeConfirmPopup, onDeleteContact} = this.props
 		return (
-			<ContactList
-				loading={loading}
-				contacts={contacts}
-				totalRecord={totalRecord}
-				totalPage={totalPage}
-				fetchContact={fetchContact}
-				handleDelete={handleDeleteContact}
-				openConfirmPopup={openConfirmPopup}
-				handlePopupDisagree={handlePopupDisagree}
-				handlePopupAgree={handlePopupAgree}
-			/>
+			<div>
+				<ConfirmPopup 
+                    open={openConfirm} 
+                    title='Are you sure you want to delete this?'
+					description = "This contact will be deleted from the database and don't display for later."
+					handeDisagree={closeConfirmPopup}
+                    handleAgree= {() => {
+						closeConfirmPopup()
+						onDeleteContact(this.state.contact.id)
+					}}
+                />
+				<ContactList
+					loading={loading}
+					contacts={contacts}
+					totalRecord={totalRecord}
+					totalPage={totalPage}
+					fetchContact={fetchContact}
+					handleEdit={this.handleEdit}
+					handleDelete={this.handleDelete}
+				/>
+			</div>
 		)
 	}
 }
@@ -30,7 +59,8 @@ const mapStateToProps = state => {
 		totalRecord: state.contact.total_record,
 		totalPage: state.contact.total_page,
 		loading: state.loading.status,
-		openConfirmPopup: state.confirmPopup.open
+		openConfirm: state.confirmPopup.open,
+		openModal: state.modal.status
 	}
 }
 
@@ -39,14 +69,20 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchContact: (currentPage, pageSize) => {
 			dispatch(getContactAvailable(currentPage, pageSize))
 		},
-		handleDeleteContact: () => {
+		onDeleteContact: (contactId) => {
+			dispatch(deleteContact(contactId))
+		},
+		openConfirmPopup: () => {
 			dispatch(confirmPopupActions.open())
 		},
-		handlePopupDisagree: () => {
-			dispatch(confirmPopupActions.disagree())
+		closeConfirmPopup: () => {
+			dispatch(confirmPopupActions.close())
 		},
-		handlePopupAgree: () => {
-			dispatch(confirmPopupActions.agree())
+		openEditPopup: () => {
+			dispatch(modalAction.openModal())
+		},
+		closeEditPopup: () => {
+			dispatch(modalAction.closeModal())
 		}
 	}
 }

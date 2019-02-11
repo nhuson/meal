@@ -47,7 +47,10 @@ const create = async (req, res, next) => {
 			description,
 		})
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ 
+			success: 'success',
+			message: 'The menu type has been successfully created.'
+		 })
 	} catch (err) {
 		next(err)
 	}
@@ -80,7 +83,10 @@ const update = async (req, res, next) => {
 		const updateData = { ...menuType, ...putData }
 		await menuTypeService.update(updateData, { id })
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ 
+			success: 'success',
+			message: 'The menu type has been successfully updated.'
+		 })
 	} catch (err) {
 		next(err)
 	}
@@ -103,7 +109,10 @@ const remove = async (req, res, next) => {
 
 		await menuTypeService.delete({ id })
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ 
+			success: 'success',
+			message: 'The menu type has been successfully deteled.'
+		 })
 	} catch (err) {
 		next(err)
 	}

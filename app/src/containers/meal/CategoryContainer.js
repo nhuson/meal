@@ -1,26 +1,62 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import CategoryList from '../../views/meal/CategoryList'
-import { getCategoriesAvailable, deleteCategory} from '../../actions'
-import { confirmPopupActions } from "../../actions"
+import CategoryList from '../../views/meal/category/CategoryList'
+import EditCategory from '../../views/meal/category/EditCategory'
+import Modal from '../../components/Modal'
+import { getCategoriesAvailable, deleteCategory, updateCategory} from '../../actions'
+import { confirmPopupActions, modalAction } from "../../actions"
+import ConfirmPopup from '../../components/ConfirmPopup'
 
 class CategoryContainer extends Component {
+	constructor(props) {
+        super(props)
+        this.state = {
+            category: {}
+		}
+	}
+
+	handleEdit = (category) => {
+		this.setState({category})
+		this.props.openEditPopup()
+	}
+
+	handleDelete = (category) => {
+		this.setState({category})
+		this.props.openConfirmPopup()
+	}
+
+
 	render() {
-		let { categories, fetchCategories, totalRecord, totalPage, loading, 
-			handleDelete, openConfirmPopup, handlePopupDisagree, handlePopupAgree, deleteCategory } = this.props
+		let { categories, fetchCategories, totalRecord, totalPage, loading,
+			openConfirm, onDeleteCategory, closeConfirmPopup,
+			openModal, closeEditPopup, onUpdateCategory} = this.props
 		return (
 			<div>
+				<Modal open={openModal}>
+                    <EditCategory 
+						category={this.state.category}
+						handleClose={closeEditPopup}
+						handleUpdate={onUpdateCategory}
+                    />
+                </Modal>
+				 <ConfirmPopup 
+                    open={openConfirm} 
+                    title='Are you sure you want to delete?'
+                    description = "This category will be deleted from the database and don't display for later."
+					handeDisagree={closeConfirmPopup}
+                    handleAgree= {() => {
+						closeConfirmPopup()
+						onDeleteCategory(this.state.category.id)
+					}}
+				/>
 				<CategoryList
 					loading={loading}
 					categories={categories}
 					totalRecord={totalRecord}
 					totalPage={totalPage}
 					fetchCategories={fetchCategories}
-					handleDelete={handleDelete}
-					openConfirmPopup={openConfirmPopup}
-					handlePopupDisagree={handlePopupDisagree}
-					handlePopupAgree={handlePopupAgree}
-					deleteCategory={deleteCategory}
+					handleEdit={this.handleEdit}
+					handleDelete={this.handleDelete}
 				/>
 			</div>
 		)
@@ -33,7 +69,8 @@ const mapStateToProps = state => {
 		totalRecord: state.category.total_record,
 		totalPage: state.category.total_page,
 		loading: state.loading.status,
-		openConfirmPopup: state.confirmPopup.open
+		openConfirm: state.confirmPopup.open,
+		openModal: state.modal.status
 	}
 }
 
@@ -42,15 +79,23 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchCategories: (currentPage, pageSize) => {
 			dispatch(getCategoriesAvailable(currentPage, pageSize))
 		},
-		handleDelete: () => {
+		onDeleteCategory: (categoryId) => {
+			dispatch(deleteCategory(categoryId))
+		},
+		onUpdateCategory: (category) => {
+			dispatch(updateCategory(category))
+		},
+		openConfirmPopup: () => {
 			dispatch(confirmPopupActions.open())
 		},
-		handlePopupDisagree: () => {
-			dispatch(confirmPopupActions.disagree())
+		closeConfirmPopup: () => {
+			dispatch(confirmPopupActions.close())
 		},
-		handlePopupAgree: (catId) => {
-			dispatch(confirmPopupActions.agree())
-			dispatch(deleteCategory(catId))
+		openEditPopup: () => {
+			dispatch(modalAction.openModal())
+		},
+		closeEditPopup: () => {
+			dispatch(modalAction.closeModal())
 		}
 	}
 }

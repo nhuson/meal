@@ -1,4 +1,5 @@
 import createError from 'http-errors'
+import _ from 'lodash'
 import typeIngredientService from '../services/typeIngredient.service'
 
 /**

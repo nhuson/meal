@@ -92,7 +92,10 @@ const remove = async (req, res, next) => {
 
 		await contactService.delete({ id })
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ 
+			success: 'success',
+			message: 'The menu type has been successfully deteled.'
+		 })
 	} catch (err) {
 		next(err)
 	}

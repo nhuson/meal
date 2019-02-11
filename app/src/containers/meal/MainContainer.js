@@ -27,18 +27,6 @@ class MainContainer extends Component {
 									)
 								},
 								{
-									tabName: "Ingredient-Type",
-									tabContent: (
-										<TypeIngredient />
-									)
-								},
-								{
-									tabName: "Ingredient",
-									tabContent: (
-										<Ingredient />
-									)
-								},
-								{
 									tabName: "Category",
 									tabContent: (
 										<Category />
@@ -48,6 +36,18 @@ class MainContainer extends Component {
 									tabName: "Menu-Type",
 									tabContent: (
 										<MenuType />
+									)
+								},
+								{
+									tabName: "Ingredient-Type",
+									tabContent: (
+										<TypeIngredient />
+									)
+								},
+								{
+									tabName: "Ingredient",
+									tabContent: (
+										<Ingredient />
 									)
 								},
 								{
@@ -63,10 +63,6 @@ class MainContainer extends Component {
 			</div>
 		)
 	}
-}
-
-MainContainer.propTypes = {
-	classes: PropTypes.object.isRequired,
 }
 
 export default MainContainer

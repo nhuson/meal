@@ -26,12 +26,13 @@ export const deleteMenu = (menuId) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			await dm(menuId)
+			let resp = await dm(menuId)
 			dispatch({
                 type: menuConstant.DELETE_MENU,
                 menuId
              })
 			dispatch(loadingActions.done())
+			dispatch(alertActions.success(resp.message))
 		}catch(err) {
 			dispatch(alertActions.error(err))
 			dispatch(loadingActions.done())
@@ -43,12 +44,13 @@ export const updateMenu = (menu) => {
 	return async dispatch => {
 		try {
 			dispatch(loadingActions.loading())
-			await um(menu)
+			let resp = await um(menu)
 			dispatch({
                 type: menuConstant.UPDATE_MENU,
                 menu
              })
 			dispatch(loadingActions.done())
+			dispatch(alertActions.success(resp.message))
 		}catch(err) {
 			dispatch(alertActions.error(err))
 			dispatch(loadingActions.done())
