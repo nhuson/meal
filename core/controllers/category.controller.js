@@ -42,7 +42,6 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
 	try {
 		const { title, description, image } = req.body
-		console.log(req.body)
 		const category = await categoryService.findOne({ title })
 		if (category) {
 			throw createError(400, 'This category already exists')

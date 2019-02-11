@@ -19,7 +19,12 @@ const urlV1 = {
         main: '/type-ingredient'
     },
     ingredient:{
-        main: '/ingredient'
+        get_ingredients: '/ingredient',
+        delete_ingredient: '/ingredient'
+    },
+    meal: {
+        meal_resource: '/meal',
+        meal_by_page: '/meal_by_page'
     }
 }
 
