@@ -23,6 +23,14 @@ class TypeIngredientList extends React.Component {
         return (
             <div>
                 <Table
+                    showRefreshAction = {true}
+                    showAddAction = {true}
+                    handleRefresh =  {() => {
+                        this.props.fetchTypeIngredients(
+                            this.state.currentPage + 1,
+                            this.state.pageSize
+                        )
+                    }}
                     columns={columns}
                     data={typeIngredients}
                     count={totalRecord}
