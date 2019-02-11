@@ -26,6 +26,10 @@ const urlV1 = {
     ingredient:{
         get_ingredients: '/ingredient',
         delete_ingredient: '/ingredient'
+    },
+    meal: {
+        meal_resource: '/meal',
+        meal_by_page: '/meal_by_page'
     }
 }
 

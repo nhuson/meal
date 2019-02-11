@@ -25,7 +25,7 @@ export default Joi.object({
 	menu_id: Joi.number()
 		.integer()
 		.required(),
-	allergi: Joi.number()
+	allergi_id: Joi.number()
 		.integer()
 		.required(),
 })

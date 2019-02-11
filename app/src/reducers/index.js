@@ -11,6 +11,7 @@ import confirmPopup from './confirm.popup.reducer'
 import typeIngredient from './type.ingredient.reducer'
 import ingredient from './ingredient.reducer'
 import modal from './modal.reducer'
+import meal from './meal.reducer'
 
 const rootReducer = combineReducers({
     alert,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     confirmPopup,
     typeIngredient,
     ingredient,
-    modal
+    modal,
+    meal
 });
 
 export default rootReducer;

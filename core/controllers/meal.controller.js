@@ -21,6 +21,22 @@ const getAll = async (req, res, next) => {
 	}
 }
 
+const getMealsByPage = async (req, res, next) => {
+	try {
+		let data = await mealService.getMeals({
+			page: parseInt(req.query.page),
+			per_page: parseInt(req.query.per_page)
+		})
+
+		res.status(200).json({
+			success: 'success',
+			data,
+		})
+	} catch (err) {
+		next(err)
+	}
+}
+
 /**
  * @route   POST
  * @param {*} req
@@ -48,7 +64,6 @@ const create = async (req, res, next) => {
 		console.log(req.body)
 		await mealService.create({
 			title,
-			instruction,
 			image,
 			time,
 			serving,
@@ -59,9 +74,10 @@ const create = async (req, res, next) => {
 			cate_id,
 			menu_id,
 			allergi_id,
+			instruction: JSON.stringify(instruction)
 		})
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({ success: 'success', message: 'The meal has been successfully created.' })
 	} catch (err) {
 		next(err)
 	}
@@ -111,4 +127,4 @@ const remove = async (req, res, next) => {
 	}
 }
 
-export { getAll, create, update, remove }
+export { getAll, create, update, remove, getMealsByPage }
