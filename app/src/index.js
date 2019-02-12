@@ -9,7 +9,6 @@ import { PublicRoute } from "./routes/publicRoute.jsx"
 import indexRoutes from "routes/index.jsx";
 import Login from "./containers/auth/LoginContainer"
 
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
