@@ -34,6 +34,14 @@ class IngredientList extends React.Component {
                     }}
                 />
                 <Table
+                    showRefreshAction = {true}
+                    showAddAction = {true}
+                    handleRefresh =  {() => {
+                        this.props.fetchIngredients(
+                            this.state.currentPage + 1,
+                            this.state.pageSize
+                        )
+                    }}
                     columns={columns}
                     data={ingredients}
                     count={totalRecord}

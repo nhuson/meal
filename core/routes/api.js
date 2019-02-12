@@ -192,10 +192,11 @@ router
 
 //Meal
 router
-	.get('/meal', pickHandler('meal.controller@getAll'))
-	.post('/meal', validateRequest, pickHandler('meal.controller@create'))
-	.put('/meal/:id', validateRequest, pickHandler('meal.controller@update'))
-	.delete('/meal/:id', pickHandler('meal.controller@remove'))
+	.get('/meal', requireAuth(), pickHandler('meal.controller@getAll'))
+	.post('/meal', requireAuth('admin'), validateRequest, pickHandler('meal.controller@create'))
+	.put('/meal/:id', requireAuth('admin'), validateRequest, pickHandler('meal.controller@update'))
+	.delete('/meal/:id', requireAuth('admin'), pickHandler('meal.controller@remove'))
+	.get('/meal_by_page', requireAuth('admin'), pickHandler('meal.controller@getMealsByPage'))
 
 //Users
 router.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))

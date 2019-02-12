@@ -23,6 +23,14 @@ class MenuTypeList extends React.Component {
         return (
             <div>
                 <Table
+                    showRefreshAction = {true}
+                    showAddAction = {true}
+                    handleRefresh =  {() => {
+                        this.props.fetchMenus(
+                            this.state.currentPage + 1,
+                            this.state.pageSize
+                        )
+                    }}
                     columns={columns}
                     data={menus}
                     count={totalRecord}

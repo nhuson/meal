@@ -46,7 +46,7 @@ class UserService extends BaseService {
 		}
 		let totalRecord = await this.db
 			.where({ role: 'USER' })
-			.from('users')
+			.from(this.tableName)
 			.count('id as total')
 		if (totalRecord[0].total <= 0) {
 			return []
