@@ -71,8 +71,9 @@ class Table extends Component {
                 {this.showLoading(loading)}
                 <div style={{ maxWidth: '100%', opacity: loading ? '0.3' : '1' }}>
                     <Topbar 
-                        title = {this.props.title}
-                        handleRefresh = {this.props.handleRefresh}    
+                        title={this.props.title}
+                        handleRefresh={this.props.handleRefresh}
+                        handleCreate={this.props.handleCreate}
                     />
                     <MaterialTable
                         columns={this.props.columns}

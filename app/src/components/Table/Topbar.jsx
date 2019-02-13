@@ -8,7 +8,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
-import IconCreate from '@material-ui/icons/Create';
+import IconCreate from '@material-ui/icons/Add';
 import IconRefresh from '@material-ui/icons/Refresh';
 import {grey } from '@material-ui/core/colors'
 
@@ -102,11 +102,15 @@ class Topbar extends React.Component {
             </div>
                 <div className={classes.action}>
                     <IconButton 
-                        color= {grey[400]}
+                        color={grey[400]}
+                        onClick={this.props.handleCreate}
                     >
                         <IconCreate />
                     </IconButton>
-                    <IconButton color= {grey[400]}>
+                    <IconButton 
+                    	color={grey[400]}
+						onClick={this.props.handleRefresh}
+					>
                         <IconRefresh />
                     </IconButton>
                 </div>

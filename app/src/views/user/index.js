@@ -58,12 +58,7 @@ class UserList extends React.Component {
                 </Modal>
                 <Table
                     showRefreshAction = {true}
-                    handleRefresh =  {() => {
-                        this.props.getUserAvailble(
-                            this.state.currentPage + 1,
-                            this.state.pageSize
-                        )
-                    }}
+                    handleRefresh={() => {this.props.getUserAvailble(this.state.currentPage, this.state.pageSize)}}
                     columns={columns}
                     data={users}
                     count={totalRecord}

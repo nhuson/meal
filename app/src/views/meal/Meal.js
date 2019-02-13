@@ -71,6 +71,8 @@ class Meal extends React.Component {
                         this.props.getUserAvailble(this.state.currentPage, pageSize)
                     }}
                     loading={this.props.loading}
+                    handleCreate={() => {this.handleCreate()}}
+                    handleRefresh={() => {this.props.getMealAvailble(this.state.currentPage, this.state.pageSize)}}
                 />
             </div>
         )
@@ -84,6 +86,10 @@ class Meal extends React.Component {
                 currentPage: page
             })
         }
+    }
+
+    handleCreate() {
+        console.log('===')
     }
 
     componentDidMount() {
