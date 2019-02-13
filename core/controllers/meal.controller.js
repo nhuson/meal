@@ -59,9 +59,9 @@ const create = async (req, res, next) => {
 			cate_id,
 			menu_id,
 			allergi_id,
+			ingredient_id
 		} = req.body
 
-		console.log(req.body)
 		await mealService.create({
 			title,
 			image,
@@ -74,7 +74,8 @@ const create = async (req, res, next) => {
 			cate_id,
 			menu_id,
 			allergi_id,
-			instruction: JSON.stringify(instruction)
+			instruction: JSON.stringify(instruction),
+			ingredient_id
 		})
 
 		res.status(200).json({ success: 'success', message: 'The meal has been successfully created.' })

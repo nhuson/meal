@@ -28,4 +28,6 @@ export default Joi.object({
 	allergi_id: Joi.number()
 		.integer()
 		.required(),
+	instruction: Joi.array().required(),
+	ingredient_id: Joi.array().required(),
 })

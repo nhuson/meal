@@ -65,20 +65,36 @@ class MealService extends BaseService {
 			.limit(per_page)
 			.offset(offset)
 			.orderBy('created_at', 'desc')
-		meals = meals.map(meal => {
-			meal.instruction = JSON.parse(meal.instruction)
+		meals.forEach(meal => {
+			// meal.instruction = JSON.parse(meal.instruction)
 			meal.meal_album = JSON.parse(meal.meal_album)
 			if (meal.meal_count_rate > 0) {
 				meal.rate_score = parseFloat((meal.meal_rate / meal.meal_count_rate).toFixed(2))
 			}
-			return meal
 		})	
-
 		return {
 			meals,
 			total_page: totalPage,
 			total_record: totalRecord[0].total,
 		}
+	}
+
+	async create(data) {
+		let ingredientIds = data.ingredient_id
+		delete  data.ingredient_id
+		this.db.transaction(async trx => {
+			try {
+				let mealId = await trx.insert(data).into(this.tableName)
+				for (let i = 0; i < ingredientIds.length; i++) {
+					await trx.insert({ meal_id: mealId, ingre_id: ingredientIds[i].id, amount: ingredientIds[i].amount }).into('meal_ingredients')
+				}
+				trx.commit()
+			} catch(err) {
+				trx.rollback()
+				throw createError(422, err)
+			}
+		})
+		
 	}
 }
 

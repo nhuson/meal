@@ -17,8 +17,8 @@ class Meal extends React.Component {
 
     render() {
         let columns = [
-            { title: 'Title', field: 'title' },
-            { title: 'Image', field: 'image' },
+            { title: 'Title', field: 'meal_title' },
+            { title: 'Image', field: 'meal_image' },
             { title: 'Instruction', field: 'instruction' },
             { title: 'Category', field: 'category_title' },
             { title: 'Allergi type', field: 'allergi_type_title' },
@@ -26,7 +26,7 @@ class Meal extends React.Component {
             { title: 'Time', field: 'meal_time' },
             { title: 'Serving', field: 'meal_serving' },
             { title: 'Rate', field: 'menu_type_title' },
-            { title: 'Status', field: 'is_pro', lookup: { 0: 'Normal', 1: 'Pro' } }
+            { title: 'Status', field: 'meal_is_pro', lookup: { 0: 'Normal', 1: 'Pro' } }
         ]
         return (
             <div>

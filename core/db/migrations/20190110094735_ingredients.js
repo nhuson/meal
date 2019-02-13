@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
 			.notNull()
 		t.string('image', 100).notNull()
 		t.text('description').notNull()
-		t.string('unit', 100).notNull()
+		t.string('unit', 100).nullable()
 		t.integer('type_id')
 			.unsigned()
 			.notNull()
