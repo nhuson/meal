@@ -22,6 +22,14 @@ class AllergiesList extends React.Component {
         ]
         return (
                 <Table
+                    showRefreshAction = {true}
+                    showAddAction = {true}
+                    handleRefresh =  {() => {
+                        this.props.fetchAllergies(
+                            this.state.currentPage + 1,
+                            this.state.pageSize
+                        )
+                    }}
                     columns={columns}
                     data={allergies}
                     count={totalRecord}

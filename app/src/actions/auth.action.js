@@ -13,7 +13,7 @@ export const fetchLogin = user => {
                 dispatch(loadingActions.done())
                 dispatch(alertActions.success(`Wellcome ${res.data.user.firstname} ${res.data.user.lastname} ^!^`))
             }else {
-                dispatch(alertActions.error('You dont have role access!'))
+                dispatch(alertActions.error('You dont have role to access this page!'))
                 dispatch(loadingActions.done())
             }
        }catch(err) {
@@ -26,6 +26,6 @@ export const fetchLogin = user => {
 export const logout = () => {
     return dispatch => {
         dispatch({ type: authConstants.LOGOUT })
-        dispatch(alertActions.success("Bey, admin logouted!"))
+        dispatch(alertActions.success("Bey, You have been successfully logged out!"))
     }
 }

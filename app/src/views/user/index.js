@@ -15,6 +15,8 @@ class UserList extends React.Component {
             userEdit: ''
         }
     }
+
+
     render() {
         let { loading, requesting, users, totalRecord, totalPage, openModal, handleClose } = this.props
         let columns = [
@@ -55,6 +57,13 @@ class UserList extends React.Component {
                     />
                 </Modal>
                 <Table
+                    showRefreshAction = {true}
+                    handleRefresh =  {() => {
+                        this.props.getUserAvailble(
+                            this.state.currentPage + 1,
+                            this.state.pageSize
+                        )
+                    }}
                     columns={columns}
                     data={users}
                     count={totalRecord}

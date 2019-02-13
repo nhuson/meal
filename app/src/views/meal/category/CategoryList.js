@@ -22,6 +22,14 @@ class CategoryList extends React.Component {
         ]
         return (
             <Table
+                showRefreshAction = {true}
+                showAddAction = {true}
+                handleRefresh =  {() => {
+                    this.props.fetchCategories(
+                        this.state.currentPage + 1,
+                        this.state.pageSize
+                    )
+                }}
                 columns={columns}
                 data={categories}
                 count={totalRecord}

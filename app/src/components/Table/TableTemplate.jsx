@@ -5,7 +5,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import Loading from '../Loader'
 import '../../assets/css/table.css'
 import config from '../../variables/config'
-
+import Button from "components/CustomButtons/Button.jsx";
+import Topbar from './Topbar'
 class Table extends Component {
     getActions(actions) {
         let action = actions.map(act => {
@@ -69,6 +70,10 @@ class Table extends Component {
             <div style={{ position: 'relative' }}>
                 {this.showLoading(loading)}
                 <div style={{ maxWidth: '100%', opacity: loading ? '0.3' : '1' }}>
+                    <Topbar 
+                        title = {this.props.title}
+                        handleRefresh = {this.props.handleRefresh}    
+                    />
                     <MaterialTable
                         columns={this.props.columns}
                         data={this.props.data}
@@ -78,7 +83,8 @@ class Table extends Component {
                             ...this.props.options,
                             actionsColumnIndex: -1,
                             paging: false,
-                            columnsButton: true
+                            columnsButton: true,
+                            toolbar: false
                         }}
                         detailPanel={this.props.detailPanel}
                     />
