@@ -14,6 +14,7 @@ import Meal from "containers/meal/MainContainer";
 import Contact from "containers/ContactContainer"
 import Settings from "containers/SettingsContainer"
 import Logout from "containers/auth/LogoutContainer"
+import MealUpdate from "views/meal/MealForm"
 
 const dashboardRoutes = [
   {
@@ -21,42 +22,56 @@ const dashboardRoutes = [
     sidebarName: "Dashboard",
     navbarName: "Meal Dashboard",
     icon: DashboardIcon,
-    component: DashboardPage
+    component: DashboardPage,
+    showSidebar: true
   },
   {
     path: "/user",
     sidebarName: "User",
     navbarName: "User",
     icon: PersonIcon,
-    component: User
+    component: User,
+    showSidebar: true
   },
   {
     path: "/meal",
     sidebarName: "Meal",
     navbarName: "Meal",
     icon: MealIcon,
-    component: Meal
+    component: Meal,
+    showSidebar: true
+  },
+  {
+    path: "/meal/update",
+    sidebarName: "MealTest",
+    navbarName: "MealTest",
+    icon: MealIcon,
+    component: MealUpdate,
+    showSidebar: false
   },
   {
     path: "/contact",
     sidebarName: "Contact",
     navbarName: "Contact",
     icon: ContactIcon,
-    component: Contact
+    component: Contact,
+    showSidebar: true
   },
   {
     path: "/settings",
     sidebarName: "Settings",
     navbarName: "Settings",
     icon: SettingsIcon,
-    component: Settings
+    component: Settings,
+    showSidebar: true
   },
   { 
     path: "/logout", 
     sidebarName: "Logout",
     navbarName: "Logout",
     icon: LogoutIcon,
-    component: Logout
+    component: Logout,
+    showSidebar: true
   }
 ];
 

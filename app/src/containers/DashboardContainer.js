@@ -19,10 +19,11 @@ const switchRoutes = (
 		{dashboardRoutes.map((prop, key) => {
 			if (prop.redirect)
 				return <Redirect from={prop.path} to={prop.to} key={key} />;
-			return <Route path={prop.path} component={prop.component} key={key} />;
+			return <Route exact path={prop.path} component={prop.component} key={key} />;
 		})}
 	</Switch>
 );
+const sidebarRoutes = dashboardRoutes.filter(route => route.showSidebar)
 
 class DashboardContainer extends React.Component {
 	constructor(props) {
@@ -67,7 +68,7 @@ class DashboardContainer extends React.Component {
 				{/* Show alert common */}
         {errorAlert.status ? (<Alert message={errorAlert.message} open={true} type={errorAlert.type} />) : ''}
 				<Sidebar
-					routes={dashboardRoutes}
+					routes={sidebarRoutes}
 					logoText={"Meal Plan"}
 					logo={logo}
 					background={color.MAIN}
