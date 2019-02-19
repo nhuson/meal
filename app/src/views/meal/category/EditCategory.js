@@ -9,7 +9,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import FormValidator from "../../../helpers/formValidation"
-import { menuValidations } from "../../../validates"
+import { categoryValidations } from "../../../validates"
 
 const styles = {
     cardCategoryWhite: {
@@ -33,9 +33,10 @@ const styles = {
 class EditCategory extends React.Component {
     constructor(props) {
         super(props)
-        this.validator = new FormValidator(menuValidations)
+        this.validator = new FormValidator(categoryValidations)
         this.submitted = false
         this.state = {
+            editting: true,
             category: {},
             validation: this.validator.valid()
         }
@@ -52,7 +53,7 @@ class EditCategory extends React.Component {
 
                             <Card>
                                 <CardHeader color="primary">
-                                    <h4 className={classes.cardTitleWhite}>Edit Category</h4>
+                                    <h4 className={classes.cardTitleWhite}>{this.state.editting ? 'Update Category' : 'Add Category'}</h4>
                                 </CardHeader>
                                 <CardBody>
                                     <GridContainer>
@@ -87,12 +88,17 @@ class EditCategory extends React.Component {
                                                 value={this.state.category.description || ''}
                                                 onChange={this.handleChange('description')}
                                             />
+                                            {validation.description.isInvalid && (
+                                                <div className="invalid-feedback d-block">
+                                                {validation.description.message}
+                                                </div>
+                                            )}
                                         </GridItem>
                                     </GridContainer>
                                 </CardBody>
                                 <CardFooter>
                                     <Button color="primary" style={{ marginRight: 20 }} onClick={this.props.handleClose} >Close</Button>
-                                    <Button color="primary" type="submit">Update</Button>
+                                    <Button color="primary" type="submit">{this.state.editting ? 'Update' : 'Add'}</Button>
                                 </CardFooter>
                             </Card>
                         </form>
@@ -120,8 +126,8 @@ class EditCategory extends React.Component {
     }
 
     componentDidMount() {
-        let { category } = this.props
-        this.setState({category})
+        let { category, editting } = this.props
+        this.setState({category, editting})
     }
 }
 
