@@ -101,18 +101,19 @@ class Topbar extends React.Component {
                 />
             </div>
                 <div className={classes.action}>
-                    <IconButton 
+                    {this.props.handleCreate ? (<IconButton 
                         color={grey[400]}
                         onClick={this.props.handleCreate}
                     >
                         <IconCreate />
-                    </IconButton>
-                    <IconButton 
+                    </IconButton>) : ""}
+                    {this.props.handleRefresh ? (<IconButton 
                     	color={grey[400]}
-						onClick={this.props.handleRefresh}
-					>
+						          onClick={this.props.handleRefresh}
+					          >
                         <IconRefresh />
-                    </IconButton>
+                    </IconButton>) : ""}
+                    
                 </div>
             </Toolbar>
         </AppBar>

@@ -12,3 +12,7 @@ export const deleteCategory = async (categoryId)  => {
 export const updateCategory = async (category) => {
 	return await request('PUT', `${apiUrl.category.main}/${category.id}`,category)
 }
+
+export const addCategory = async (category) => {
+	return await request('POST', `${apiUrl.category.main}`,category)
+}

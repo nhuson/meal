@@ -30,6 +30,7 @@ class CategoryList extends React.Component {
                         this.state.pageSize
                     )
                 }}
+                handleCreate = {this.props.handleCreate}
                 columns={columns}
                 data={categories}
                 count={totalRecord}

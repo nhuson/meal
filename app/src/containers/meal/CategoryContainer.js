@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import CategoryList from '../../views/meal/category/CategoryList'
 import EditCategory from '../../views/meal/category/EditCategory'
 import Modal from '../../components/Modal'
-import { getCategoriesAvailable, deleteCategory, updateCategory} from '../../actions'
+import { getCategoriesAvailable, deleteCategory, updateCategory, addCategory} from '../../actions'
 import { confirmPopupActions, modalAction } from "../../actions"
 import ConfirmPopup from '../../components/ConfirmPopup'
 
@@ -11,12 +11,18 @@ class CategoryContainer extends Component {
 	constructor(props) {
         super(props)
         this.state = {
+			editting: false,
             category: {}
 		}
 	}
 
 	handleEdit = (category) => {
-		this.setState({category})
+		this.setState({editting: true, category})
+		this.props.openEditPopup()
+	}
+
+	handleCreate = () => {
+		this.setState({editting: false, category: {}})
 		this.props.openEditPopup()
 	}
 
@@ -29,14 +35,15 @@ class CategoryContainer extends Component {
 	render() {
 		let { categories, fetchCategories, totalRecord, totalPage, loading,
 			openConfirm, onDeleteCategory, closeConfirmPopup,
-			openModal, closeEditPopup, onUpdateCategory} = this.props
+			openModal, closeEditPopup, onUpdateCategory, onCreateCategory} = this.props
 		return (
 			<div>
 				<Modal open={openModal}>
-                    <EditCategory 
+					<EditCategory 
+						editting= {this.state.editting}
 						category={this.state.category}
 						handleClose={closeEditPopup}
-						handleUpdate={onUpdateCategory}
+						handleUpdate={this.state.editting ? onUpdateCategory : onCreateCategory}
                     />
                 </Modal>
 				 <ConfirmPopup 
@@ -57,6 +64,7 @@ class CategoryContainer extends Component {
 					fetchCategories={fetchCategories}
 					handleEdit={this.handleEdit}
 					handleDelete={this.handleDelete}
+					handleCreate={this.handleCreate}
 				/>
 			</div>
 		)
@@ -84,6 +92,9 @@ const mapDispatchToProps = (dispatch, props) => {
 		},
 		onUpdateCategory: (category) => {
 			dispatch(updateCategory(category))
+		},
+		onCreateCategory: (category) => {
+			dispatch(addCategory(category))
 		},
 		openConfirmPopup: () => {
 			dispatch(confirmPopupActions.open())

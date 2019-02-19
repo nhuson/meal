@@ -30,6 +30,13 @@ const category = (state = initialState, action) => {
 			return { ...state, categories }
 		}
 			break
+		case categoryConstant.ADD_CATEGORY:
+		{
+			let { categories } = state
+			categories.unshift(action.category)
+			return { ...state, categories }
+		}
+			break
 		default:
 			return state
 	}

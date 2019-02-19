@@ -47,15 +47,18 @@ const create = async (req, res, next) => {
 			throw createError(400, 'This category already exists')
 		}
 
-		await categoryService.create({
+		const newCategory = {
 			title,
 			description,
 			image,
-		})
+		}
+		const ids = await categoryService.create(newCategory)
+		newCategory.id = ids[0]
 
 		res.status(200).json({
 			success: 'success',
 			message: 'The category has been successfully created.',
+			data: newCategory
 		})
 	} catch (err) {
 		next(err)
