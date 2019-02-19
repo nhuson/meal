@@ -43,8 +43,8 @@ const dashboardRoutes = [
   },
   {
     path: "/meal/update",
-    sidebarName: "MealTest",
-    navbarName: "MealTest",
+    sidebarName: "Meal Update",
+    navbarName: "Meal Update",
     icon: MealIcon,
     component: MealUpdate,
     showSidebar: false

@@ -2,6 +2,7 @@ import React from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Table from '../../components/Table/TableTemplate'
 import config from '../../variables/config'
+import history from '../../helpers/history'
 // import ConfirmPopup from '../../components/ConfirmPopup'
 // import Modal from '../../components/Modal'
 
@@ -88,13 +89,14 @@ class Meal extends React.Component {
         }
     }
 
-    handleCreate() {
-        // return <Route path='/meal/create' component={MealForm} />
-    }
-
     componentDidMount() {
         this.props.getMealAvailble(this.state.currentPage, this.state.pageSize)
     }
+
+    handleCreate() {
+        history.push('/meal/update')
+    }
+	
 }
 
 export default Meal
