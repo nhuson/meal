@@ -94,7 +94,7 @@ class Meal extends React.Component {
     }
 
     handleCreate() {
-        history.push('/meal/update')
+        history.push('/meal/form')
     }
 	
 }

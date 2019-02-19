@@ -42,7 +42,7 @@ const dashboardRoutes = [
     showSidebar: true
   },
   {
-    path: "/meal/update",
+    path: "/meal/form",
     sidebarName: "Meal Update",
     navbarName: "Meal Update",
     icon: MealIcon,
