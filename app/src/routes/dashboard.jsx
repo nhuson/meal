@@ -14,7 +14,7 @@ import Meal from "containers/meal/MainContainer";
 import Contact from "containers/ContactContainer"
 import Settings from "containers/SettingsContainer"
 import Logout from "containers/auth/LogoutContainer"
-import MealUpdate from "views/meal/MealForm"
+import MealUpdate from "containers/meal/MealFormContainer"
 
 const dashboardRoutes = [
   {

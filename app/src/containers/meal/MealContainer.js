@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, props) => {
 	return {
 		getMealAvailble: (currentPage, pageSize) => {
 			dispatch(mealActions.getMeals(currentPage, pageSize))
-		},
+		}
 	}
 }
 
