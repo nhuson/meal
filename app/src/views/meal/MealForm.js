@@ -11,6 +11,8 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Switch from '@material-ui/core/Switch'
+import Select from '../../components/Select'
+
 import FormValidator from "../../helpers/formValidation"
 import { userValidations } from "../../validates"
 
@@ -33,6 +35,9 @@ const styles = {
     }
 }
 class MealForm extends React.Component {
+    constructor(props) {
+        super(props)
+    }
     render() {
         const { classes } = this.props
         return (
@@ -48,7 +53,7 @@ class MealForm extends React.Component {
                                 </CardHeader>
                                 <CardBody>
                                     <GridContainer>
-                                        <GridItem xs={12} sm={12} md={6}>
+                                        <GridItem xs={12} sm={12} md={12}>
                                             <CustomInput
                                                 labelText="Title"
                                                 id="title"
@@ -68,47 +73,86 @@ class MealForm extends React.Component {
                                                 </div>
                                             )} */}
                                         </GridItem>
-                                        <GridItem xs={12} sm={12} md={6}>
+                                    </GridContainer>
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={4}>
                                             <CustomInput
-                                                labelText="Last Name"
-                                                id="lastname"
-                                                // error={validation.lastname.isInvalid ? true : false}
+                                                labelText="Time"
+                                                id="time"
+                                                // error={validation.firstname.isInvalid ? true : false}
                                                 formControlProps={{
                                                     fullWidth: true
                                                 }}
-                                                // value={this.state.lastname}
-                                                onChange={this.handleChange('lastname')}
+                                                // value={this.state.firstname}
+                                                onChange={this.handleChange('time')}
+                                                inputProps={{
+                                                    disabled: this.props.requesting,
+                                                    step: 60, // 1 min
+                                                }}
+                                                type="time"
+                                                defaultValue="00:30"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                            />
+                                            {/* {validation.firstname.isInvalid && (
+                                                <div className="invalid-feedback d-block">
+                                                    {validation.firstname.message}
+                                                </div>
+                                            )} */}
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            <CustomInput
+                                                labelText="Serving"
+                                                id="serving"
+                                                // error={validation.firstname.isInvalid ? true : false}
+                                                formControlProps={{
+                                                    fullWidth: true
+                                                }}
+                                                // value={this.state.firstname}
+                                                onChange={this.handleChange('serving')}
                                                 inputProps={{
                                                     disabled: this.props.requesting
                                                 }}
+                                                type="number"
+                                                defaultValue="1"
                                             />
-                                            {/* {validation.lastname.isInvalid && (
+                                            {/* {validation.firstname.isInvalid && (
                                                 <div className="invalid-feedback d-block">
-                                                    {validation.lastname.message}
+                                                    {validation.firstname.message}
+                                                </div>
+                                            )} */}
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            <CustomInput
+                                                labelText="Calorie"
+                                                id="calorie"
+                                                // error={validation.firstname.isInvalid ? true : false}
+                                                formControlProps={{
+                                                    fullWidth: true
+                                                }}
+                                                // value={this.state.firstname}
+                                                onChange={this.handleChange('calorie')}
+                                                inputProps={{
+                                                    disabled: this.props.requesting
+                                                }}
+                                                type="number"
+                                                defaultValue="100"
+                                            />
+                                            {/* {validation.firstname.isInvalid && (
+                                                <div className="invalid-feedback d-block">
+                                                    {validation.firstname.message}
                                                 </div>
                                             )} */}
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
-                                        <GridItem xs={12} sm={12} md={12}>
-                                            <CustomInput
-                                                labelText="Email"
-                                                id="email"
-                                                // error={validation.email.isInvalid ? true : false}
-                                                formControlProps={{
-                                                    fullWidth: true
-                                                }}
-                                                // value={this.state.email}
-                                                onChange={this.handleChange('email')}
-                                                inputProps={{
-                                                    disabled: this.props.requesting
-                                                }}
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            <Select 
+                                                title="Category"
+                                                name="category"
+                                                data={this.props.categories}
                                             />
-                                            {/* {validation.email.isInvalid && (
-                                                <div className="invalid-feedback d-block">
-                                                    {validation.email.message}
-                                                </div>
-                                            )} */}
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
@@ -130,6 +174,10 @@ class MealForm extends React.Component {
                 </GridContainer>
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.props.getCategoriesAvailable()
     }
 
     handleChange = name => event => {
