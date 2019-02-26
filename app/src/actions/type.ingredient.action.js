@@ -3,7 +3,8 @@ import { alertActions } from './alert.action'
 import { loadingActions } from './loading.action'
 import { getTypeIngredients,
 	 deleteTypeIngredient as dti,
-	 updateTypeIngredient as uti } from '../api'
+	 updateTypeIngredient as uti,
+	 addTypeIngredient as ati } from '../api'
 
 export const getTypeIngredientsAvailable = (pageNumber, pageSize) => {
 	return async dispatch => {
@@ -12,9 +13,9 @@ export const getTypeIngredientsAvailable = (pageNumber, pageSize) => {
 			let resp = await getTypeIngredients(pageNumber, pageSize)
 			dispatch({
                 type: typeIngredientConstant.GET_TYPE_INGREDIENTS,
-                typeIngredients: resp.data.typeIngredients,
-                total_page: resp.data.total_page,
-                total_record: resp.data.total_record
+                typeIngredients: resp.data.typeIngredients || [],
+                total_page: resp.data.total_page || [],
+                total_record: resp.data.total_record || []
              })
 			dispatch(loadingActions.done())
 		}catch(err) {
@@ -49,6 +50,25 @@ export const updateTypeIngredient = (typeIngredient) => {
 			let resp = await uti(typeIngredient)
 			dispatch({
                 type: typeIngredientConstant.UPDATE_TYPE_INGREDIENT,
+                typeIngredient
+             })
+			dispatch(loadingActions.done())
+			dispatch(alertActions.success(resp.message))
+		}catch(err) {
+			dispatch(alertActions.error(err))
+			dispatch(loadingActions.done())
+		}
+	}
+}
+
+export const addTypeIngredient = (typeIngredient) => {
+	return async dispatch => {
+		try {
+			dispatch(loadingActions.loading())
+			let resp = await ati(typeIngredient)
+			typeIngredient.id = resp.data.id
+			dispatch({
+                type: typeIngredientConstant.ADD_TYPE_INGREDIENT,
                 typeIngredient
              })
 			dispatch(loadingActions.done())

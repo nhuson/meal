@@ -30,6 +30,13 @@ const allergy = (state = initialState, action) => {
 			return { ...state, allergies }
 		}
 			break
+		case allergyConstant.ADD_ALLERGY:
+		{
+			let { allergies } = state
+			allergies.unshift(action.allergy)
+			return { ...state, allergies }
+		}
+			break
 		default:
 			return state
 	}

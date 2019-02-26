@@ -1,7 +1,8 @@
 import React from 'react'
+import moment from 'moment'
 import Table from '../../../components/Table/TableTemplate'
 import config from '../../../variables/config'
-import moment from 'moment'
+import ImageView from "components/Image/ImageView.jsx"
 
 class CategoryList extends React.Component {
     constructor(props) {
@@ -14,6 +15,13 @@ class CategoryList extends React.Component {
     render() {
         let { loading, categories, totalRecord} = this.props
         let columns = [
+            // { title: 'Image', field: 'image', render: (rowData) => {
+            //         return <ImageView
+            //             image={`${config.S3_URL}/${rowData.image}`}
+            //             width={'70px'}
+            //             height={'70px'}
+            //         />
+            // }},
             { title: 'Title', field: 'title' },
 			{ title: 'Description', field: 'description' },
 			{ title: 'Created Date', field: 'created_at',  render: (rowData) => {

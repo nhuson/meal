@@ -12,3 +12,7 @@ export const deleteTypeIngredient = async (typIngredientId) => {
 export const updateTypeIngredient = async (typeIngredient) => {
 	return await request('PUT', `${apiUrl.typeIngredient.main}/${typeIngredient.id}`,typeIngredient)
 }
+
+export const addTypeIngredient = async (typeIngredient) => {
+	return await request('POST', `${apiUrl.typeIngredient.main}`,typeIngredient)
+}

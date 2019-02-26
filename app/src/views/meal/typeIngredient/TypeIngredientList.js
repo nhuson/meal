@@ -31,6 +31,7 @@ class TypeIngredientList extends React.Component {
                             this.state.pageSize
                         )
                     }}
+                    handleCreate = {this.props.handleCreate}
                     columns={columns}
                     data={typeIngredients}
                     count={totalRecord}

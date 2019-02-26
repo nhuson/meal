@@ -30,6 +30,13 @@ const typeIngredient = (state = initialState, action) => {
 			return { ...state, typeIngredients }
 		}
 			break
+		case typeIngredientConstant.ADD_TYPE_INGREDIENT:
+		{
+			let { typeIngredients } = state
+			typeIngredients.unshift(action.typeIngredient)
+			return { ...state, typeIngredients }
+		}
+			break
 		default:
 			return state
 	}

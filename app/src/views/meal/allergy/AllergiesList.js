@@ -30,6 +30,7 @@ class AllergiesList extends React.Component {
                             this.state.pageSize
                         )
                     }}
+                    handleCreate = {this.props.handleCreate}
                     columns={columns}
                     data={allergies}
                     count={totalRecord}

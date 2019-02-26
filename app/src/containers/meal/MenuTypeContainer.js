@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import MenuTypeList from '../../views/meal/menuType/MenuTypeList'
-import { getMenusAvailable, deleteMenu, updateMenu} from '../../actions'
+import { getMenusAvailable, deleteMenu, updateMenu, addMenu} from '../../actions'
 import { confirmPopupActions, modalAction } from "../../actions"
 import Modal from '../../components/Modal'
 import EditMenuType from '../../views/meal/menuType/EditMenuType'
@@ -11,12 +11,18 @@ class MenuTypeContainer extends Component {
 	constructor(props) {
         super(props)
         this.state = {
+			editting: false,
             menu: {}
 		}
 	}
 
 	handleEdit = (menu) => {
-		this.setState({menu})
+		this.setState({editting: true, menu})
+		this.props.openEditPopup()
+	}
+
+	handleCreate = () => {
+		this.setState({editting: false, menu: {}})
 		this.props.openEditPopup()
 	}
 
@@ -28,15 +34,17 @@ class MenuTypeContainer extends Component {
 	render() {
 		let {menus, fetchMenus, totalRecord, totalPage, loading,
 			openConfirm, onDeleteMenu, closeConfirmPopup,
-			openModal, closeEditPopup, onUpdateMenu} = this.props
+			openModal, closeEditPopup, onUpdateMenu, onCreateMenu} = this.props
 
 		return (
 			<div>
 				<Modal open={openModal}>
-                    <EditMenuType 
+					<EditMenuType 
+						editting= {this.state.editting}
 						menu={this.state.menu}
 						handleClose={closeEditPopup}
 						handleUpdate={onUpdateMenu}
+						hanldeAdd={onCreateMenu}
                     />
                 </Modal>
 				<ConfirmPopup 
@@ -57,6 +65,7 @@ class MenuTypeContainer extends Component {
 					fetchMenus={fetchMenus}
 					handleEdit={this.handleEdit}
 					handleDelete={this.handleDelete}
+					handleCreate={this.handleCreate}
 				/>
 			</div>
 		)
@@ -78,6 +87,9 @@ const mapDispatchToProps = (dispatch, props) => {
 	return {
 		fetchMenus: (currentPage, pageSize) => {
 			dispatch(getMenusAvailable(currentPage, pageSize))
+		},
+		onCreateMenu: (menu) => {
+			dispatch(addMenu(menu))
 		},
 		onDeleteMenu: (menuId) => {
 			dispatch(deleteMenu(menuId))

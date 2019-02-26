@@ -12,10 +12,10 @@ import _ from 'lodash'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await categoryService.findAll()
+			let categories = await categoryService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data,
+				data: {categories},
 			})
 		} else {
 			let data = await categoryService.getCategoryAvailable({
@@ -41,7 +41,7 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		const { title, description, image } = req.body
+		const { title, description, image} = req.body
 		const category = await categoryService.findOne({ title })
 		if (category) {
 			throw createError(400, 'This category already exists')
@@ -52,6 +52,7 @@ const create = async (req, res, next) => {
 			description,
 			image,
 		}
+		console.log(newCategory, '----------')
 		const ids = await categoryService.create(newCategory)
 		newCategory.id = ids[0]
 
@@ -61,6 +62,7 @@ const create = async (req, res, next) => {
 			data: newCategory
 		})
 	} catch (err) {
+		console.log(err)
 		next(err)
 	}
 }

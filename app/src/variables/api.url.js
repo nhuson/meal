@@ -25,6 +25,9 @@ const urlV1 = {
     meal: {
         meal_resource: '/meal',
         meal_by_page: '/meal_by_page'
+    },
+    upload: {
+        main: '/upload'
     }
 }
 

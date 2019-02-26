@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import TypeIngredientList from '../../views/meal/typeIngredient/TypeIngredientList'
 import EditTypeIngredient from '../../views/meal/typeIngredient/EditTypeIngredient'
-import { getTypeIngredientsAvailable, deleteTypeIngredient, updateTypeIngredient} from '../../actions'
+import { getTypeIngredientsAvailable, deleteTypeIngredient, updateTypeIngredient, addTypeIngredient} from '../../actions'
 import { confirmPopupActions , modalAction} from "../../actions"
 import ConfirmPopup from '../../components/ConfirmPopup'
 import Modal from '../../components/Modal'
@@ -11,12 +11,18 @@ class TypeIngredientContainer extends Component {
 	constructor(props) {
         super(props)
         this.state = {
+			editting: false,
             typeIngredient: {}
 		}
 	}
 
 	handleEdit = (typeIngredient) => {
-		this.setState({typeIngredient})
+		this.setState({editting: true, typeIngredient})
+		this.props.openEditPopup()
+	}
+
+	handleCreate = () => {
+		this.setState({editting: false, typeIngredient: {}})
 		this.props.openEditPopup()
 	}
 
@@ -28,14 +34,16 @@ class TypeIngredientContainer extends Component {
 	render() {
 		let { typeIngredients, fetchTypeIngredients, totalRecord, totalPage, loading,
 			openConfirm, closeConfirmPopup, onDeleteTypeIngredient,
-			openModal, closeEditPopup, onUpdateTypeIngredient} = this.props
+			openModal, closeEditPopup, onUpdateTypeIngredient, onCreateTypeIngredient} = this.props
 		return (
 			<div>
 				<Modal open={openModal}>
-                    <EditTypeIngredient 
+					<EditTypeIngredient 
+						editting= {this.state.editting}
 						typeIngredient={this.state.typeIngredient}
 						handleClose={closeEditPopup}
 						handleUpdate={onUpdateTypeIngredient}
+						hanldeAdd={onCreateTypeIngredient}
                     />
                 </Modal>
 				<ConfirmPopup 
@@ -56,6 +64,7 @@ class TypeIngredientContainer extends Component {
 					fetchTypeIngredients={fetchTypeIngredients}
 					handleDelete={this.handleDelete}
 					handleEdit={this.handleEdit}
+					handleCreate={this.handleCreate}
 				/>
 			</div>
 		)
@@ -77,6 +86,9 @@ const mapDispatchToProps = (dispatch, props) => {
 	return {
 		fetchTypeIngredients: (currentPage, pageSize) => {
 			dispatch(getTypeIngredientsAvailable(currentPage, pageSize))
+		},
+		onCreateTypeIngredient: (typeIngredient) => {
+			dispatch(addTypeIngredient(typeIngredient))
 		},
 		onDeleteTypeIngredient: (id) => {
 			dispatch(deleteTypeIngredient(id))

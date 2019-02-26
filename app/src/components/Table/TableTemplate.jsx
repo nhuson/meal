@@ -85,7 +85,10 @@ class Table extends Component {
                             actionsColumnIndex: -1,
                             paging: false,
                             columnsButton: true,
-                            toolbar: false
+                            toolbar: false,
+                            headerStyle: {
+                                backgroundColor: "#fff"
+                            }
                         }}
                         detailPanel={this.props.detailPanel}
                     />

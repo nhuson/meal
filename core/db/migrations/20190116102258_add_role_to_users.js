@@ -1,6 +1,6 @@
 exports.up = function(knex, Promise) {
 	return knex.schema.table('users', function(t) {
-		t.string('role').default('USER')
+		t.string('role').default('user')
 	})
 }
 
