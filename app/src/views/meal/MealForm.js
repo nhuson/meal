@@ -12,6 +12,8 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Switch from '@material-ui/core/Switch'
 import Select from '../../components/Select'
+import Instruction from 'components/Meal/Instruction.jsx'
+
 
 import FormValidator from "../../helpers/formValidation"
 import { userValidations } from "../../validates"
@@ -37,6 +39,9 @@ const styles = {
 class MealForm extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+
+        }
     }
     render() {
         const { classes } = this.props
@@ -72,6 +77,16 @@ class MealForm extends React.Component {
                                                     {validation.firstname.message}
                                                 </div>
                                             )} */}
+                                        </GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <InputLabel style={{ color: "#AAAAAA" }}>
+                                                Instruction 
+                                            </InputLabel>
+                                            <Instruction 
+                                            
+                                            />
                                         </GridItem>
                                     </GridContainer>
                                     <GridContainer>
@@ -154,6 +169,20 @@ class MealForm extends React.Component {
                                                 data={this.props.categories}
                                             />
                                         </GridItem>
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            <Select 
+                                                title="Menu type"
+                                                name="menu"
+                                                data={this.props.menus}
+                                            />
+                                        </GridItem>
+                                        <GridItem xs={12} sm={12} md={4}>
+                                            <Select 
+                                                title="Allergi Type"
+                                                name="allergy"
+                                                data={this.props.allergies}
+                                            />
+                                        </GridItem>
                                     </GridContainer>
                                     <GridContainer>
                                         <GridItem xs={12} sm={12} md={12}>
@@ -178,6 +207,8 @@ class MealForm extends React.Component {
 
     componentDidMount() {
         this.props.getCategoriesAvailable()
+        this.props.getMenusAvailable()
+        this.props.getAllergiTypes()
     }
 
     handleChange = name => event => {

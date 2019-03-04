@@ -33,7 +33,8 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "validator": "^10.11.0"
+    "validator": "^10.11.0",
+    "@nhuson/react-list-input": "git+https://git@github.com/nhuson/react-list-input.git"
   },
   "scripts": {
     "start": "PORT=8080 ./node_modules/.bin/react-scripts start",
