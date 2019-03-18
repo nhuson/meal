@@ -2,21 +2,27 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import AllergiesList from '../../views/meal/allergy/AllergiesList'
 import EditAllergy from '../../views/meal/allergy/EditAllergy'
-import { getAllergiesAvailable, deleteAllergy, updateAllergy} from '../../actions'
+import { getAllergiesAvailable, deleteAllergy, updateAllergy, addAllergy} from '../../actions'
 import { confirmPopupActions, modalAction} from "../../actions"
 import ConfirmPopup from '../../components/ConfirmPopup'
 import Modal from '../../components/Modal'
 
-class AllergiesContainer extends Component {
+class AllergyContainer extends Component {
 	constructor(props) {
         super(props)
         this.state = {
+			editting: false,
             allergy: {}
 		}
 	}
 
 	handleEdit = (allergy) => {
-		this.setState({allergy})
+		this.setState({editting: true, allergy})
+		this.props.openEditPopup()
+	}
+
+	handleCreate = () => {
+		this.setState({editting: false, allergy: {}})
 		this.props.openEditPopup()
 	}
 
@@ -29,14 +35,16 @@ class AllergiesContainer extends Component {
 	render() {
 		let { allergies, fetchAllergies, totalRecord, totalPage, loading,
 			openConfirm, onDeleteAllergy, closeConfirmPopup,
-			openModal, closeEditPopup, onUpdateAllergy} = this.props
+			openModal, closeEditPopup, onUpdateAllergy, onCreateAllergy} = this.props
 		return (
 			<div>
 				<Modal open={openModal}>
-                    <EditAllergy 
+					<EditAllergy 
+						editting= {this.state.editting}
 						allergy={this.state.allergy}
 						handleClose={closeEditPopup}
 						handleUpdate={onUpdateAllergy}
+						hanldeAdd={onCreateAllergy}
                     />
                 </Modal>
 				<ConfirmPopup 
@@ -57,6 +65,7 @@ class AllergiesContainer extends Component {
 					fetchAllergies={fetchAllergies}
 					handleEdit={this.handleEdit}
 					handleDelete={this.handleDelete}
+					handleCreate={this.handleCreate}
 				/>
 			</div>
 		)
@@ -79,6 +88,9 @@ const mapDispatchToProps = (dispatch, props) => {
 		fetchAllergies: (currentPage, pageSize) => {
 			dispatch(getAllergiesAvailable(currentPage, pageSize))
 		},
+		onCreateAllergy: (allergy) => {
+			dispatch(addAllergy(allergy))
+		},
 		onDeleteAllergy: (allergyId) => {
 			dispatch(deleteAllergy(allergyId))
 		},
@@ -100,4 +112,4 @@ const mapDispatchToProps = (dispatch, props) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllergiesContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AllergyContainer)

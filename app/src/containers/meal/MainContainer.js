@@ -9,7 +9,7 @@ import Meal from './MealContainer'
 import MenuType from './MenuTypeContainer'
 import Category from './CategoryContainer';
 import Ingredient from './IngredientContainer';
-import Allergies from './AllergiesContainer';
+import Allergy from './AllergyContainer';
 import TypeIngredient from './TypeIngredientContainer'
 class MainContainer extends Component {
 	render() {
@@ -39,6 +39,12 @@ class MainContainer extends Component {
 									)
 								},
 								{
+									tabName: "Allergies And Restrictions",
+									tabContent: (
+										<Allergy />
+									)
+								},
+								{
 									tabName: "Ingredient-Type",
 									tabContent: (
 										<TypeIngredient />
@@ -49,13 +55,8 @@ class MainContainer extends Component {
 									tabContent: (
 										<Ingredient />
 									)
-								},
-								{
-									tabName: "Allergies And Restrictions",
-									tabContent: (
-										<Allergies />
-									)
 								}
+								
 							]}
 						/>
 					</GridItem>

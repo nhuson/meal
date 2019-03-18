@@ -12,3 +12,7 @@ export const deleteMenu = async (menuId) => {
 export const updateMenu = async (menu) => {
 	return await request('PUT', `${apiUrl.menuType.main}/${menu.id}`,menu)
 }
+
+export const addMenu = async (menu) => {
+	return await request('POST', `${apiUrl.menuType.main}`,menu)
+}

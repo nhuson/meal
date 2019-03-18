@@ -12,10 +12,10 @@ import _ from 'lodash'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await menuTypeService.findAll()
+			let menus = await menuTypeService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data,
+				data: {menus},
 			})
 		} else {
 			let data = await menuTypeService.getMenusAvailable({
@@ -42,15 +42,25 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
 	try {
 		const { title, description } = req.body
-		await menuTypeService.create({
+		const menu = await menuTypeService.findOne({ title })
+		if (menu) {
+			throw createError(400, 'This menu already exists')
+		}
+
+		const newMenu = {
 			title,
-			description,
+			description
+		}
+
+		const ids = await menuTypeService.create(newMenu)
+		newMenu.id = ids[0]
+
+		res.status(200).json({
+			success: 'success',
+			message: 'The menu type has been successfully created.',
+			data: newMenu
 		})
 
-		res.status(200).json({ 
-			success: 'success',
-			message: 'The menu type has been successfully created.'
-		 })
 	} catch (err) {
 		next(err)
 	}

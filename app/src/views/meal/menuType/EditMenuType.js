@@ -36,6 +36,7 @@ class EditMenuType extends React.Component {
         this.validator = new FormValidator(menuValidations)
         this.submitted = false
         this.state = {
+            editting: true,
             menu: {},
             validation: this.validator.valid()
         }
@@ -52,7 +53,7 @@ class EditMenuType extends React.Component {
 
                             <Card>
                                 <CardHeader color="primary">
-                                    <h4 className={classes.cardTitleWhite}>Edit Menu-Type</h4>
+                                    <h4 className={classes.cardTitleWhite}>{this.state.editting ? 'Update Menu-Type' : 'Add Menu-Type'}</h4>
                                 </CardHeader>
                                 <CardBody>
                                     <GridContainer>
@@ -92,7 +93,7 @@ class EditMenuType extends React.Component {
                                 </CardBody>
                                 <CardFooter>
                                     <Button color="primary" style={{ marginRight: 20 }} onClick={this.props.handleClose} >Close</Button>
-                                    <Button color="primary" type="submit">Update</Button>
+                                    <Button color="primary" type="submit">{this.state.editting ? 'Update' : 'Add'}</Button>
                                 </CardFooter>
                             </Card>
                         </form>
@@ -109,7 +110,9 @@ class EditMenuType extends React.Component {
         this.submitted = true
         if (validation.isValid) {
             this.props.handleClose()
-			this.props.handleUpdate(this.state.menu)
+			this.state.editting ?
+            this.props.handleUpdate(this.state.menu) :
+            this.props.hanldeAdd(this.state.menu)
 		}
     }
 
@@ -120,8 +123,8 @@ class EditMenuType extends React.Component {
     }
 
     componentDidMount() {
-        let { menu } = this.props
-        this.setState({menu})
+        let { menu, editting } = this.props
+        this.setState({menu, editting})
     }
 }
 

@@ -13,6 +13,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Switch from '@material-ui/core/Switch'
 import Select from '../../components/Select'
 import Instruction from 'components/Meal/Instruction.jsx'
+import Ingredient from 'components/Meal/Ingredient.jsx'
 
 
 import FormValidator from "../../helpers/formValidation"
@@ -187,6 +188,12 @@ class MealForm extends React.Component {
                                     <GridContainer>
                                         <GridItem xs={12} sm={12} md={12}>
                                             <InputLabel style={{ color: "#AAAAAA" }}>Status</InputLabel>
+                                        </GridItem>
+                                    </GridContainer>
+                                    <GridContainer>
+                                        sss
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <Ingredient />
                                         </GridItem>
                                     </GridContainer>
                                 </CardBody>

@@ -12,3 +12,7 @@ export const deleteAllergy = async (allergyId) => {
 export const updateAllergy = async (allergy) => {
 	return await request('PUT', `${apiUrl.allergyType.main}/${allergy.id}`,allergy)
 }
+
+export const addAllergy = async (allergy) => {
+	return await request('POST', `${apiUrl.allergyType.main}`,allergy)
+}

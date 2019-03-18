@@ -12,10 +12,10 @@ import typeIngredientService from '../services/typeIngredient.service'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await typeIngredientService.findAll()
+			let typeIngredients = await typeIngredientService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data,
+				data: {typeIngredients},
 			})
 		} else {
 			let data = await typeIngredientService.getTypeIngredientsAvailable({
@@ -46,15 +46,19 @@ const create = async (req, res, next) => {
 		let typeIngredient = await typeIngredientService.findOne({ title })
 		if (typeIngredient) throw createError(400, 'This type ingredient already exists')
 
-		await typeIngredientService.create({
+		const newTypeIngredient = {
 			title,
 			description,
-			image,
-		})
+			image
+		}
+
+		const ids = await typeIngredientService.create(newTypeIngredient)
+		newTypeIngredient.id = ids[0]
 
 		res.status(200).json({
 			success: 'success',
 			message: 'The type ingredient has been successfully created.',
+			data: newTypeIngredient
 		})
 	} catch (err) {
 		next(err)

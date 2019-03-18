@@ -10,9 +10,9 @@ export const getCategoriesAvailable = (pageNumber, pageSize) => {
 			let resp = await getCategories(pageNumber, pageSize)
 			dispatch({
                 type: categoryConstant.GET_CATEGORIES,
-                categories: resp.data.categories,
-                total_page: resp.data.total_page,
-                total_record: resp.data.total_record
+                categories: resp.data.categories || [],
+                total_page: resp.data.total_page || 0,
+                total_record: resp.data.total_record || 0
              })
 			dispatch(loadingActions.done())
 		}catch(err) {

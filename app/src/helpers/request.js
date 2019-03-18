@@ -11,7 +11,7 @@ const client = axios.create({
 	timeout: 30000, //30 seconds
 });
 
-const request = (method = "GET", url, data = null, params = null) => {
+const request = (method = "GET", url, data = null, params = null, headers = null) => {
 	const onSuccess = response => {
 		console.debug("Request Successful!", response.data);
 		return response.data;
@@ -40,7 +40,10 @@ const request = (method = "GET", url, data = null, params = null) => {
 
 	return client({
 			method: method,
-			headers: authHeader(),
+			headers: {
+				...authHeader(),
+				...(headers && headers)
+			},
 			url: url,
 			params: params,
 			data: data

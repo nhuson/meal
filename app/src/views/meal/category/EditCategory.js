@@ -8,8 +8,10 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import ImageUpload from "components/Image/ImageUpload.jsx"
 import FormValidator from "../../../helpers/formValidation"
 import { categoryValidations } from "../../../validates"
+
 
 const styles = {
     cardCategoryWhite: {
@@ -28,6 +30,7 @@ const styles = {
         marginBottom: "3px",
         textDecoration: "none"
     }
+
 }
 
 class EditCategory extends React.Component {
@@ -88,12 +91,19 @@ class EditCategory extends React.Component {
                                                 value={this.state.category.description || ''}
                                                 onChange={this.handleChange('description')}
                                             />
-                                            {validation.description.isInvalid && (
-                                                <div className="invalid-feedback d-block">
-                                                {validation.description.message}
-                                                </div>
-                                            )}
                                         </GridItem>
+                                        {/* <GridItem xs={4} sm={4} md={4}>
+                                            <ImageUpload
+                                                referent={ref => this.uploader = ref}
+                                                allowImageCrop={true}
+                                                imageCropAspectRatio={'1:1'}
+                                                allowImageResize={true}
+                                                imageResizeTargetWidth={100}
+                                                imageResizeTargetHeight={100}
+                                                allowImageTransform={true}
+                                                location={'categories'}
+                                                />
+                                        </GridItem> */}
                                     </GridContainer>
                                 </CardBody>
                                 <CardFooter>
@@ -114,8 +124,10 @@ class EditCategory extends React.Component {
 		this.setState({ validation })
         this.submitted = true
         if (validation.isValid) {
-            this.props.handleClose()
-			this.props.handleUpdate(this.state.category)
+          this.props.handleClose()
+          this.state.editting ?
+            this.props.handleUpdate(this.state.category) :
+            this.props.hanldeAdd(this.state.category)
 		}
     }
 

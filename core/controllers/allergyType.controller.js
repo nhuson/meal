@@ -11,10 +11,10 @@ import _ from 'lodash'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await allergyTypeService.findAll()
+			let allergies = await allergyTypeService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data,
+				data:{allergies},
 			})
 		} else {
 			let data = await allergyTypeService.getAllergiesAvailable({
@@ -41,12 +41,24 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
 	try {
 		const { title, description } = req.body
-		await allergyTypeService.create({
-			title,
-			description,
-		})
+		const allergy = await allergyTypeService.findOne({ title })
+		if (allergy) {
+			throw createError(400, 'This allergy already exists')
+		}
 
-		res.status(200).json({ success: 'success' })
+		const newAllergy = {
+			title,
+			description
+		}
+
+		const ids = await allergyTypeService.create(newAllergy)
+		newAllergy.id = ids[0]
+
+		res.status(200).json({
+			success: 'success',
+			message: 'The allergy has been successfully created.',
+			data: newAllergy
+		})
 	} catch (err) {
 		next(err)
 	}

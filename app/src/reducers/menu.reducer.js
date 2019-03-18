@@ -30,6 +30,13 @@ const menu = (state = initialState, action) => {
 			return { ...state, menus }
 		}
 			break
+		case menuConstant.ADD_MENU:
+		{
+			let { menus } = state
+			menus.unshift(action.menu)
+			return { ...state, menus }
+		}
+			break
 		default:
 			return state
 	}

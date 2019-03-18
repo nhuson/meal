@@ -43,7 +43,8 @@ class CategoryContainer extends Component {
 						editting= {this.state.editting}
 						category={this.state.category}
 						handleClose={closeEditPopup}
-						handleUpdate={this.state.editting ? onUpdateCategory : onCreateCategory}
+						handleUpdate={onUpdateCategory}
+						hanldeAdd={onCreateCategory}
                     />
                 </Modal>
 				 <ConfirmPopup 

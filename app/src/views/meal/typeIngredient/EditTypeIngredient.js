@@ -9,7 +9,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import FormValidator from "../../../helpers/formValidation"
-import { menuValidations } from "../../../validates"
+import { typeIngredientValidations } from "../../../validates"
 
 const styles = {
     cardCategoryWhite: {
@@ -33,9 +33,10 @@ const styles = {
 class EditTypeIngredient extends React.Component {
     constructor(props) {
         super(props)
-        this.validator = new FormValidator(menuValidations)
+        this.validator = new FormValidator(typeIngredientValidations)
         this.submitted = false
         this.state = {
+            editting: true,
             typeIngredient: {},
             validation: this.validator.valid()
         }
@@ -52,7 +53,7 @@ class EditTypeIngredient extends React.Component {
 
                             <Card>
                                 <CardHeader color="primary">
-                                    <h4 className={classes.cardTitleWhite}>Edit Menu-Type</h4>
+                                    <h4 className={classes.cardTitleWhite}>{this.state.editting ? 'Update Type-Ingredient' : 'Add Type-Ingredient'}</h4>
                                 </CardHeader>
                                 <CardBody>
                                     <GridContainer>
@@ -92,7 +93,7 @@ class EditTypeIngredient extends React.Component {
                                 </CardBody>
                                 <CardFooter>
                                     <Button color="primary" style={{ marginRight: 20 }} onClick={this.props.handleClose} >Close</Button>
-                                    <Button color="primary" type="submit">Update</Button>
+                                    <Button color="primary" type="submit">{this.state.editting ? 'Update' : 'Add'}</Button>
                                 </CardFooter>
                             </Card>
                         </form>
@@ -109,7 +110,9 @@ class EditTypeIngredient extends React.Component {
         this.submitted = true
         if (validation.isValid) {
             this.props.handleClose()
-			this.props.handleUpdate(this.state.typeIngredient)
+			this.state.editting ?
+            this.props.handleUpdate(this.state.typeIngredient) :
+            this.props.hanldeAdd(this.state.typeIngredient)
 		}
     }
 
@@ -120,8 +123,8 @@ class EditTypeIngredient extends React.Component {
     }
 
     componentDidMount() {
-        let { typeIngredient } = this.props
-        this.setState({typeIngredient})
+        let { typeIngredient, editting } = this.props
+        this.setState({typeIngredient, editting})
     }
 }
 

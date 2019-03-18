@@ -1,5 +1,4 @@
 import React from 'react'
-import { invert } from 'lodash'
 import ReactListInput from '@nhuson/react-list-input'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
