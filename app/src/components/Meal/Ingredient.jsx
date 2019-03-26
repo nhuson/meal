@@ -144,48 +144,6 @@ class ContactForm extends React.Component {
         });
     }
 
-    renderSubmit() {
-        let submit;
-        if (this.state.editMode === FormEditStates.ALWAYS) {
-            let disableSubmit = true;
-            let helperText = "";
-            if (this.state.hasErrors === false && this.state.hasMissing === false) {
-                disableSubmit = false;
-            } else {
-                helperText =
-                    this.state.hasErrors === true
-                        ? "* Unable to save because while form has errors"
-                        : "* Unable to save because the form has some missing required fields";
-            }
-            submit = (
-                <div>
-                    <span>
-                        <button
-                            type="submit"
-                            className="btn btn-default"
-                            disabled={disableSubmit}
-                            onClick={() => this.handleSubmit()}
-                        >
-                            Save
-                        </button>
-                    </span>
-                    <span
-                        style={{
-                            fontSize: 12,
-                            paddingLeft: 10,
-                            color: "orange"
-                        }}
-                    >
-                        {helperText}
-                    </span>
-                </div>
-            );
-        } else {
-            submit = <div>* Make changes to the form by clicking the pencil icons</div>;
-        }
-        return submit;
-    }
-
     render() {
         const style = { background: "#FAFAFA", padding: 10, borderRadius: 5 };
         const { value } = this.props;
@@ -203,12 +161,7 @@ class ContactForm extends React.Component {
                     onChange={(fieldName, value) => this.handleChange(fieldName, value)}
                 >
                     <Ingredients field="ingredients" value={ingredients} />
-                    <hr />
                 </Form>
-                <div className="row">
-                    <div className="col-md-3" />
-                    <div className="col-md-9">{this.renderSubmit()}</div>
-                </div>
             </div>
         );
     }
@@ -279,12 +232,12 @@ class Ingredient extends React.Component {
             <div>
                 <div className="row">
                     <div className="col-md-8">{this.renderContactForm()}</div>
-                    <div className="col-md-4">
+                    {/* <div className="col-md-4">
                         <b>STATE:</b>
                         <pre style={{ borderLeftColor: "steelblue" }}>
                             value = {JSON.stringify(this.state.value.toJSON(), null, 3)}
                         </pre>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );
