@@ -145,25 +145,23 @@ class ContactForm extends React.Component {
     }
 
     render() {
-        const style = { background: "#FAFAFA", padding: 10, borderRadius: 5 };
+        const style = { background: "#FAFAFA", padding: 10, borderRadius: 5 }
         const { value } = this.props;
-        const ingredients = value.get("ingredients");
+        const ingredients = value.get("ingredients")
         return (
-            <div className="col-md-8">
-                <Form
-                    field="contact-form"
-                    style={style}
-                    schema={this.schema()}
-                    value={value}
-                    edit={this.state.editMode}
-                    labelWidth={100}
-                    onSubmit={() => this.handleSubmit()}
-                    onChange={(fieldName, value) => this.handleChange(fieldName, value)}
-                >
-                    <Ingredients field="ingredients" value={ingredients} />
-                </Form>
-            </div>
-        );
+            <Form
+                field="contact-form"
+                style={style}
+                schema={this.schema()}
+                value={value}
+                edit={this.state.editMode}
+                labelWidth={100}
+                onSubmit={() => this.handleSubmit()}
+                onChange={(fieldName, value) => this.handleChange(fieldName, value)}
+            >
+                <Ingredients field="ingredients" value={ingredients} />
+            </Form>
+        )
     }
 }
 
@@ -208,41 +206,19 @@ class Ingredient extends React.Component {
         this.setState({ data: undefined });
     }
 
-    renderContactForm() {
-        if (this.state.loaded) {
-            return (
-                <ContactForm
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    onMissingCountChange={this.handleMissingCountChange}
-                    onErrorCountChange={this.handleErrorCountChange}
-                />
-            );
-        } else {
-            return (
-                <div style={{ marginTop: 50 }}>
-                    <b>Loading...</b>
-                </div>
-            );
-        }
-    }
-
     render() {
         return (
-            <div>
-                <div className="row">
-                    <div className="col-md-8">{this.renderContactForm()}</div>
-                    {/* <div className="col-md-4">
-                        <b>STATE:</b>
-                        <pre style={{ borderLeftColor: "steelblue" }}>
-                            value = {JSON.stringify(this.state.value.toJSON(), null, 3)}
-                        </pre>
-                    </div> */}
-                </div>
-            </div>
-        );
+            <ContactForm
+                value={this.state.value}
+                onChange={this.handleChange}
+                onMissingCountChange={this.handleMissingCountChange}
+                onErrorCountChange={this.handleErrorCountChange}
+            />
+        )
     }
 }
 
 
-export default Ingredient
+export {
+    Ingredient
+}

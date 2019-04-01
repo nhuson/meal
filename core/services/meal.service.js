@@ -81,7 +81,7 @@ class MealService extends BaseService {
 
 	async create(data) {
 		let ingredientIds = data.ingredient_id
-		delete  data.ingredient_id
+		delete data.ingredient_id
 		return this.db.transaction(async trx => {
 			try {
 				let mealId = await trx.insert(data).into(this.tableName)
@@ -94,6 +94,37 @@ class MealService extends BaseService {
 				throw createError(422, err)
 			}
 		})
+	}
+
+	async update(data, option) {
+		let ingredientIds = data.ingredient_id
+		delete data.ingredient_id
+
+		this.update(data, option)
+		if (!ingredientIds) {
+			return 
+		}
+
+		return this.db.transaction(async trx => {
+			try {
+				for(let ingredient of ingredientIds) {
+					await trx.where({ meal_id: option.id }).update({ ingre_id: ingredient.id, amount: ingredient.amount }).into('meal_ingredients')
+				}
+				await trx.commit()
+			} catch(err) {
+				trx.rollback()
+				throw createError(422, err)
+			}
+		})
+	}
+
+	async delete(option) {
+		try {
+
+		} catch(err) {
+			trx.rollback()
+			throw createError(422, err)
+		}
 	}
 }
 

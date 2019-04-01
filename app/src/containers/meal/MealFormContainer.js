@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { mealActions, getCategoriesAvailable, getMenusAvailable, getAllergiesAvailable } from '../../actions'
+import { mealActions, getCategoriesAvailable, getMenusAvailable, getAllergiesAvailable, getIngredientsAvailable } from '../../actions'
 import MealForm from '../../views/meal/MealForm'
 
 class MealFormContainer extends React.Component {
@@ -13,8 +13,19 @@ class MealFormContainer extends React.Component {
                 getMenusAvailable={this.props.getMenusAvailable}
                 allergies={this.props.allergies}
                 getAllergiTypes={this.props.getAllergiTypes}
+                ingredients={this.getIngredient(this.props.ingredients)}
+                getIngredients={this.props.getIngredients}
             />
         )
+    }
+
+    getIngredient(ingredients) {
+        return ingredients.map(ingredient => {
+            return {
+                id: ingredient.id,
+                label: ingredient.title
+            }
+        })
     }
 }
 
@@ -23,6 +34,7 @@ const mapStateToProps = state => {
         categories: state.category.categories,
         menus: state.menu.menus,
         allergies: state.allergy.allergies,
+        ingredients: state.ingredient.ingredients
     }
 }
 
@@ -36,6 +48,9 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         getAllergiTypes: () => {
             dispatch(getAllergiesAvailable(null, null))
+        },
+        getIngredients: () => {
+            dispatch(getIngredientsAvailable(null, null))
         }
     }
 }

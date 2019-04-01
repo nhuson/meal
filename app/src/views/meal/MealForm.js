@@ -13,8 +13,8 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Switch from '@material-ui/core/Switch'
 import Select from '../../components/Select'
 import Instruction from 'components/Meal/Instruction.jsx'
-import Ingredient from 'components/Meal/Ingredient.jsx'
-
+import { Ingredient } from 'components/Meal/Ingredient.jsx'
+import '../../assets/css/meal.ingredient.css'
 
 import FormValidator from "../../helpers/formValidation"
 import { userValidations } from "../../validates"
@@ -187,13 +187,7 @@ class MealForm extends React.Component {
                                     </GridContainer>
                                     <GridContainer>
                                         <GridItem xs={12} sm={12} md={12}>
-                                            <InputLabel style={{ color: "#AAAAAA" }}>Status</InputLabel>
-                                        </GridItem>
-                                    </GridContainer>
-                                    <GridContainer>
-                                        sss
-                                        <GridItem xs={12} sm={12} md={12}>
-                                            <Ingredient />
+                                            <Ingredient ingredients={this.props.ingredients} />
                                         </GridItem>
                                     </GridContainer>
                                 </CardBody>
@@ -216,6 +210,7 @@ class MealForm extends React.Component {
         this.props.getCategoriesAvailable()
         this.props.getMenusAvailable()
         this.props.getAllergiTypes()
+        this.props.getIngredients()
     }
 
     handleChange = name => event => {
