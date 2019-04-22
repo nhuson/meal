@@ -40,7 +40,9 @@ const styles = {
 class MealForm extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			ingredients: [],
+		}
 	}
 	render() {
 		const { classes } = this.props
@@ -194,6 +196,11 @@ class MealForm extends React.Component {
 												meal_ingredient={
 													this.props.meal_ingredient
 												}
+												onChangeIngredient={(ingredients) =>
+													this.handleChangeIngredient(
+														ingredients,
+													)
+												}
 											/>
 										</GridItem>
 									</GridContainer>
@@ -240,21 +247,26 @@ class MealForm extends React.Component {
 		})
 	}
 
+	handleChangeIngredient = (data) => {
+		this.setState({ ingredients: data.ingredients })
+	}
+
 	handleSubmit = (e) => {
 		e.preventDefault()
-		let { user, handleUpdateUser } = this.props
-		const validation = this.validator.validate(this.state)
-		this.setState({ validation })
-		this.submitted = true
-		if (validation.isValid) {
-			console.log(this.state)
-			handleUpdateUser(user.id, {
-				firstname: this.state.firstname,
-				lastname: this.state.lastname,
-				email: this.state.email,
-				status: this.state.status,
-			})
-		}
+		console.log(this.state)
+		// let { user, handleUpdateUser } = this.props
+		// const validation = this.validator.validate(this.state)
+		// this.setState({ validation })
+		// this.submitted = true
+		// if (validation.isValid) {
+		// 	console.log(this.state)
+		// 	handleUpdateUser(user.id, {
+		// 		firstname: this.state.firstname,
+		// 		lastname: this.state.lastname,
+		// 		email: this.state.email,
+		// 		status: this.state.status,
+		// 	})
+		// }
 	}
 }
 export default withStyles(styles)(MealForm)

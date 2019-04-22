@@ -172,6 +172,7 @@ class Ingredient extends React.Component {
 
 	handleChange(form, value) {
 		this.setState({ value })
+		this.props.onChangeIngredient(this.state.value.toJSON())
 	}
 
 	handleMissingCountChange(form, missing) {
