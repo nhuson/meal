@@ -12,9 +12,7 @@ class MealService extends BaseService {
 		if (page < 0 || per_page < 0) {
 			throw createError(400, 'Invalid request params')
 		}
-		let totalRecord = await this.db
-			.from(this.tableName)
-			.count('id as total')
+		let totalRecord = await this.db.from(this.tableName).count('id as total')
 		if (totalRecord[0].total <= 0) {
 			return []
 		}
@@ -65,13 +63,15 @@ class MealService extends BaseService {
 			.limit(per_page)
 			.offset(offset)
 			.orderBy('created_at', 'desc')
-		meals.forEach(meal => {
+		meals.forEach((meal) => {
 			// meal.instruction = JSON.parse(meal.instruction)
 			meal.meal_album = JSON.parse(meal.meal_album)
 			if (meal.meal_count_rate > 0) {
-				meal.rate_score = parseFloat((meal.meal_rate / meal.meal_count_rate).toFixed(2))
+				meal.rate_score = parseFloat(
+					(meal.meal_rate / meal.meal_count_rate).toFixed(2),
+				)
 			}
-		})	
+		})
 		return {
 			meals,
 			total_page: totalPage,
@@ -82,14 +82,20 @@ class MealService extends BaseService {
 	async create(data) {
 		let ingredientIds = data.ingredient_id
 		delete data.ingredient_id
-		return this.db.transaction(async trx => {
+		return this.db.transaction(async (trx) => {
 			try {
 				let mealId = await trx.insert(data).into(this.tableName)
-				for(let ingredient of ingredientIds) {
-					await trx.insert({ meal_id: mealId, ingre_id: ingredient.id, amount: ingredient.amount }).into('meal_ingredients')
+				for (let ingredient of ingredientIds) {
+					await trx
+						.insert({
+							meal_id: mealId,
+							ingre_id: ingredient.id,
+							amount: ingredient.amount,
+						})
+						.into('meal_ingredients')
 				}
 				await trx.commit()
-			} catch(err) {
+			} catch (err) {
 				trx.rollback()
 				throw createError(422, err)
 			}
@@ -102,16 +108,19 @@ class MealService extends BaseService {
 
 		this.update(data, option)
 		if (!ingredientIds) {
-			return 
+			return
 		}
 
-		return this.db.transaction(async trx => {
+		return this.db.transaction(async (trx) => {
 			try {
-				for(let ingredient of ingredientIds) {
-					await trx.where({ meal_id: option.id }).update({ ingre_id: ingredient.id, amount: ingredient.amount }).into('meal_ingredients')
+				for (let ingredient of ingredientIds) {
+					await trx
+						.where({ meal_id: option.id })
+						.update({ ingre_id: ingredient.id, amount: ingredient.amount })
+						.into('meal_ingredients')
 				}
 				await trx.commit()
-			} catch(err) {
+			} catch (err) {
 				trx.rollback()
 				throw createError(422, err)
 			}
@@ -120,11 +129,21 @@ class MealService extends BaseService {
 
 	async delete(option) {
 		try {
-
-		} catch(err) {
+		} catch (err) {
 			trx.rollback()
 			throw createError(422, err)
 		}
+	}
+
+	async getIngredientByMealId(option) {
+		const ingredients = await this.db
+			.where({ meal_id: option.id })
+			.from('meal_ingredients')
+
+		return ingredients.map((ingredient) => ({
+			id: ingredient.ingre_id,
+			amount: ingredient.amount,
+		}))
 	}
 }
 

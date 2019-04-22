@@ -25,7 +25,7 @@ const getMealsByPage = async (req, res, next) => {
 	try {
 		let data = await mealService.getMeals({
 			page: parseInt(req.query.page),
-			per_page: parseInt(req.query.per_page)
+			per_page: parseInt(req.query.per_page),
 		})
 
 		res.status(200).json({
@@ -59,7 +59,7 @@ const create = async (req, res, next) => {
 			cate_id,
 			menu_id,
 			allergi_id,
-			ingredient_id
+			ingredient_id,
 		} = req.body
 
 		await mealService.create({
@@ -75,10 +75,13 @@ const create = async (req, res, next) => {
 			menu_id,
 			allergi_id,
 			instruction: JSON.stringify(instruction),
-			ingredient_id
+			ingredient_id,
 		})
 
-		res.status(200).json({ success: 'success', message: 'The meal has been successfully created.' })
+		res.status(200).json({
+			success: 'success',
+			message: 'The meal has been successfully created.',
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -128,4 +131,18 @@ const remove = async (req, res, next) => {
 	}
 }
 
-export { getAll, create, update, remove, getMealsByPage }
+const getIngredientByMealId = async (req, res, next) => {
+	try {
+		let { id } = req.params
+		const data = await mealService.getIngredientByMealId({ id })
+		if (!data) {
+			throw createError(404, 'Not found')
+		}
+
+		res.status(200).json({ success: 'success', data })
+	} catch (err) {
+		next(err)
+	}
+}
+
+export { getAll, create, update, remove, getMealsByPage, getIngredientByMealId }

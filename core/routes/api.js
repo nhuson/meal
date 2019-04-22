@@ -193,14 +193,34 @@ router
 //Meal
 router
 	.get('/meal', requireAuth(), pickHandler('meal.controller@getAll'))
-	.post('/meal', requireAuth('admin'), validateRequest, pickHandler('meal.controller@create'))
-	.put('/meal/:id', requireAuth('admin'), validateRequest, pickHandler('meal.controller@update'))
+	.post(
+		'/meal',
+		requireAuth('admin'),
+		validateRequest,
+		pickHandler('meal.controller@create'),
+	)
+	.put(
+		'/meal/:id',
+		requireAuth('admin'),
+		validateRequest,
+		pickHandler('meal.controller@update'),
+	)
 	.delete('/meal/:id', requireAuth('admin'), pickHandler('meal.controller@remove'))
-	.get('/meal_by_page', requireAuth('admin'), pickHandler('meal.controller@getMealsByPage'))
+	.get(
+		'/meal_by_page',
+		requireAuth('admin'),
+		pickHandler('meal.controller@getMealsByPage'),
+	)
+	.get(
+		'/meal/ingredient/:id',
+		requireAuth('admin'),
+		pickHandler('meal.controller@getIngredientByMealId'),
+	)
 
 //Users
-router.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))
-			.put('/users/:id', requireAuth('admin'), pickHandler('user.controller@updateUser'))
+router
+	.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))
+	.put('/users/:id', requireAuth('admin'), pickHandler('user.controller@updateUser'))
 
 //upload
 router.post('/upload/:location', pickHandler('upload.controller@upload'))
