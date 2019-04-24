@@ -147,14 +147,25 @@ module.exports.loginFacebook = async (req, res, next) => {
 		const newUser = {
 			firstname: response.first_name,
 			lastname: response.last_name,
-			email: response.id,
+			provider_id: response.id,
 			password: userService.hashPassword(response.id),
 			role: 'user',
 			avatar: response.picture.data.url || '',
 			provider: 'FACEBOOK',
 		}
-		await userService.create(newUser)
+		const user = await userService.findOne({ provider_id: response.id })
+		if (user) {
+			res.status(200).json({
+				success: 'success',
+				message: 'The user was successfully created!',
+				data: {
+					token: userService.tokenForUser(newUser),
+				},
+			})
+			return
+		}
 
+		await userService.create(newUser)
 		delete newUser.password
 		res.status(200).json({
 			success: 'success',
