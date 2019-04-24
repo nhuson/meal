@@ -12,9 +12,10 @@ exports.up = function(knex, Promise) {
 			.notNull()
 		t.string('email', 100)
 			.index()
-			.notNull()
+			.nullable()
 		t.string('password', 100).notNull()
-		t.string('avatar', 100).nullable()
+		t.string('avatar', 250).nullable()
+		t.string('provider', 20).nullable()
 		t.specificType('status', 'tinyint(1)').default(1)
 	})
 }

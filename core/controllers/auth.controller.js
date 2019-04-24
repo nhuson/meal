@@ -2,6 +2,7 @@ import createError from 'http-errors'
 import userService from '../services/user.service'
 import configs from '../config'
 import uuidv4 from 'uuid/v4'
+const request = require('request-promise')
 
 /**
  * @route   POST api/auth/signup
@@ -22,6 +23,7 @@ module.exports.signup = async (req, res, next) => {
 			email: email,
 			password: userService.hashPassword(data.password),
 			role: 'user',
+			provider: 'SYSTEM',
 		}
 		await userService.create(newUser)
 
@@ -124,4 +126,44 @@ module.exports.resetPassword = async (req, res, next) => {
 		success: 'success',
 		message: 'Your password has been reset successfully.',
 	})
+}
+
+module.exports.loginFacebook = async (req, res, next) => {
+	try {
+		if (!req.body.facebook_token) {
+			throw createError(404, 'Facebook token is required!')
+		}
+		const userFieldSet = 'id, first_name, last_name, email, picture, gender'
+		const options = {
+			method: 'GET',
+			uri: 'https://graph.facebook.com/me',
+			qs: {
+				access_token: req.body.facebook_token,
+				fields: userFieldSet,
+			},
+		}
+		let response = await request(options)
+		response = JSON.parse(response)
+		const newUser = {
+			firstname: response.first_name,
+			lastname: response.last_name,
+			email: response.id,
+			password: userService.hashPassword(response.id),
+			role: 'user',
+			avatar: response.picture.data.url || '',
+			provider: 'FACEBOOK',
+		}
+		await userService.create(newUser)
+
+		delete newUser.password
+		res.status(200).json({
+			success: 'success',
+			message: 'The user was successfully created!',
+			data: {
+				token: userService.tokenForUser(newUser),
+			},
+		})
+	} catch (error) {
+		next(error)
+	}
 }

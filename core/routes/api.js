@@ -33,6 +33,7 @@ router.post(
 	validateRequest,
 	pickHandler('auth.controller@resetPassword'),
 )
+router.post('/auth/login-facebook', pickHandler('auth.controller@loginFacebook'))
 
 // Type ingredient
 router
