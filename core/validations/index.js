@@ -11,6 +11,7 @@ import contactSchema from './contact.schema'
 import menuTypeSchema from './menu_type.schema'
 import allergiTypeSchema from './allergiType.schema'
 import mealSchema from './meal.schema'
+import mealCalendarSchema from './meal.calendar.schema'
 
 module.exports = {
 	'/auth/signup': signupSchema,
@@ -26,4 +27,5 @@ module.exports = {
 	'/menu-type': menuTypeSchema,
 	'/allergi-type': allergiTypeSchema,
 	'/meal': mealSchema,
+	'/users/meal_calendar': mealCalendarSchema,
 }

@@ -217,12 +217,47 @@ router
 		requireAuth('admin'),
 		pickHandler('meal.controller@getIngredientByMealId'),
 	)
+	.put(
+		'/meal/add_favorite/:meal_id',
+		requireAuth(),
+		pickHandler('meal.controller@addFavorite'),
+	)
+	.delete(
+		'/meal/remove_favorite/:meal_id',
+		requireAuth(),
+		pickHandler('meal.controller@removeFavorite'),
+	)
+	.get(
+		'/meal/get_favorite_by_user',
+		requireAuth(),
+		pickHandler('meal.controller@getMealFavoriteByUser'),
+	)
 
 //Users
 router
 	.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))
 	.put('/users/:id', requireAuth('admin'), pickHandler('user.controller@updateUser'))
-
+	.post(
+		'/users/meal_calendar',
+		requireAuth(),
+		validateRequest,
+		pickHandler('user.controller@createMealCalendar'),
+	)
+	.get(
+		'/users/get_meal_by_day/:date',
+		requireAuth(),
+		pickHandler('user.controller@getMealByDay'),
+	)
+	.get(
+		'/users/get_meal_by_user_id',
+		requireAuth(),
+		pickHandler('user.controller@getMealByUserId'),
+	)
+	.get(
+		'/users/get_meal_range_day/:from/:to',
+		requireAuth(),
+		pickHandler('user.controller@getMealRangeDay'),
+	)
 //upload
 router.post('/upload/:location', pickHandler('upload.controller@upload'))
 

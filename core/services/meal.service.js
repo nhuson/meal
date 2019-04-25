@@ -148,6 +148,42 @@ class MealService extends BaseService {
 			amount: ingredient.amount,
 		}))
 	}
+
+	async addFavorite(data) {
+		return await this.db.insert(data).into('user_meal_favorite')
+	}
+
+	async removeFavorite(data) {
+		return await this.db
+			.table('user_meal_favorite')
+			.where({ user_id: data.user_id, meal_id: data.meal_id })
+			.delete()
+	}
+
+	async getMealFavoriteByUser(userId) {
+		return await this.db
+			.select(
+				'meals.id as meal_id',
+				'meals.title as meal_title',
+				'meals.instruction as instruction',
+				'meals.image as meal_image',
+				'meals.time as meal_time',
+				'meals.serving as meal_serving',
+				'meals.calorie as meal_calorie',
+				'meals.count_rate as meal_count_rate',
+				'meals.rate as meal_rate',
+				'meals.album as meal_album',
+				'meals.is_pro as meal_is_pro',
+				'meals.created_at as created_at',
+				'meals.updated_at as updated_at',
+			)
+			.from('user_meal_favorite')
+			.innerJoin('meals', function() {
+				this.on('meals.id', '=', 'user_meal_favorite.meal_id')
+			})
+			.where({ user_id: userId })
+			.orderBy('created_at', 'desc')
+	}
 }
 
 export default new MealService()

@@ -145,4 +145,52 @@ const getIngredientByMealId = async (req, res, next) => {
 	}
 }
 
-export { getAll, create, update, remove, getMealsByPage, getIngredientByMealId }
+const addFavorite = async (req, res, next) => {
+	try {
+		let { meal_id } = req.params
+		await mealService.addFavorite({
+			user_id: req.user.id,
+			meal_id: req.params.meal_id,
+		})
+
+		res.status(200).json({ success: 'success', message: 'Added meal favorite!' })
+	} catch (err) {
+		next(err)
+	}
+}
+
+const removeFavorite = async (req, res, next) => {
+	try {
+		let { meal_id } = req.params
+		await mealService.removeFavorite({
+			user_id: req.user.id,
+			meal_id: req.params.meal_id,
+		})
+
+		res.status(200).json({ success: 'success', message: 'Removed meal favorite!' })
+	} catch (err) {
+		next(err)
+	}
+}
+
+const getMealFavoriteByUser = async (req, res, next) => {
+	try {
+		const data = await mealService.getMealFavoriteByUser(req.user.id)
+
+		res.status(200).json({ success: 'success', message: 'Get meal favorite!', data })
+	} catch (err) {
+		next(err)
+	}
+}
+
+export {
+	getAll,
+	create,
+	update,
+	remove,
+	getMealsByPage,
+	getIngredientByMealId,
+	addFavorite,
+	removeFavorite,
+	getMealFavoriteByUser,
+}
