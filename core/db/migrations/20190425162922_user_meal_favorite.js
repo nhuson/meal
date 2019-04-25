@@ -1,13 +1,9 @@
 exports.up = function(knex, Promise) {
-	return knex.schema.createTable('calendar_meals', function(t) {
+	return knex.schema.createTable('user_meal_favorite', function(t) {
 		t.increments('id')
 			.unsigned()
 			.primary()
 		t.timestamps(true, true)
-		t.datetime('date')
-			.notNull()
-			.index()
-		t.specificType('status', 'smallint').default(0)
 		t.integer('user_id')
 			.unsigned()
 			.notNull()
@@ -24,5 +20,5 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-	return knex.schema.dropTable('calendar_meals')
+	return knex.schema.dropTable('user_meal_favorite')
 }

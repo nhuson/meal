@@ -84,11 +84,14 @@ class MealService extends BaseService {
 		delete data.ingredient_id
 		return this.db.transaction(async (trx) => {
 			try {
-				let mealId = await trx.insert(data).into(this.tableName)
+				let mealId = await trx
+					.insert(data)
+					.returning('id')
+					.into(this.tableName)
 				for (let ingredient of ingredientIds) {
 					await trx
 						.insert({
-							meal_id: mealId,
+							meal_id: mealId[0],
 							ingre_id: ingredient.id,
 							amount: ingredient.amount,
 						})

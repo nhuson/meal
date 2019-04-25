@@ -38,7 +38,10 @@ const updateUser = async (req, res, next) => {
 		if (!user) {
 			throw createError(404, 'User not found')
 		}
-		const userByEmail = await userService.findUserToUpdate({ email: req.body.email, id })
+		const userByEmail = await userService.findUserToUpdate({
+			email: req.body.email,
+			id,
+		})
 		if (userByEmail) {
 			throw createError(404, 'User already exists!')
 		}
@@ -66,4 +69,12 @@ const updateUser = async (req, res, next) => {
 		next(err)
 	}
 }
+
+const createMealCalendar = async (req, res, next) => {
+	try {
+	} catch (error) {
+		next(error)
+	}
+}
+
 export { getUser, updateUser }

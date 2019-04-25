@@ -17,7 +17,7 @@ exports.up = function(knex, Promise) {
 		t.string('avatar', 250).nullable()
 		t.string('provider', 20).nullable()
 		t.string('provider_id', 100).nullable()
-		t.specificType('status', 'tinyint(1)').default(1)
+		t.specificType('status', 'smallint').default(1)
 	})
 }
 

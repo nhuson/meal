@@ -78,7 +78,7 @@ class UserService extends BaseService {
 			.offset(offset)
 			.orderBy('status', 'desc')
 			.orderBy('created_at', 'desc')
-			
+
 		return {
 			users,
 			total_page: totalPage,
@@ -87,9 +87,15 @@ class UserService extends BaseService {
 	}
 
 	async findUserToUpdate(option) {
-		let user = await this.db.where({ email: option.email }).whereNot({id: option.id}).from(this.tableName).first()
+		let user = await this.db
+			.where({ email: option.email })
+			.whereNot({ id: option.id })
+			.from(this.tableName)
+			.first()
 		return user
 	}
+
+	async createMealCalendar(data) {}
 }
 
 export default new UserService()

@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
 		t.string('url', 100)
 			.index()
 			.notNull()
-		t.specificType('force', 'tinyint(1)').default(0)
+		t.specificType('force', 'smallint').default(0)
 	})
 }
 

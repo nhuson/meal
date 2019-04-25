@@ -6,6 +6,7 @@ const config = {
 		user: configs.database.username,
 		password: configs.database.password,
 		database: configs.database.name,
+		ssl: true,
 	},
 }
 
