@@ -30,6 +30,7 @@ class MealService extends BaseService {
 				'meals.id as meal_id',
 				'meals.title as meal_title',
 				'meals.instruction as instruction',
+				'meals.description as meal_description',
 				'meals.image as meal_image',
 				'meals.time as meal_time',
 				'meals.serving as meal_serving',
@@ -211,6 +212,7 @@ class MealService extends BaseService {
 				'meals.is_pro as meal_is_pro',
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
+				'meals.description as meal_description',
 			)
 			.from('user_meal_favorite')
 			.innerJoin('meals', function() {

@@ -153,6 +153,7 @@ class UserService extends BaseService {
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
 				'calendar_meals.date as date',
+				'meals.description as meal_description',
 			)
 			.from('calendar_meals')
 			.innerJoin('meals', function() {
@@ -188,6 +189,7 @@ class UserService extends BaseService {
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
 				'calendar_meals.date as date',
+				'meals.description as meal_description',
 			)
 			.from('calendar_meals')
 			.innerJoin('meals', function() {

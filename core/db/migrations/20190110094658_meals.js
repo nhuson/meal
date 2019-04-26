@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
 			.index()
 			.notNull()
 		t.json('instruction').notNull()
+		t.text('description').notNull()
 		t.string('image', 250).notNull()
 		t.integer('time').notNull()
 		t.integer('serving').notNull()

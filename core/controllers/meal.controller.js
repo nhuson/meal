@@ -60,6 +60,7 @@ const create = async (req, res, next) => {
 			menu_id,
 			allergi_id,
 			ingredient_id,
+			description,
 		} = req.body
 
 		await mealService.create({
@@ -76,6 +77,7 @@ const create = async (req, res, next) => {
 			allergi_id,
 			instruction: JSON.stringify(instruction),
 			ingredient_id,
+			description,
 		})
 
 		res.status(200).json({
