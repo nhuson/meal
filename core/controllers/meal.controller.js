@@ -147,10 +147,9 @@ const getIngredientByMealId = async (req, res, next) => {
 
 const addFavorite = async (req, res, next) => {
 	try {
-		let { meal_id } = req.params
 		await mealService.addFavorite({
 			user_id: req.user.id,
-			meal_id: req.params.meal_id,
+			meal_id: req.body.meal_id,
 		})
 
 		res.status(200).json({ success: 'success', message: 'Added meal favorite!' })

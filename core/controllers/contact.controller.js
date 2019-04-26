@@ -48,7 +48,10 @@ const create = async (req, res, next) => {
 			user_id: req.user.id,
 		})
 
-		res.status(200).json({ success: 'success ' })
+		res.status(200).json({
+			success: 'success',
+			message: 'Your message was sent successfully.',
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -92,10 +95,10 @@ const remove = async (req, res, next) => {
 
 		await contactService.delete({ id })
 
-		res.status(200).json({ 
+		res.status(200).json({
 			success: 'success',
-			message: 'The menu type has been successfully deteled.'
-		 })
+			message: 'The menu type has been successfully deteled.',
+		})
 	} catch (err) {
 		next(err)
 	}

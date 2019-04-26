@@ -133,4 +133,11 @@ const getMealRangeDay = async (req, res, next) => {
 	}
 }
 
-export { getUser, updateUser, createMealCalendar, getMealByDay, getMealRangeDay }
+export {
+	getUser,
+	updateUser,
+	createMealCalendar,
+	getMealByDay,
+	getMealByUserId,
+	getMealRangeDay,
+}

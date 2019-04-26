@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import createError from 'http-errors'
 import { omit } from 'lodash'
+import moment from 'moment'
 import BaseService from './base.service'
 import configs from '../config'
 const bcrypt = require('bcryptjs')
@@ -96,6 +97,7 @@ class UserService extends BaseService {
 	}
 
 	async createMealCalendar(data) {
+		const date = new Date(data.date).getTime() / 1000
 		return this.db.transaction(async (trx) => {
 			try {
 				for (let mealId of data.ids) {
@@ -103,7 +105,7 @@ class UserService extends BaseService {
 						.insert({
 							meal_id: mealId,
 							user_id: data.user_id,
-							date: data.date,
+							date,
 						})
 						.into('calendar_meals')
 				}
@@ -117,23 +119,25 @@ class UserService extends BaseService {
 	}
 
 	async getMealByDay(data) {
-		const mealIds = await this.db
+		const date = new Date(data.date).getTime() / 1000
+		let mealIds = await this.db
 			.select('meal_id')
-			.where({ date: data.date, user_id: data.user_id })
+			.where({ date, user_id: data.user_id })
 			.from('calendar_meals')
 			.orderBy('created_at', 'desc')
-		let data = await this.db
+		mealIds = mealIds.map((mealId) => mealId.meal_id)
+		let result = await this.db
 			.whereIn('id', mealIds)
 			.from('meals')
 			.orderBy('created_at', 'desc')
-		return data.map((meal) => ({
+		return result.map((meal) => ({
 			...meal,
 			date: data.date,
 		}))
 	}
 
 	async getMealByUserId(id) {
-		return await this.db
+		const result = await this.db
 			.select(
 				'meals.id as meal_id',
 				'meals.title as meal_title',
@@ -156,10 +160,19 @@ class UserService extends BaseService {
 			})
 			.where({ user_id: id })
 			.orderBy('created_at', 'desc')
+		return result.map((meal) => ({
+			...meal,
+			date: moment(meal.date * 1000).format('YYYY-MM-DD'),
+		}))
 	}
 
 	async getMealRangeDay(data) {
-		return await this.db
+		const from = new Date(data.from).getTime() / 1000
+		const to = new Date(data.to).getTime() / 1000
+		if (from > to) {
+			throw createError(400, 'Invalid date selected!')
+		}
+		const result = await this.db
 			.select(
 				'meals.id as meal_id',
 				'meals.title as meal_title',
@@ -181,9 +194,13 @@ class UserService extends BaseService {
 				this.on('meals.id', '=', 'calendar_meals.meal_id')
 			})
 			.where({ user_id: data.user_id })
-			.where('calendar_meals.date', '>=', data.from)
-			.where('calendar_meals.date', '<=', data.to)
+			.where('calendar_meals.date', '>=', from)
+			.where('calendar_meals.date', '<=', to)
 			.orderBy('created_at', 'desc')
+		return result.map((meal) => ({
+			...meal,
+			date: moment(meal.date * 1000).format('YYYY-MM-DD'),
+		}))
 	}
 }
 

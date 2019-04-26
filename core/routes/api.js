@@ -217,13 +217,15 @@ router
 		requireAuth('admin'),
 		pickHandler('meal.controller@getIngredientByMealId'),
 	)
-	.put(
-		'/meal/add_favorite/:meal_id',
+	.post(
+		'/meal/add_favorite',
+		validateRequest,
 		requireAuth(),
 		pickHandler('meal.controller@addFavorite'),
 	)
 	.delete(
-		'/meal/remove_favorite/:meal_id',
+		'/meal/remove_favorite',
+		validateRequest,
 		requireAuth(),
 		pickHandler('meal.controller@removeFavorite'),
 	)

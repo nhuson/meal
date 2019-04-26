@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
 			.unsigned()
 			.primary()
 		t.timestamps(true, true)
-		t.datetime('date')
+		t.integer('date')
 			.notNull()
 			.index()
 		t.specificType('status', 'smallint').default(0)
