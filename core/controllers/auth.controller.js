@@ -148,6 +148,7 @@ module.exports.loginFacebook = async (req, res, next) => {
 			firstname: response.first_name,
 			lastname: response.last_name,
 			provider_id: response.id,
+			email: `${response.id}@facebook.com`,
 			password: userService.hashPassword(response.id),
 			role: 'user',
 			avatar: response.picture.data.url || '',
