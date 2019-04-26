@@ -174,8 +174,29 @@ class MealService extends BaseService {
 			.delete()
 	}
 
-	async getMealFavoriteByUser(userId) {
-		return await this.db
+	async getMealFavoriteByUser(option) {
+		let { page, per_page, user_id } = option
+		if (page < 0 || per_page < 0) {
+			throw createError(400, 'Invalid request params')
+		}
+		let totalRecord = await this.db
+			.from('user_meal_favorite')
+			.where({ user_id })
+			.count('id as total')
+		if (totalRecord[0].total <= 0) {
+			return []
+		}
+		let totalPage = Math.ceil(totalRecord[0].total / per_page)
+		console.log(totalRecord[0].total)
+		if (page > totalPage) {
+			page = totalPage
+		}
+		if (page === 0) {
+			page = 1
+		}
+		let offset = (page - 1) * per_page
+
+		const result = await this.db
 			.select(
 				'meals.id as meal_id',
 				'meals.title as meal_title',
@@ -195,8 +216,15 @@ class MealService extends BaseService {
 			.innerJoin('meals', function() {
 				this.on('meals.id', '=', 'user_meal_favorite.meal_id')
 			})
-			.where({ user_id: userId })
-			.orderBy('created_at', 'desc')
+			.where({ user_id })
+			.limit(per_page)
+			.offset(offset)
+			.orderBy('created_at', 'asc')
+		return {
+			result,
+			total_page: totalPage,
+			total_record: parseInt(totalRecord[0].total),
+		}
 	}
 }
 

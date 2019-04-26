@@ -173,7 +173,11 @@ const removeFavorite = async (req, res, next) => {
 
 const getMealFavoriteByUser = async (req, res, next) => {
 	try {
-		const data = await mealService.getMealFavoriteByUser(req.user.id)
+		const data = await mealService.getMealFavoriteByUser({
+			user_id: req.user.id,
+			page: req.query.page,
+			per_page: req.query.per_page,
+		})
 
 		res.status(200).json({ success: 'success', message: 'Get meal favorite!', data })
 	} catch (err) {
