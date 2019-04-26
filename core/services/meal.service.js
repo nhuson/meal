@@ -197,22 +197,13 @@ class MealService extends BaseService {
 		}
 		let offset = (page - 1) * per_page
 
-		const result = await this.db
+		const results = await this.db
 			.select(
 				'meals.id as meal_id',
 				'meals.title as meal_title',
-				'meals.instruction as instruction',
 				'meals.image as meal_image',
-				'meals.time as meal_time',
-				'meals.serving as meal_serving',
-				'meals.calorie as meal_calorie',
-				'meals.count_rate as meal_count_rate',
-				'meals.rate as meal_rate',
-				'meals.album as meal_album',
 				'meals.is_pro as meal_is_pro',
 				'meals.created_at as created_at',
-				'meals.updated_at as updated_at',
-				'meals.description as meal_description',
 			)
 			.from('user_meal_favorite')
 			.innerJoin('meals', function() {
@@ -223,7 +214,7 @@ class MealService extends BaseService {
 			.offset(offset)
 			.orderBy('created_at', 'asc')
 		return {
-			result,
+			results,
 			total_page: totalPage,
 			total_record: parseInt(totalRecord[0].total),
 		}
