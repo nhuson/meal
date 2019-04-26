@@ -2,10 +2,10 @@ import Joi from 'joi'
 
 export default Joi.object({
 	title: Joi.string()
-		.max(100)
+		.max(250)
 		.required(),
 	image: Joi.string()
-		.max(100)
+		.max(250)
 		.required(),
 	time: Joi.number()
 		.integer()
