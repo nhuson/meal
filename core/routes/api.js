@@ -224,7 +224,7 @@ router
 		pickHandler('meal.controller@addFavorite'),
 	)
 	.delete(
-		'/meal/remove_favorite',
+		'/meal_remove_favorite',
 		validateRequest,
 		requireAuth(),
 		pickHandler('meal.controller@removeFavorite'),

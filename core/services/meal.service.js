@@ -150,10 +150,24 @@ class MealService extends BaseService {
 	}
 
 	async addFavorite(data) {
+		const favorites = await this.db
+			.where({ user_id: data.user_id, meal_id: data.meal_id })
+			.from('user_meal_favorite')
+			.first()
+		if (favorites) {
+			throw createError(422, 'Meal added to favorite!')
+		}
 		return await this.db.insert(data).into('user_meal_favorite')
 	}
 
 	async removeFavorite(data) {
+		const favorites = await this.db
+			.where({ user_id: data.user_id, meal_id: data.meal_id })
+			.from('user_meal_favorite')
+			.first()
+		if (!favorites) {
+			throw createError(422, 'Meal havent been favorite!')
+		}
 		return await this.db
 			.table('user_meal_favorite')
 			.where({ user_id: data.user_id, meal_id: data.meal_id })

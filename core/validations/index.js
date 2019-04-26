@@ -30,5 +30,5 @@ module.exports = {
 	'/meal': mealSchema,
 	'/users/meal_calendar': mealCalendarSchema,
 	'/meal/add_favorite': mealFavoriteSchema,
-	'/meal/remove_favorite': mealFavoriteSchema,
+	'/meal_remove_favorite': mealFavoriteSchema,
 }
