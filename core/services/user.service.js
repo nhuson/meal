@@ -40,6 +40,9 @@ class UserService extends BaseService {
 		return await this.findOne({ email })
 	}
 
+	/**
+	 * Get all user
+	 */
 	async getUserAvailable(option) {
 		let { page, per_page } = option
 		if (page < 0 || per_page < 0) {
@@ -87,6 +90,9 @@ class UserService extends BaseService {
 		}
 	}
 
+	/**
+	 * Find user
+	 */
 	async findUserToUpdate(option) {
 		let user = await this.db
 			.where({ email: option.email })
@@ -96,6 +102,9 @@ class UserService extends BaseService {
 		return user
 	}
 
+	/**
+	 * Create meal calendar by user
+	 */
 	async createMealCalendar(data) {
 		const date = new Date(data.date).getTime() / 1000
 		return this.db.transaction(async (trx) => {

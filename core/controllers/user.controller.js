@@ -1,6 +1,8 @@
 import userService from '../services/user.service'
 import createError from 'http-errors'
 import _ from 'lodash'
+import uploadS3 from '../utils/uploadS3'
+
 /**
  * @route   GET
  * @param {*} req
@@ -46,11 +48,18 @@ const updateUser = async (req, res, next) => {
 			throw createError(404, 'User already exists!')
 		}
 
+		let avatar
+		if (req.files.avatar) {
+			avatar = await uploadS3.excute(req.files.avatar, 'users/avatar')
+		}
 		let putData = {
 			firstname: req.body.firstname,
 			lastname: req.body.lastname,
 			email: req.body.email,
-			status: req.body.status,
+			avatar,
+		}
+		if (req.user.role == 'admin') {
+			putData.status = req.body.status
 		}
 
 		putData = _(putData)

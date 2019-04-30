@@ -238,7 +238,12 @@ router
 //Users
 router
 	.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))
-	.put('/users/:id', requireAuth('admin'), pickHandler('user.controller@updateUser'))
+	.put(
+		'/users/:id',
+		requireAuth(),
+		validateRequest,
+		pickHandler('user.controller@updateUser'),
+	)
 	.post(
 		'/users/meal_calendar',
 		requireAuth(),

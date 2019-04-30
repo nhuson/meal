@@ -13,6 +13,7 @@ import allergiTypeSchema from './allergiType.schema'
 import mealSchema from './meal.schema'
 import mealCalendarSchema from './meal.calendar.schema'
 import mealFavoriteSchema from './meal.favorite.schema'
+import userUpdateSchema from './user.update.schema'
 
 module.exports = {
 	'/auth/signup': signupSchema,
@@ -31,4 +32,5 @@ module.exports = {
 	'/users/meal_calendar': mealCalendarSchema,
 	'/meal/add_favorite': mealFavoriteSchema,
 	'/meal_remove_favorite': mealFavoriteSchema,
+	'/users/:id': userUpdateSchema,
 }
