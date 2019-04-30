@@ -101,7 +101,7 @@ const update = async (req, res, next) => {
 		let { id } = req.params
 		const data = await mealService.findOne({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found meal.')
 		}
 
 		res.status(200).json({ success: 'success' })
@@ -122,7 +122,7 @@ const remove = async (req, res, next) => {
 		let { id } = req.params
 		const data = await mealService.findOne({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found meal.')
 		}
 
 		await mealService.delete({ id })
@@ -138,7 +138,7 @@ const getIngredientByMealId = async (req, res, next) => {
 		let { id } = req.params
 		const data = await mealService.getIngredientByMealId({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found ingredient by meal id.')
 		}
 
 		res.status(200).json({ success: 'success', data })

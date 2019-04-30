@@ -15,7 +15,7 @@ const getAll = async (req, res, next) => {
 			let menus = await menuTypeService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data: {menus},
+				data: { menus },
 			})
 		} else {
 			let data = await menuTypeService.getMenusAvailable({
@@ -49,7 +49,7 @@ const create = async (req, res, next) => {
 
 		const newMenu = {
 			title,
-			description
+			description,
 		}
 
 		const ids = await menuTypeService.create(newMenu)
@@ -58,9 +58,8 @@ const create = async (req, res, next) => {
 		res.status(200).json({
 			success: 'success',
 			message: 'The menu type has been successfully created.',
-			data: newMenu
+			data: newMenu,
 		})
-
 	} catch (err) {
 		next(err)
 	}
@@ -78,7 +77,7 @@ const update = async (req, res, next) => {
 		let { id } = req.params
 		const menuType = await menuTypeService.findOne({ id })
 		if (!menuType) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found menu type.')
 		}
 
 		let putData = {
@@ -93,10 +92,10 @@ const update = async (req, res, next) => {
 		const updateData = { ...menuType, ...putData }
 		await menuTypeService.update(updateData, { id })
 
-		res.status(200).json({ 
+		res.status(200).json({
 			success: 'success',
-			message: 'The menu type has been successfully updated.'
-		 })
+			message: 'The menu type has been successfully updated.',
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -114,15 +113,15 @@ const remove = async (req, res, next) => {
 		let { id } = req.params
 		const data = await menuTypeService.findOne({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found menu type')
 		}
 
 		await menuTypeService.delete({ id })
 
-		res.status(200).json({ 
+		res.status(200).json({
 			success: 'success',
-			message: 'The menu type has been successfully deteled.'
-		 })
+			message: 'The menu type has been successfully deteled.',
+		})
 	} catch (err) {
 		next(err)
 	}

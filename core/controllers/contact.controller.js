@@ -69,7 +69,7 @@ const update = async (req, res, next) => {
 		let { id } = req.params
 		const data = await contactService.findOne({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found contact')
 		}
 
 		res.status(200).json({ success: 'success' })
@@ -90,7 +90,7 @@ const remove = async (req, res, next) => {
 		let { id } = req.params
 		const data = await contactService.findOne({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found contact')
 		}
 
 		await contactService.delete({ id })

@@ -14,7 +14,7 @@ const getAll = async (req, res, next) => {
 			let allergies = await allergyTypeService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data:{allergies},
+				data: { allergies },
 			})
 		} else {
 			let data = await allergyTypeService.getAllergiesAvailable({
@@ -48,7 +48,7 @@ const create = async (req, res, next) => {
 
 		const newAllergy = {
 			title,
-			description
+			description,
 		}
 
 		const ids = await allergyTypeService.create(newAllergy)
@@ -57,7 +57,7 @@ const create = async (req, res, next) => {
 		res.status(200).json({
 			success: 'success',
 			message: 'The allergy has been successfully created.',
-			data: newAllergy
+			data: newAllergy,
 		})
 	} catch (err) {
 		next(err)
@@ -76,7 +76,7 @@ const update = async (req, res, next) => {
 		const { id } = req.params
 		const allergiType = await allergyTypeService.findOne({ id })
 		if (!allergiType) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found allergy')
 		}
 
 		let putData = {
@@ -91,10 +91,10 @@ const update = async (req, res, next) => {
 		const updateData = { ...allergiType, ...putData }
 		await allergyTypeService.update(updateData, { id })
 
-		res.status(200).json({ 
+		res.status(200).json({
 			success: 'success',
-			message: 'The allergy has been successfully updated.'
-		 })
+			message: 'The allergy has been successfully updated.',
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -112,15 +112,15 @@ const remove = async (req, res, next) => {
 		let { id } = req.params
 		const data = await allergyTypeService.findOne({ id })
 		if (!data) {
-			throw createError(404, 'Not found')
+			throw createError(404, 'Not found allergy')
 		}
 
 		await allergyTypeService.delete({ id })
 
-		res.status(200).json({ 
+		res.status(200).json({
 			success: 'success',
-			message: 'The allergy has been successfully deleted.'
-		 })
+			message: 'The allergy has been successfully deleted.',
+		})
 	} catch (err) {
 		next(err)
 	}
