@@ -49,7 +49,7 @@ const updateUser = async (req, res, next) => {
 		}
 
 		let avatar = undefined
-		if (req.files.avatar) {
+		if (req.files && req.files.avatar) {
 			avatar = await uploadS3.excute(req.files.avatar, 'users/avatar')
 		}
 		let putData = {
