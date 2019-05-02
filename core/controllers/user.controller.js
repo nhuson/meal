@@ -48,7 +48,7 @@ const updateUser = async (req, res, next) => {
 			throw createError(404, 'User already exists!')
 		}
 
-		let avatar
+		let avatar = undefined
 		if (req.files.avatar) {
 			avatar = await uploadS3.excute(req.files.avatar, 'users/avatar')
 		}
