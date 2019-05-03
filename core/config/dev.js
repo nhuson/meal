@@ -17,4 +17,10 @@ module.exports = {
 		prefix: process.env.REDIS_PREFIX,
 		timetolive: 86400,
 	},
+	redis_key: {
+		meal: {
+			hash: 'meal',
+			favorite_key: 'favorite_data',
+		},
+	},
 }

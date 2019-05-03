@@ -188,7 +188,6 @@ class MealService extends BaseService {
 			return []
 		}
 		let totalPage = Math.ceil(totalRecord[0].total / per_page)
-		console.log(totalRecord[0].total)
 		if (page > totalPage) {
 			page = totalPage
 		}

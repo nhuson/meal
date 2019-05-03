@@ -1,5 +1,7 @@
 import createError from 'http-errors'
 import mealService from '../services/meal.service'
+import redis from '../utils/redis'
+import config from '../config'
 
 /**
  * @route   GET
