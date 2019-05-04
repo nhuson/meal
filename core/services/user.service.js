@@ -150,19 +150,11 @@ class UserService extends BaseService {
 			.select(
 				'meals.id as meal_id',
 				'meals.title as meal_title',
-				'meals.instruction as instruction',
 				'meals.image as meal_image',
-				'meals.time as meal_time',
-				'meals.serving as meal_serving',
-				'meals.calorie as meal_calorie',
-				'meals.count_rate as meal_count_rate',
-				'meals.rate as meal_rate',
-				'meals.album as meal_album',
 				'meals.is_pro as meal_is_pro',
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
 				'calendar_meals.date as date',
-				'meals.description as meal_description',
 			)
 			.from('calendar_meals')
 			.innerJoin('meals', function() {
@@ -186,19 +178,11 @@ class UserService extends BaseService {
 			.select(
 				'meals.id as meal_id',
 				'meals.title as meal_title',
-				'meals.instruction as instruction',
 				'meals.image as meal_image',
-				'meals.time as meal_time',
-				'meals.serving as meal_serving',
-				'meals.calorie as meal_calorie',
-				'meals.count_rate as meal_count_rate',
-				'meals.rate as meal_rate',
-				'meals.album as meal_album',
 				'meals.is_pro as meal_is_pro',
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
 				'calendar_meals.date as date',
-				'meals.description as meal_description',
 			)
 			.from('calendar_meals')
 			.innerJoin('meals', function() {
