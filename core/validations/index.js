@@ -14,6 +14,7 @@ import mealSchema from './meal.schema'
 import mealCalendarSchema from './meal.calendar.schema'
 import mealFavoriteSchema from './meal.favorite.schema'
 import userUpdateSchema from './user.update.schema'
+import userConfigsSchema from './user_configs.schema'
 
 module.exports = {
 	'/auth/signup': signupSchema,
@@ -33,4 +34,5 @@ module.exports = {
 	'/meal/add_favorite': mealFavoriteSchema,
 	'/meal_remove_favorite': mealFavoriteSchema,
 	'/users/:id': userUpdateSchema,
+	'/users/setting': userConfigsSchema,
 }

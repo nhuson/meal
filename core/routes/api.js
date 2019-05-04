@@ -265,6 +265,13 @@ router
 		requireAuth(),
 		pickHandler('user.controller@getMealRangeDay'),
 	)
+	.post(
+		'/users/setting',
+		validateRequest,
+		requireAuth(),
+		pickHandler('user.controller@updateUserSetting'),
+	)
+	.get('/users/setting', requireAuth(), pickHandler('user.controller@getUserSetting'))
 //upload
 router.post('/upload/:location', pickHandler('upload.controller@upload'))
 

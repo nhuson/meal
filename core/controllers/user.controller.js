@@ -114,7 +114,11 @@ const getMealByDay = async (req, res, next) => {
 
 const getMealByUserId = async (req, res, next) => {
 	try {
-		const data = await userService.getMealByUserId(req.user.id)
+		const data = await userService.getMealByUserId({
+			user_id: req.user.id,
+			page: parseInt(req.query.page),
+			per_page: parseInt(req.query.per_page),
+		})
 		res.status(200).json({
 			success: 'success',
 			message: 'The meals has been successfully added to plan.',
@@ -131,10 +135,43 @@ const getMealRangeDay = async (req, res, next) => {
 			user_id: req.user.id,
 			from: req.params.from,
 			to: req.params.to,
+			page: parseInt(req.query.page),
+			per_page: parseInt(req.query.per_page),
 		})
 		res.status(200).json({
 			success: 'success',
 			message: 'The meals has been successfully added to plan.',
+			data,
+		})
+	} catch (error) {
+		next(error)
+	}
+}
+
+const updateUserSetting = async (req, res, next) => {
+	try {
+		await userService.updateUserSetting({
+			meal_type: req.body.meal_type,
+			menu_type: req.body.menu_type,
+			allergy: req.body.allergy,
+			meal_size: req.body.meal_size,
+			user_id: req.user.id,
+		})
+		res.status(200).json({
+			success: 'success',
+			message: 'Updated configs.',
+		})
+	} catch (error) {
+		next(error)
+	}
+}
+
+const getUserSetting = async (req, res, next) => {
+	try {
+		const data = await userService.getUserSetting(req.user.id)
+		res.status(200).json({
+			success: 'success',
+			message: 'Updated configs.',
 			data,
 		})
 	} catch (error) {
@@ -149,4 +186,6 @@ export {
 	getMealByDay,
 	getMealByUserId,
 	getMealRangeDay,
+	updateUserSetting,
+	getUserSetting,
 }

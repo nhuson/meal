@@ -8,6 +8,7 @@ import cors from 'cors'
 import api from './routes/api'
 import crossAllowOrigin from './middleware/crossOrigin'
 import errorHandle from './middleware/errorHandle'
+import mongoose from 'mongoose'
 
 const port = configs.server.port || 3000
 var app = express()
@@ -25,6 +26,11 @@ app.use('/api/v1', api)
 app.use(function(req, res, next) {
 	next(createError(404))
 })
+// connect mongoo
+mongoose
+	.connect(configs.mongoo.url)
+	.then(() => console.log('MongoDB connected'))
+	.catch((err) => console.log(err))
 
 // error handler
 app.use(errorHandle)

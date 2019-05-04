@@ -4,7 +4,8 @@ import { omit } from 'lodash'
 import moment from 'moment'
 import BaseService from './base.service'
 import configs from '../config'
-const bcrypt = require('bcryptjs')
+import bcrypt from 'bcryptjs'
+import UserConfigs from '../models/user_config.model'
 
 class UserService extends BaseService {
 	constructor() {
@@ -145,7 +146,27 @@ class UserService extends BaseService {
 		}))
 	}
 
-	async getMealByUserId(id) {
+	async getMealByUserId(data) {
+		let { page, per_page, user_id } = data
+		if (page < 0 || per_page < 0) {
+			throw createError(400, 'Invalid request params')
+		}
+		let totalRecord = await this.db
+			.where({ user_id })
+			.from('calendar_meals')
+			.count('id as total')
+		if (totalRecord[0].total <= 0) {
+			return []
+		}
+		let totalPage = Math.ceil(totalRecord[0].total / per_page)
+		if (page > totalPage) {
+			page = totalPage
+		}
+		if (page === 0) {
+			page = 1
+		}
+		let offset = (page - 1) * per_page
+
 		const result = await this.db
 			.select(
 				'meals.id as meal_id',
@@ -160,7 +181,9 @@ class UserService extends BaseService {
 			.innerJoin('meals', function() {
 				this.on('meals.id', '=', 'calendar_meals.meal_id')
 			})
-			.where({ user_id: id })
+			.where({ user_id })
+			.limit(per_page)
+			.offset(offset)
 			.orderBy('created_at', 'desc')
 		return result.map((meal) => ({
 			...meal,
@@ -169,11 +192,33 @@ class UserService extends BaseService {
 	}
 
 	async getMealRangeDay(data) {
+		let { page, per_page, user_id } = data
 		const from = new Date(data.from).getTime() / 1000
 		const to = new Date(data.to).getTime() / 1000
 		if (from > to) {
 			throw createError(400, 'Invalid date selected!')
 		}
+		if (page < 0 || per_page < 0) {
+			throw createError(400, 'Invalid request params')
+		}
+		let totalRecord = await this.db
+			.where({ user_id })
+			.where('calendar_meals.date', '>=', from)
+			.where('calendar_meals.date', '<=', to)
+			.from('calendar_meals')
+			.count('id as total')
+		if (totalRecord[0].total <= 0) {
+			return []
+		}
+		let totalPage = Math.ceil(totalRecord[0].total / per_page)
+		if (page > totalPage) {
+			page = totalPage
+		}
+		if (page === 0) {
+			page = 1
+		}
+		let offset = (page - 1) * per_page
+
 		const result = await this.db
 			.select(
 				'meals.id as meal_id',
@@ -188,14 +233,43 @@ class UserService extends BaseService {
 			.innerJoin('meals', function() {
 				this.on('meals.id', '=', 'calendar_meals.meal_id')
 			})
-			.where({ user_id: data.user_id })
+			.where({ user_id })
 			.where('calendar_meals.date', '>=', from)
 			.where('calendar_meals.date', '<=', to)
+			.limit(per_page)
+			.offset(offset)
 			.orderBy('created_at', 'desc')
 		return result.map((meal) => ({
 			...meal,
 			date: moment(meal.date * 1000).format('YYYY-MM-DD'),
 		}))
+	}
+
+	async updateUserSetting(data) {
+		const userConfigs = await UserConfigs.findOne({ user_id: data.user_id })
+		const dataConfigs = {
+			user_id: data.user_id,
+			meal_type: data.meal_type,
+			menu_type: data.menu_type,
+			allergy: data.allergy,
+			meal_size: data.meal_size,
+		}
+		if (!userConfigs) {
+			const newUserConfigs = new UserConfigs(dataConfigs)
+			await newUserConfigs.save()
+		}
+		const userConfigsUpdate = await UserConfigs.findOneAndUpdate(
+			{ user_id: data.user_id },
+			dataConfigs,
+			{ new: true },
+		)
+		return
+	}
+
+	async getUserSetting(id) {
+		const userConfigs = await UserConfigs.findOne({ user_id: id })
+
+		return userConfigs
 	}
 }
 
