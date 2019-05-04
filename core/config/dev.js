@@ -23,4 +23,7 @@ module.exports = {
 			favorite_key: 'favorite_data',
 		},
 	},
+	mongoo: {
+		url: process.env.MONGO_URL,
+	},
 }
