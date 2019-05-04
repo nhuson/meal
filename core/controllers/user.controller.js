@@ -151,9 +151,8 @@ const getMealRangeDay = async (req, res, next) => {
 const updateUserSetting = async (req, res, next) => {
 	try {
 		await userService.updateUserSetting({
-			meal_type: req.body.meal_type,
 			menu_type: req.body.menu_type,
-			allergy: req.body.allergy,
+			allergy: JSON.stringify(req.body.allergy),
 			meal_size: req.body.meal_size,
 			user_id: req.user.id,
 		})

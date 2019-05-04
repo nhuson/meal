@@ -8,6 +8,7 @@ module.exports = {
 			user: configs.database.username,
 			password: configs.database.password,
 			database: configs.database.name,
+			ssl: true,
 		},
 		useNullAsDefault: true,
 		migrations: {

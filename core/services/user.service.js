@@ -5,7 +5,6 @@ import moment from 'moment'
 import BaseService from './base.service'
 import configs from '../config'
 import bcrypt from 'bcryptjs'
-import UserConfigs from '../models/user_config.model'
 
 class UserService extends BaseService {
 	constructor() {
@@ -246,28 +245,25 @@ class UserService extends BaseService {
 	}
 
 	async updateUserSetting(data) {
-		const userConfigs = await UserConfigs.findOne({ user_id: data.user_id })
-		const dataConfigs = {
-			user_id: data.user_id,
-			meal_type: data.meal_type,
-			menu_type: data.menu_type,
-			allergy: data.allergy,
-			meal_size: data.meal_size,
-		}
+		const userConfigs = await this.db
+			.where({ user_id: data.user_id })
+			.from('user_configs')
+			.first()
 		if (!userConfigs) {
-			const newUserConfigs = new UserConfigs(dataConfigs)
-			await newUserConfigs.save()
+			await this.db.insert(data).into('user_configs')
 		}
-		const userConfigsUpdate = await UserConfigs.findOneAndUpdate(
-			{ user_id: data.user_id },
-			dataConfigs,
-			{ new: true },
-		)
+		await this.db
+			.table('user_configs')
+			.where({ user_id: data.user_id })
+			.update(data)
 		return
 	}
 
 	async getUserSetting(id) {
-		const userConfigs = await UserConfigs.findOne({ user_id: id })
+		const userConfigs = await this.db
+			.where({ user_id: id })
+			.from('user_configs')
+			.first()
 
 		return userConfigs
 	}

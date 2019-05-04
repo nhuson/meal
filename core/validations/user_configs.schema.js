@@ -1,9 +1,6 @@
 import Joi from 'joi'
 
 module.exports = Joi.object({
-	meal_type: Joi.number()
-		.integer()
-		.required(),
 	menu_type: Joi.number()
 		.integer()
 		.required(),
