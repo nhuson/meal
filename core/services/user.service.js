@@ -5,11 +5,13 @@ import moment from 'moment'
 import BaseService from './base.service'
 import configs from '../config'
 import bcrypt from 'bcryptjs'
+import UserModel from '../models/user.model'
 
 class UserService extends BaseService {
 	constructor() {
 		super()
 		this.tableName = 'users'
+		this.model = UserModel
 	}
 
 	tokenForUser(user) {
@@ -94,12 +96,7 @@ class UserService extends BaseService {
 	 * Find user
 	 */
 	async findUserToUpdate(option) {
-		let user = await this.db
-			.where({ email: option.email })
-			.whereNot({ id: option.id })
-			.from(this.tableName)
-			.first()
-		return user
+		return await this.model.find({ email: option.email, _id: { $ne: option.id } })
 	}
 
 	/**

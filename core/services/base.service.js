@@ -4,32 +4,28 @@ class BaseService {
 	constructor() {
 		this.tableName = ''
 		this.db = knex
+		this.model = {}
 	}
 
 	async create(data) {
-		return await knex(this.tableName).insert(data)
+		const modelObject = new this.model(data)
+		return await modelObject.save()
 	}
 
 	async update(data, option) {
-		return await knex(this.tableName)
-			.where(option)
-			.update(data)
+		return await this.model.update(option, { $set: data }, { multi: true, new: true })
 	}
 
 	async delete(option) {
-		return await knex(this.tableName)
-			.where(option)
-			.delete()
+		return await this.model.remove(option)
 	}
 
 	async findAll() {
-		return await knex(this.tableName).select('*')
+		return await this.model.find({})
 	}
 
 	async findOne(option) {
-		return await knex(this.tableName)
-			.where(option)
-			.first()
+		return await this.model.findOne(option)
 	}
 }
 
