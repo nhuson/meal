@@ -18,9 +18,10 @@ const getAll = async (req, res, next) => {
 				data: {categories},
 			})
 		} else {
-			let data = await categoryService.getCategoryAvailable({
+			let data = await categoryService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'categories'
 			})
 			res.status(200).json({
 				success: 'success',
