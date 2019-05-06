@@ -11,10 +11,9 @@ import pageService from '../services/page.service'
 const getAll = async (req, res, next) => {
 	try {
 		let data = await pageService.findAll()
-
 		res.status(200).json({
 			success: 'success',
-			data,
+			data
 		})
 	} catch (err) {
 		next(err)
@@ -30,15 +29,18 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		let { title, type, description } = req.body
+		let { title, url } = req.body
 		let page = await pageService.findOne({ title })
-		if (page) throw createError(400, 'This page already exists')
+		if (page) {
+			throw createError(400, 'This page already exists')
+		}
 
-		await pageService.create({ title, type, description })
+		const newPage = await pageService.create({ title, url })
 
-		res.json(200, {
+		res.status(200).json({
 			success: 'success',
 			message: 'The page has been successfully created.',
+			data: newPage
 		})
 	} catch (err) {
 		next(err)
@@ -54,26 +56,13 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const dataUpdate = await pageService.findOne({ id })
-		if (!dataUpdate) {
-			throw createError(404, 'Page not found')
-		}
-		let putData = {
-			title: req.body.title,
-			description: req.body.description,
-			type: req.body.type,
-		}
-		putData = _(putData)
-			.omit(_.isUndefined)
-			.omit(_.isNull)
-			.value()
-
-		await pageService.update({ ...dataUpdate, ...putData }, { id })
+		const { id } = req.params
+		const { ...updateData } = req.body
+		await pageService.update(updateData, { _id: id })
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The page has been successfully updated.',
+			message: 'The page has been successfully updated.'
 		})
 	} catch (err) {
 		next(err)
@@ -89,16 +78,12 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const dataDel = await pageService.findOne({ id })
-		if (!dataDel) {
-			throw createError(404, 'Page not found')
-		}
-		await pageService.delete({ id })
+		const { id } = req.params
+		await pageService.delete({ _id: id })
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The page has been successfully deleted.',
+			message: 'The page has been successfully deleted.'
 		})
 	} catch (err) {
 		next(err)
