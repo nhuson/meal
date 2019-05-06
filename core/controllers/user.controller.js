@@ -37,7 +37,7 @@ const getUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const user = await userService.findOne({ id })
+		const user = await userService.findOne({ _id: id })
 		if (!user) {
 			throw createError(404, 'User not found')
 		}
@@ -45,7 +45,7 @@ const updateUser = async (req, res, next) => {
 			email: req.body.email,
 			id,
 		})
-		if (userByEmail) {
+		if (userByEmail.length > 0) {
 			throw createError(404, 'User already exists!')
 		}
 
@@ -68,8 +68,7 @@ const updateUser = async (req, res, next) => {
 			.omit(_.isNull)
 			.value()
 
-		const updateData = { ...user, ...putData }
-		await userService.update(updateData, { id })
+		await userService.update(putData, { _id: id })
 
 		res.status(200).json({
 			success: 'success',

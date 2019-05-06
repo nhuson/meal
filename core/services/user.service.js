@@ -55,7 +55,9 @@ class UserService extends BaseService {
 	 * Find user
 	 */
 	async findUserToUpdate(option) {
-		return await this.model.find({ email: option.email, _id: { $ne: option.id } })
+		return await this.model
+			.find({ _id: { $ne: option.id } })
+			.and([{ email: option.email }])
 	}
 
 	/**
