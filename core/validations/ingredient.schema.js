@@ -5,7 +5,5 @@ export default Joi.object({
 	image: Joi.string().required(),
 	description: Joi.string().required(),
 	unit: Joi.string(),
-	type_id: Joi.number()
-		.integer()
-		.required(),
+	type_id: Joi.string().required(),
 })

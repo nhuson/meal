@@ -9,6 +9,7 @@ const MealSchema = new Schema(
 			trim: true,
 			index: true,
 			require: true,
+			unique: true,
 		},
 		image: {
 			type: String,

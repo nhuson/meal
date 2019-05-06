@@ -17,9 +17,10 @@ const getAll = async (req, res, next) => {
 				data,
 			})
 		} else {
-			let data = await ingredientService.getIngredientsAvailable({
+			let data = await ingredientService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'ingredients',
 			})
 			res.status(200).json({
 				success: 'success',
@@ -64,7 +65,7 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
 	try {
 		let { id } = req.params
-		const dataUpdate = await ingredientService.findOne({ id })
+		const dataUpdate = await ingredientService.findOne({ _id: id })
 		if (!dataUpdate) {
 			throw createError(404, 'Ingredient not found')
 		}
