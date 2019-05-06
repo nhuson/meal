@@ -29,7 +29,7 @@ services:
       - "3000:3000"
       - "9229:9229"
     depends_on:
-      - "db"
+      - "mongo"
     volumes:
       - ./core:/home/node/meal-api
     environment:
@@ -37,20 +37,39 @@ services:
     networks:
       - backend
       - frontent
-  db:
+  mongo:
     restart: always
-    container_name: database
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: "123123"
-      MYSQL_DATABASE: "meal_db"
+    container_name: mongo
+    image: "mongo:latest"
     ports:
-      - "3306:3306"
+      - "27018:27018"
     volumes:
-      - ~/data/mysql:/var/lib/mysql
-      - ./mysql/conf.d:/etc/mysql/conf.d
+      - data_mongo:/data/db
     networks:
       - backend
+      - tools
+  admin-mongo:
+    restart: always
+    container_name: admin-mongo
+    image: "mrvautin/adminmongo"
+    ports:
+      - "1234:1234"
+    networks:
+      - tools
+  # db:
+  #   restart: always
+  #   container_name: database
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "123123"
+  #     MYSQL_DATABASE: "meal_db"
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - ~/data/mysql:/var/lib/mysql
+  #     - ./mysql/conf.d:/etc/mysql/conf.d
+  #   networks:
+  #     - backend
   # redis:
   #   restart: always
   #   image: redis:alpine
@@ -62,7 +81,8 @@ services:
   #   networks:
   #     - backend
 volumes:
-  data:
+  data_mongo:
 networks:
   backend:
   frontent:
+  tools:
