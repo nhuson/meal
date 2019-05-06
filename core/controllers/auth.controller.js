@@ -47,7 +47,7 @@ module.exports.signup = async (req, res, next) => {
 module.exports.login = async (req, res, next) => {
 	const data = req.body || {}
 	const email = data.email.toLowerCase().trim()
-	const user = await userService.findByEmail(email)
+	let user = await userService.findByEmail(email)
 	if (!user) {
 		throw createError(404, 'User not found')
 	}
@@ -60,13 +60,13 @@ module.exports.login = async (req, res, next) => {
 		throw createError(400, 'Your account is blocked.')
 	}
 
-	delete user.password
+	user.password = undefined
 	res.status(200).json({
 		success: 'success',
 		message: 'You have been successfully logged in!',
 		data: {
 			token: userService.tokenForUser(user),
-			user: user,
+			user,
 		},
 	})
 }
