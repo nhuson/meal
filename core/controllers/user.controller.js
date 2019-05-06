@@ -12,7 +12,6 @@ import uploadS3 from '../utils/uploadS3'
  */
 const getUser = async (req, res, next) => {
 	try {
-		console.log('aaaa')
 		let data = await userService.getUserAvailable({
 			page: parseInt(req.query.page),
 			per_page: parseInt(req.query.per_page),

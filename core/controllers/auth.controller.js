@@ -167,7 +167,7 @@ module.exports.loginFacebook = async (req, res, next) => {
 		}
 
 		await userService.create(newUser)
-		delete newUser.password
+		newUser.password = undefined
 		res.status(200).json({
 			success: 'success',
 			message: 'The user was successfully created!',
