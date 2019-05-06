@@ -11,15 +11,16 @@ import ingredientService from '../services/ingredient.service'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await ingredientService.findAll()
+			let ingredients = await ingredientService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data,
+				data: {ingredients},
 			})
 		} else {
-			let data = await ingredientService.getIngredientsAvailable({
+			let data = await ingredientService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'ingredients'
 			})
 			res.status(200).json({
 				success: 'success',
@@ -40,14 +41,18 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		let { title, image, description, unit, type_id } = req.body
+		let { title, image, description, unit, type} = req.body
 		let ingredient = await ingredientService.findOne({ title })
-		if (ingredient) throw createError(400, 'This ingredient already exists')
-		await ingredientService.create({ title, image, description, unit, type_id })
+		if (ingredient) {
+			throw createError(400, 'This ingredient already exists')
+		}
+
+		const newIngredient = await ingredientService.create({ title, image, description, unit, type })
 
 		res.status(200).json({
 			success: 'success',
 			message: 'The Ingredient has been successfully created.',
+			data: newIngredient
 		})
 	} catch (err) {
 		next(err)
@@ -63,24 +68,9 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const dataUpdate = await ingredientService.findOne({ id })
-		if (!dataUpdate) {
-			throw createError(404, 'Ingredient not found')
-		}
-		let putData = {
-			title: req.body.title,
-			description: req.body.description,
-			image: req.body.image,
-			unit: req.body.unit,
-			type_id: req.body.type_id,
-		}
-		putData = _(putData)
-			.omit(_.isUndefined)
-			.omit(_.isNull)
-			.value()
-
-		await ingredientService.update({ ...dataUpdate, ...putData }, { id })
+		const { id } = req.params
+		const { ...updateData } = req.body
+		await ingredientService.update(updateData, {_id : id})
 
 		res.status(200).json({
 			success: 'success',
@@ -100,12 +90,8 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const dataDel = await ingredientService.findOne({ id })
-		if (!dataDel) {
-			throw createError(404, 'Ingredient not found')
-		}
-		await ingredientService.delete({ id })
+		const { id } = req.params
+		await ingredientService.delete({_id : id})
 
 		res.status(200).json({
 			success: 'success',

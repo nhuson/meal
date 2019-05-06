@@ -12,15 +12,16 @@ import contactService from '../services/contact.service'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let data = await contactService.findAll()
+			let contacts = await contactService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data,
+				data: {contacts},
 			})
 		} else {
-			let data = await contactService.getContactAvailable({
+			let data = await contactService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'contacts'
 			})
 			res.status(200).json({
 				success: 'success',
@@ -42,12 +43,8 @@ const getAll = async (req, res, next) => {
 const create = async (req, res, next) => {
 	try {
 		const { title, messages } = req.body
-		await contactService.create({
-			title,
-			messages,
-			user_id: req.user.id,
-		})
-
+		await contactService.create({ title, messages, user: req.user._id})
+		
 		res.status(200).json({
 			success: 'success',
 			message: 'Your message was sent successfully.',
@@ -66,13 +63,14 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const data = await contactService.findOne({ id })
-		if (!data) {
-			throw createError(404, 'Not found contact')
-		}
+		const { id } = req.params
+		const { ...updateData } = req.body
+		await contactService.update(updateData, {_id : id})
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({
+			success: 'success',
+			message: 'The contact has been successfully updated.'
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -87,17 +85,12 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const data = await contactService.findOne({ id })
-		if (!data) {
-			throw createError(404, 'Not found contact')
-		}
-
-		await contactService.delete({ id })
+		const { id } = req.params
+		await contactService.delete({_id : id})
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The menu type has been successfully deteled.',
+			message: 'The contact has been successfully deteled.',
 		})
 	} catch (err) {
 		next(err)
