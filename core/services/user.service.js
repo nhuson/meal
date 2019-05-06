@@ -42,53 +42,12 @@ class UserService extends BaseService {
 		return await this.findOne({ email })
 	}
 
-	/**
-	 * Get all user
-	 */
 	async getUserAvailable(option) {
-		let { page, per_page } = option
-		if (page < 0 || per_page < 0) {
-			throw createError(400, 'Invalid request params')
-		}
-		let totalRecord = await this.db
-			.where({ role: 'USER' })
-			.from(this.tableName)
-			.count('id as total')
-		if (totalRecord[0].total <= 0) {
-			return []
-		}
-		let totalPage = Math.ceil(totalRecord[0].total / per_page)
-		if (page > totalPage) {
-			page = totalPage
-		}
-		if (page === 0) {
-			page = 1
-		}
-
-		let offset = (page - 1) * per_page
-
-		let users = await this.db
-			.select(
-				'id',
-				this.db.raw("CONCAT(firstname, ' ', lastname) as fullname"),
-				'lastname',
-				'firstname',
-				'avatar',
-				'email',
-				'status',
-				'role',
-			)
-			.where({ role: 'USER' })
-			.from(this.tableName)
-			.limit(per_page)
-			.offset(offset)
-			.orderBy('status', 'desc')
-			.orderBy('created_at', 'desc')
-
+		const data = await this.getAvailable(option)
+		const users = data.users.filter((user) => user.role === 'user')
 		return {
+			...data,
 			users,
-			total_page: totalPage,
-			total_record: totalRecord[0].total,
 		}
 	}
 
@@ -96,7 +55,9 @@ class UserService extends BaseService {
 	 * Find user
 	 */
 	async findUserToUpdate(option) {
-		return await this.model.find({ email: option.email, _id: { $ne: option.id } })
+		return await this.model
+			.find({ _id: { $ne: option.id } })
+			.and([{ email: option.email }])
 	}
 
 	/**
