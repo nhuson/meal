@@ -25,9 +25,10 @@ const getAll = async (req, res, next) => {
 
 const getMealsByPage = async (req, res, next) => {
 	try {
-		let data = await mealService.getMeals({
+		let data = await mealService.getAvailable({
 			page: parseInt(req.query.page),
 			per_page: parseInt(req.query.per_page),
+			declation: 'meals',
 		})
 
 		res.status(200).json({

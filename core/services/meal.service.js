@@ -1,10 +1,11 @@
 import BaseService from './base.service'
 import createError from 'http-errors'
+import MealModel from '../models/meal.model'
 
 class MealService extends BaseService {
 	constructor() {
 		super()
-		this.tableName = 'meals'
+		this.model = MealModel
 	}
 
 	async getMeals(option) {
