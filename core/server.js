@@ -23,7 +23,7 @@ app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
 app.use('/api/v1', api)
 // connect mongoo
 mongoose
-	.connect(configs.mongoo.url)
+	.connect(configs.mongoo.url, {useCreateIndex: true, useNewUrlParser: true })
 	.then(() => console.log('MongoDB connected'))
 	.catch((err) => console.log(err))
 

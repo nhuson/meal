@@ -1,9 +1,11 @@
 import BaseService from './base.service'
+import CategoryModel from '../models/category.model'
 
 class CategoryService extends BaseService {
 	constructor() {
 		super()
 		this.tableName = 'categories'
+		this.model = CategoryModel
 	}
 
 	async getCategoryAvailable(option) {
@@ -13,32 +15,11 @@ class CategoryService extends BaseService {
 			throw createError(400, 'Invalid request params')
 		}
 
-		let totalRecord = await this.db.from('categories').count('id as total')
-		if (totalRecord[0].total <= 0) {
-			return []
-		}
-
-		let totalPage = Math.ceil(totalRecord[0].total / per_page)
-		if (page > totalPage) {
-			page = totalPage
-		}
-
-		if (page === 0) {
-			page = 1
-		}
-
-		let offset = (page - 1) * per_page
-		let categories = await this.db
-			.select('id', 'created_at', 'title', 'description', 'image')
-			.from('categories')
-			.limit(per_page)
-			.offset(offset)
-			.orderBy('created_at', 'desc')
-
+		const data = await this.model.paginate({}, { page, limit: per_page });
 		return {
-			categories,
-			total_page: totalPage,
-			total_record: totalRecord[0].total,
+			categories: data.docs,
+			total_page: data.pages,
+			total_record: data.total,
 		}
 	}
 }

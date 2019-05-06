@@ -7,25 +7,24 @@ class BaseService {
 		this.model = {}
 	}
 
-	async create(data) {
-		const modelObject = new this.model(data)
-		return await modelObject.save()
+	create(data) {
+		return this.model.create(data)
 	}
 
-	async update(data, option) {
-		return await this.model.update(option, { $set: data }, { multi: true, new: true })
+	update(data, option) {
+		return this.model.updateOne(option, data)
 	}
 
-	async delete(option) {
-		return await this.model.remove(option)
+	delete(option) {
+		return this.model.remove(option)
 	}
 
-	async findAll() {
-		return await this.model.find({})
+	findAll() {
+		return this.model.find({})
 	}
 
-	async findOne(option) {
-		return await this.model.findOne(option)
+	findOne(option) {
+		return this.model.findOne(option)
 	}
 }
 

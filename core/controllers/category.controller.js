@@ -47,14 +47,7 @@ const create = async (req, res, next) => {
 			throw createError(400, 'This category already exists')
 		}
 
-		const newCategory = {
-			title,
-			description,
-			image,
-		}
-		console.log(newCategory, '----------')
-		const ids = await categoryService.create(newCategory)
-		newCategory.id = ids[0]
+		const newCategory = await categoryService.create({title, description, image})
 
 		res.status(200).json({
 			success: 'success',
@@ -77,27 +70,12 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const category = await categoryService.findOne({ id })
-		if (!category) {
-			throw createError(404, 'Category not found')
-		}
-
-		let putData = {
-			title: req.body.title,
-			description: req.body.description,
-			image: req.body.image,
-		}
-		putData = _(putData)
-			.omit(_.isUndefined)
-			.omit(_.isNull)
-			.value()
-
-		const updateData = { ...category, ...putData }
-		await categoryService.update(updateData, { id })
+		const { ...updateData } = req.body
+		await categoryService.update(updateData, {_id : id})
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The category has been successfully updated.',
+			message: 'The category has been successfully updated.'
 		})
 	} catch (err) {
 		next(err)
@@ -113,14 +91,9 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const category = await categoryService.findOne({ id })
-		if (!category) {
-			throw createError(404, 'Category not found')
-		}
-
-		await categoryService.delete({ id })
-
+		const { id } = req.params
+		await categoryService.delete({_id : id})
+		
 		res.status(200).json({
 			success: 'success',
 			message: 'The category has been successfully deleted.',
