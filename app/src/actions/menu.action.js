@@ -10,7 +10,7 @@ export const getMenusAvailable = (pageNumber, pageSize) => {
 			let resp = await getMenus(pageNumber, pageSize)
 			dispatch({
                 type: menuConstant.GET_MENUS,
-                menus: resp.data.menus || [],
+                menus: resp.data.menues || [],
                 total_page: resp.data.total_page || 0,
                 total_record: resp.data.total_record || 0
              })

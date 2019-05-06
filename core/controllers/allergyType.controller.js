@@ -17,9 +17,10 @@ const getAll = async (req, res, next) => {
 				data: { allergies },
 			})
 		} else {
-			let data = await allergyTypeService.getAllergiesAvailable({
+			let data = await allergyTypeService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'allergies'
 			})
 			res.status(200).json({
 				success: 'success',
@@ -46,14 +47,7 @@ const create = async (req, res, next) => {
 			throw createError(400, 'This allergy already exists')
 		}
 
-		const newAllergy = {
-			title,
-			description,
-		}
-
-		const ids = await allergyTypeService.create(newAllergy)
-		newAllergy.id = ids[0]
-
+		const newAllergy = await allergyTypeService.create({title, description})
 		res.status(200).json({
 			success: 'success',
 			message: 'The allergy has been successfully created.',
@@ -74,22 +68,8 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const allergiType = await allergyTypeService.findOne({ id })
-		if (!allergiType) {
-			throw createError(404, 'Not found allergy')
-		}
-
-		let putData = {
-			title: req.body.title,
-			description: req.body.description,
-		}
-		putData = _(putData)
-			.omit(_.isUndefined)
-			.omit(_.isNull)
-			.value()
-
-		const updateData = { ...allergiType, ...putData }
-		await allergyTypeService.update(updateData, { id })
+		const { ...updateData } = req.body
+		await allergyTypeService.update(updateData, {_id : id})
 
 		res.status(200).json({
 			success: 'success',
@@ -109,13 +89,8 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const data = await allergyTypeService.findOne({ id })
-		if (!data) {
-			throw createError(404, 'Not found allergy')
-		}
-
-		await allergyTypeService.delete({ id })
+		const { id } = req.params
+		await allergyTypeService.delete({_id : id})
 
 		res.status(200).json({
 			success: 'success',

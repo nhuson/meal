@@ -12,15 +12,16 @@ import _ from 'lodash'
 const getAll = async (req, res, next) => {
 	try {
 		if (!req.query.page || !req.query.per_page) {
-			let menus = await menuTypeService.findAll()
+			let menues = await menuTypeService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data: { menus },
+				data: { menues },
 			})
 		} else {
-			let data = await menuTypeService.getMenusAvailable({
+			let data = await menuTypeService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'menues'
 			})
 			res.status(200).json({
 				success: 'success',
@@ -47,14 +48,7 @@ const create = async (req, res, next) => {
 			throw createError(400, 'This menu already exists')
 		}
 
-		const newMenu = {
-			title,
-			description,
-		}
-
-		const ids = await menuTypeService.create(newMenu)
-		newMenu.id = ids[0]
-
+		const newMenu = await menuTypeService.create({title, description})
 		res.status(200).json({
 			success: 'success',
 			message: 'The menu type has been successfully created.',
@@ -74,23 +68,9 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const menuType = await menuTypeService.findOne({ id })
-		if (!menuType) {
-			throw createError(404, 'Not found menu type.')
-		}
-
-		let putData = {
-			title: req.body.title,
-			description: req.body.description,
-		}
-		putData = _(putData)
-			.omit(_.isUndefined)
-			.omit(_.isNull)
-			.value()
-
-		const updateData = { ...menuType, ...putData }
-		await menuTypeService.update(updateData, { id })
+		const { id } = req.params
+		const { ...updateData } = req.body
+		await menuTypeService.update(updateData, {_id : id})
 
 		res.status(200).json({
 			success: 'success',
@@ -110,13 +90,8 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const data = await menuTypeService.findOne({ id })
-		if (!data) {
-			throw createError(404, 'Not found menu type')
-		}
-
-		await menuTypeService.delete({ id })
+		const { id } = req.params
+		await menuTypeService.delete({_id : id})
 
 		res.status(200).json({
 			success: 'success',

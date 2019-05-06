@@ -18,9 +18,10 @@ const getAll = async (req, res, next) => {
 				data: {typeIngredients},
 			})
 		} else {
-			let data = await typeIngredientService.getTypeIngredientsAvailable({
+			let data = await typeIngredientService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
+				declation: 'typeIngredients'
 			})
 			res.status(200).json({
 				success: 'success',
@@ -41,20 +42,13 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		console.log(req.body)
 		let { title, description, image } = req.body
 		let typeIngredient = await typeIngredientService.findOne({ title })
-		if (typeIngredient) throw createError(400, 'This type ingredient already exists')
-
-		const newTypeIngredient = {
-			title,
-			description,
-			image
+		if (typeIngredient) {
+			throw createError(400, 'This type ingredient already exists')
 		}
 
-		const ids = await typeIngredientService.create(newTypeIngredient)
-		newTypeIngredient.id = ids[0]
-
+		const newTypeIngredient = await typeIngredientService.create({title, description, image})
 		res.status(200).json({
 			success: 'success',
 			message: 'The type ingredient has been successfully created.',
@@ -74,21 +68,9 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const dataUpdate = await typeIngredientService.findOne({ id })
-		if (!dataUpdate) {
-			throw createError(404, 'Type ingredient not found')
-		}
-		let putData = {
-			title: req.body.title,
-			description: req.body.description,
-			image: req.body.image,
-		}
-		putData = _(putData)
-			.omit(_.isUndefined)
-			.omit(_.isNull)
-			.value()
-		await typeIngredientService.update({ ...dataUpdate, ...putData }, { id })
+		const { id } = req.params
+		const { ...updateData } = req.body
+		await typeIngredientService.update(updateData, {_id : id})
 
 		res.status(200).json({
 			success: 'success',
@@ -108,12 +90,8 @@ const update = async (req, res, next) => {
  */
 const deleteType = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const dataDel = await typeIngredientService.findOne({ id })
-		if (!dataDel) {
-			throw createError(404, 'Type ingredient not found')
-		}
-		await typeIngredientService.delete({ id })
+		const { id } = req.params
+		await typeIngredientService.delete({_id : id})
 
 		res.status(200).json({
 			success: 'success',
