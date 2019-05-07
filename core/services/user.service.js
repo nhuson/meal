@@ -10,7 +10,6 @@ import UserModel from '../models/user.model'
 class UserService extends BaseService {
 	constructor() {
 		super()
-		this.tableName = 'users'
 		this.model = UserModel
 	}
 

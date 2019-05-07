@@ -11,10 +11,9 @@ import versionService from '../services/versions.service'
 const getAll = async (req, res, next) => {
 	try {
 		let data = await versionService.findAll()
-
 		res.status(200).json({
 			success: 'success',
-			data,
+			data
 		})
 	} catch (err) {
 		next(err)
@@ -30,7 +29,14 @@ const getAll = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		res.status(200).json({ success: 'success' })
+		const { version, os, url, force } = req.body
+		const newVersion = await versionService.create({ version, os, url, force })
+
+		res.status(200).json({
+			success: 'success',
+			message: 'The version has been successfully created.',
+			data: newVersion
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -45,9 +51,9 @@ const create = async (req, res, next) => {
  */
 const update = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		let { version, os, url, force } = req.body
-		versionService.update({ version, os, url, force }, { id })
+		const { id } = req.params
+		const { ...updateData } = req.body
+		await versionService.update(updateData, { _id: id })
 
 		res.status(200).json({ success: 'success' })
 	} catch (err) {
@@ -64,7 +70,8 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
+		const { id } = req.params
+		await versionService.delete({ _id: id })
 
 		res.status(200).json({ success: 'success' })
 	} catch (err) {

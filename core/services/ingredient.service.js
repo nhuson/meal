@@ -4,7 +4,6 @@ import IngredientModel from '../models/ingredient.model'
 class IngredientService extends BaseService {
 	constructor() {
 		super()
-		this.tableName = 'ingredients'
 		this.model = IngredientModel
 	}
 

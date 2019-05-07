@@ -4,7 +4,6 @@ import ContactModel from '../models/contact.model'
 class ContactService extends BaseService {
 	constructor() {
 		super()
-		this.tableName = 'contacts'
 		this.model = ContactModel
 	}
 

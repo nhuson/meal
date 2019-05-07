@@ -1,9 +1,10 @@
 import BaseService from './base.service'
+import VersionModel from '../models/version.model'
 
 class VersionService extends BaseService {
 	constructor() {
 		super()
-		this.tableName = 'versions'
+		this.model = VersionModel
 	}
 }
 
