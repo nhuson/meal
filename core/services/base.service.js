@@ -34,7 +34,7 @@ class BaseService {
 			throw createError(400, 'Invalid request params')
 		}
 
-		const data = await this.model.paginate({}, { page, limit: per_page });
+		const data = await this.model.paginate({}, { page, limit: per_page })
 		return {
 			[option.declation]: data.docs,
 			total_page: data.pages,

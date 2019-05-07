@@ -52,6 +52,14 @@ const UserSchema = new Schema(
 			require: true,
 			default: 'user',
 		},
+		meal_favorites: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'meals',
+				default: [],
+				require: true,
+			},
+		],
 	},
 	{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } },
 )

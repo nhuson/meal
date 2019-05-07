@@ -19,15 +19,9 @@ export default Joi.object({
 	is_pro: Joi.number()
 		.integer()
 		.allow(0, 1),
-	cate_id: Joi.number()
-		.integer()
-		.required(),
-	menu_id: Joi.number()
-		.integer()
-		.required(),
-	allergi_id: Joi.number()
-		.integer()
-		.required(),
-	instruction: Joi.array().required(),
-	ingredient_id: Joi.array().required(),
+	category: Joi.string().required(),
+	menu_type: Joi.string().required(),
+	allergy: Joi.string().required(),
+	instructions: Joi.array().required(),
+	ingredients: Joi.array().required(),
 })

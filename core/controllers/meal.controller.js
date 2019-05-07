@@ -49,39 +49,8 @@ const getMealsByPage = async (req, res, next) => {
  */
 const create = async (req, res, next) => {
 	try {
-		const {
-			title,
-			instruction,
-			image,
-			time,
-			serving,
-			calorie,
-			count_rate,
-			rate,
-			is_pro,
-			cate_id,
-			menu_id,
-			allergi_id,
-			ingredient_id,
-			description,
-		} = req.body
-
-		await mealService.create({
-			title,
-			image,
-			time,
-			serving,
-			calorie,
-			count_rate,
-			rate,
-			is_pro,
-			cate_id,
-			menu_id,
-			allergi_id,
-			instruction: JSON.stringify(instruction),
-			ingredient_id,
-			description,
-		})
+		const { ...mealData } = req.body
+		await mealService.create(mealData)
 
 		res.status(200).json({
 			success: 'success',
@@ -102,12 +71,16 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
 	try {
 		let { id } = req.params
-		const data = await mealService.findOne({ id })
+		const { ...mealData } = req.body
+		const data = await mealService.findOne({ _id: id })
 		if (!data) {
-			throw createError(404, 'Not found meal.')
+			throw createError(404, 'Meal not found.')
 		}
-
-		res.status(200).json({ success: 'success' })
+		await mealService.update(mealData, { _id: id })
+		res.status(200).json({
+			success: 'success',
+			message: 'The meal has been successfully updated.',
+		})
 	} catch (err) {
 		next(err)
 	}
@@ -122,15 +95,18 @@ const update = async (req, res, next) => {
  */
 const remove = async (req, res, next) => {
 	try {
-		let { id } = req.params
-		const data = await mealService.findOne({ id })
+		const { id } = req.params
+		const data = await mealService.findOne({ _id: id })
 		if (!data) {
-			throw createError(404, 'Not found meal.')
+			throw createError(404, 'Meal not found.')
 		}
 
-		await mealService.delete({ id })
+		await mealService.delete({ _id: id })
 
-		res.status(200).json({ success: 'success' })
+		res.status(200).json({
+			success: 'success',
+			message: 'The meal has been successfully deleted.',
+		})
 	} catch (err) {
 		next(err)
 	}

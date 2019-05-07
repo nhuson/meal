@@ -15,13 +15,13 @@ const getAll = async (req, res, next) => {
 			let typeIngredients = await typeIngredientService.findAll()
 			res.status(200).json({
 				success: 'success',
-				data: {typeIngredients},
+				data: { typeIngredients },
 			})
 		} else {
 			let data = await typeIngredientService.getAvailable({
 				page: parseInt(req.query.page),
 				per_page: parseInt(req.query.per_page),
-				declation: 'typeIngredients'
+				declation: 'type_ingredients',
 			})
 			res.status(200).json({
 				success: 'success',
@@ -48,11 +48,15 @@ const create = async (req, res, next) => {
 			throw createError(400, 'This type ingredient already exists')
 		}
 
-		const newTypeIngredient = await typeIngredientService.create({title, description, image})
+		const newTypeIngredient = await typeIngredientService.create({
+			title,
+			description,
+			image,
+		})
 		res.status(200).json({
 			success: 'success',
 			message: 'The type ingredient has been successfully created.',
-			data: newTypeIngredient
+			data: newTypeIngredient,
 		})
 	} catch (err) {
 		next(err)
@@ -70,7 +74,7 @@ const update = async (req, res, next) => {
 	try {
 		const { id } = req.params
 		const { ...updateData } = req.body
-		await typeIngredientService.update(updateData, {_id : id})
+		await typeIngredientService.update(updateData, { _id: id })
 
 		res.status(200).json({
 			success: 'success',
@@ -91,7 +95,7 @@ const update = async (req, res, next) => {
 const deleteType = async (req, res, next) => {
 	try {
 		const { id } = req.params
-		await typeIngredientService.delete({_id : id})
+		await typeIngredientService.delete({ _id: id })
 
 		res.status(200).json({
 			success: 'success',
