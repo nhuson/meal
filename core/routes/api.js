@@ -234,7 +234,27 @@ router
 		requireAuth(),
 		pickHandler('meal.controller@getMealFavoriteByUser'),
 	)
-
+	.post(
+		'/meal/meal_calendar',
+		requireAuth(),
+		validateRequest,
+		pickHandler('meal.controller@createMealCalendar'),
+	)
+	.get(
+		'/meal/get_meal_by_day/:date',
+		requireAuth(),
+		pickHandler('meal.controller@getMealByDay'),
+	)
+	.get(
+		'/meal/get_meal_by_user_id',
+		requireAuth(),
+		pickHandler('meal.controller@getMealByUserId'),
+	)
+	.get(
+		'/meal/get_meal_range_day/:from/:to',
+		requireAuth(),
+		pickHandler('meal.controller@getMealRangeDay'),
+	)
 //Users
 router
 	.get('/users', requireAuth('admin'), pickHandler('user.controller@getUser'))
@@ -243,27 +263,6 @@ router
 		requireAuth(),
 		validateRequest,
 		pickHandler('user.controller@updateUser'),
-	)
-	.post(
-		'/users/meal_calendar',
-		requireAuth(),
-		validateRequest,
-		pickHandler('user.controller@createMealCalendar'),
-	)
-	.get(
-		'/users/get_meal_by_day/:date',
-		requireAuth(),
-		pickHandler('user.controller@getMealByDay'),
-	)
-	.get(
-		'/users/get_meal_by_user_id',
-		requireAuth(),
-		pickHandler('user.controller@getMealByUserId'),
-	)
-	.get(
-		'/users/get_meal_range_day/:from/:to',
-		requireAuth(),
-		pickHandler('user.controller@getMealRangeDay'),
 	)
 	.post(
 		'/users/setting',
