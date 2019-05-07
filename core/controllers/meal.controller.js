@@ -16,7 +16,7 @@ const getAll = async (req, res, next) => {
 
 		res.status(200).json({
 			success: 'success',
-			data,
+			data
 		})
 	} catch (err) {
 		next(err)
@@ -28,12 +28,12 @@ const getMealsByPage = async (req, res, next) => {
 		let data = await mealService.getAvailable({
 			page: parseInt(req.query.page),
 			per_page: parseInt(req.query.per_page),
-			declation: 'meals',
+			declation: 'meals'
 		})
 
 		res.status(200).json({
 			success: 'success',
-			data,
+			data
 		})
 	} catch (err) {
 		next(err)
@@ -54,7 +54,7 @@ const create = async (req, res, next) => {
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The meal has been successfully created.',
+			message: 'The meal has been successfully created.'
 		})
 	} catch (err) {
 		next(err)
@@ -79,7 +79,7 @@ const update = async (req, res, next) => {
 		await mealService.update(mealData, { _id: id })
 		res.status(200).json({
 			success: 'success',
-			message: 'The meal has been successfully updated.',
+			message: 'The meal has been successfully updated.'
 		})
 	} catch (err) {
 		next(err)
@@ -105,7 +105,7 @@ const remove = async (req, res, next) => {
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The meal has been successfully deleted.',
+			message: 'The meal has been successfully deleted.'
 		})
 	} catch (err) {
 		next(err)
@@ -130,7 +130,7 @@ const addFavorite = async (req, res, next) => {
 	try {
 		await mealService.addFavorite({
 			user_id: req.user.id,
-			meal_id: req.body.meal_id,
+			meal_id: req.body.meal_id
 		})
 
 		res.status(200).json({ success: 'success', message: 'Added meal favorite!' })
@@ -143,7 +143,7 @@ const removeFavorite = async (req, res, next) => {
 	try {
 		await mealService.removeFavorite({
 			user_id: req.user.id,
-			meal_id: req.body.meal_id,
+			meal_id: req.body.meal_id
 		})
 
 		res.status(200).json({ success: 'success', message: 'Removed meal favorite!' })
@@ -157,7 +157,7 @@ const getMealFavoriteByUser = async (req, res, next) => {
 		const data = await mealService.getMealFavoriteByUser({
 			user_id: req.user.id,
 			page: req.query.page,
-			per_page: req.query.per_page,
+			per_page: req.query.per_page
 		})
 
 		res.status(200).json({ success: 'success', message: 'Get meal favorite!', data })
@@ -166,17 +166,36 @@ const getMealFavoriteByUser = async (req, res, next) => {
 	}
 }
 
-const createMealCalendar = async (req, res, next) => {
+const createMealPlan = async (req, res, next) => {
 	try {
 		const data = {
 			user_id: req.user.id,
 			...req.body,
+			date: new Date(req.body.date).getTime()
 		}
-		await mealService.createMealCalendar(data)
+		await mealService.createMealPlan(data)
 
 		res.status(200).json({
 			success: 'success',
-			message: 'The meals has been successfully added to plan.',
+			message: 'The meals has been successfully added to plan.'
+		})
+	} catch (error) {
+		next(error)
+	}
+}
+
+const editMealPlan = async (req, res, next) => {
+	try {
+		const data = {
+			user_id: req.user.id,
+			...req.body,
+			date: new Date(req.body.date).getTime()
+		}
+		await mealService.editMealPlan(data)
+
+		res.status(200).json({
+			success: 'success',
+			message: 'The meal plan has been successfully updated.'
 		})
 	} catch (error) {
 		next(error)
@@ -186,13 +205,13 @@ const createMealCalendar = async (req, res, next) => {
 const getMealByDay = async (req, res, next) => {
 	try {
 		const data = await mealService.getMealByDay({
-			date: req.params.date,
-			user_id: req.user.id,
+			date: new Date(req.params.date).getTime(),
+			user_id: req.user.id
 		})
 		res.status(200).json({
 			success: 'success',
 			message: 'The meals has been successfully added to plan.',
-			data,
+			data
 		})
 	} catch (error) {
 		next(error)
@@ -204,12 +223,12 @@ const getMealByUserId = async (req, res, next) => {
 		const data = await mealService.getMealByUserId({
 			user_id: req.user.id,
 			page: parseInt(req.query.page),
-			per_page: parseInt(req.query.per_page),
+			per_page: parseInt(req.query.per_page)
 		})
 		res.status(200).json({
 			success: 'success',
 			message: 'The meals has been successfully added to plan.',
-			data,
+			data
 		})
 	} catch (error) {
 		next(error)
@@ -223,12 +242,12 @@ const getMealRangeDay = async (req, res, next) => {
 			from: req.params.from,
 			to: req.params.to,
 			page: parseInt(req.query.page),
-			per_page: parseInt(req.query.per_page),
+			per_page: parseInt(req.query.per_page)
 		})
 		res.status(200).json({
 			success: 'success',
 			message: 'The meals has been successfully added to plan.',
-			data,
+			data
 		})
 	} catch (error) {
 		next(error)
@@ -245,8 +264,9 @@ export {
 	addFavorite,
 	removeFavorite,
 	getMealFavoriteByUser,
-	createMealCalendar,
+	createMealPlan,
+	editMealPlan,
 	getMealByDay,
 	getMealByUserId,
-	getMealRangeDay,
+	getMealRangeDay
 }

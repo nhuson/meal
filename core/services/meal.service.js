@@ -2,6 +2,7 @@ import BaseService from './base.service'
 import createError from 'http-errors'
 import MealModel from '../models/meal.model'
 import UserModel from '../models/user.model'
+import { flattenDeep } from 'lodash'
 
 class MealService extends BaseService {
 	constructor() {
@@ -16,13 +17,13 @@ class MealService extends BaseService {
 
 		return data.ingredients.map((result) => ({
 			id: result.ingredient._id,
-			amount: result.amount,
+			amount: result.amount
 		}))
 	}
 
 	async addFavorite(data) {
 		const favorites = await UserModel.findOne({ _id: data.user_id }).and({
-			meal_favorites: data.meal_id,
+			meal_favorites: data.meal_id
 		})
 		if (favorites) {
 			throw createError(422, 'Meal added to favorite!')
@@ -30,13 +31,13 @@ class MealService extends BaseService {
 
 		return await UserModel.findOneAndUpdate(
 			{ _id: data.user_id },
-			{ $push: { meal_favorites: data.meal_id } },
+			{ $push: { meal_favorites: data.meal_id } }
 		)
 	}
 
 	async removeFavorite(data) {
 		const favorites = await UserModel.findOne({ _id: data.user_id }).and({
-			meal_favorites: data.meal_id,
+			meal_favorites: data.meal_id
 		})
 		if (!favorites) {
 			throw createError(422, 'Meal havent been favorite!')
@@ -44,7 +45,7 @@ class MealService extends BaseService {
 
 		return await UserModel.findOneAndUpdate(
 			{ _id: data.user_id },
-			{ $pull: { meal_favorites: data.meal_id } },
+			{ $pull: { meal_favorites: data.meal_id } }
 		)
 	}
 
@@ -61,16 +62,16 @@ class MealService extends BaseService {
 		totalRecord = totalRecord.meal_favorites.length
 		let totalPage = Math.ceil(totalRecord / per_page)
 		let results = await UserModel.findOne({ _id: user_id }, [
-			'meal_favorites',
+			'meal_favorites'
 		]).populate([
 			{
 				path: 'meal_favorites',
 				model: 'meals',
 				options: {
 					skip: offset,
-					limit: per_page,
-				},
-			},
+					limit: per_page
+				}
+			}
 		])
 
 		results = results.meal_favorites.map((meal) => ({
@@ -78,43 +79,65 @@ class MealService extends BaseService {
 			meal_title: meal.title,
 			meal_image: meal.image,
 			is_pro: meal.is_pro,
-			created_at: meal.created_at,
+			created_at: meal.created_at
 		}))
 
 		return {
 			results,
 			total_page: totalPage,
-			total_record: totalRecord,
+			total_record: totalRecord
 		}
 	}
 
 	/**
 	 * Create meal calendar by user
 	 */
-	async createMealCalendar(data) {
-		const date = new Date(data.date).getTime() / 1000
-		return this.db.transaction(async (trx) => {
-			try {
-				for (let mealId of data.ids) {
-					await trx
-						.insert({
-							meal_id: mealId,
-							user_id: data.user_id,
-							date,
-						})
-						.into('calendar_meals')
-				}
-				await trx.commit()
-			} catch (err) {
-				console.log(err, '===')
-				trx.rollback()
-				throw createError(422, err)
-			}
-		})
+	async createMealPlan(data) {
+		const mealPlans = {
+			date: data.date,
+			meals: data.ids.map((meal) => ({ meal }))
+		}
+
+		return UserModel.findOneAndUpdate(
+			{ _id: data.user_id },
+			{ $push: { meal_plans: mealPlans } }
+		)
+	}
+
+	async editMealPlan(data) {
+		const mealPlans = {
+			date: data.date,
+			meals: data.ids.map((meal) => ({ meal: meal.id, status: meal.status }))
+		}
+		await UserModel.findOneAndUpdate(
+			{ _id: data.user_id },
+			{ $pull: { meal_plans: { date: data.date } } }
+		)
+
+		return UserModel.findOneAndUpdate(
+			{ _id: data.user_id },
+			{ $push: { meal_plans: mealPlans } }
+		)
 	}
 
 	async getMealByDay(data) {
-		const date = new Date(data.date).getTime() / 1000
+		console.log(data)
+		const results = await UserModel.findOne({ _id: data.user_id }, ['meal_plans'])
+			.and({ meal_plans: { $elemMatch: { date: data.date } } })
+			.populate([
+				{
+					path: 'meal_plans.meals.meal',
+					model: 'meals',
+					select: '_id is_pro title image serving rate count_rate calorie time'
+				}
+			])
+
+		return flattenDeep(
+			results.meal_plans.map((m) => {
+				return m.meals
+			})
+		)
+
 		let mealIds = await this.db
 			.select('meal_id')
 			.where({ date, user_id: data.user_id })
@@ -127,7 +150,7 @@ class MealService extends BaseService {
 			.orderBy('created_at', 'desc')
 		return result.map((meal) => ({
 			...meal,
-			date: data.date,
+			date: data.date
 		}))
 	}
 
@@ -160,7 +183,7 @@ class MealService extends BaseService {
 				'meals.is_pro as meal_is_pro',
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
-				'calendar_meals.date as date',
+				'calendar_meals.date as date'
 			)
 			.from('calendar_meals')
 			.innerJoin('meals', function() {
@@ -172,7 +195,7 @@ class MealService extends BaseService {
 			.orderBy('created_at', 'desc')
 		return result.map((meal) => ({
 			...meal,
-			date: moment(meal.date * 1000).format('YYYY-MM-DD'),
+			date: moment(meal.date * 1000).format('YYYY-MM-DD')
 		}))
 	}
 
@@ -212,7 +235,7 @@ class MealService extends BaseService {
 				'meals.is_pro as meal_is_pro',
 				'meals.created_at as created_at',
 				'meals.updated_at as updated_at',
-				'calendar_meals.date as date',
+				'calendar_meals.date as date'
 			)
 			.from('calendar_meals')
 			.innerJoin('meals', function() {
@@ -226,7 +249,7 @@ class MealService extends BaseService {
 			.orderBy('created_at', 'desc')
 		return result.map((meal) => ({
 			...meal,
-			date: moment(meal.date * 1000).format('YYYY-MM-DD'),
+			date: moment(meal.date * 1000).format('YYYY-MM-DD')
 		}))
 	}
 }

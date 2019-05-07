@@ -81,22 +81,26 @@ const UserSchema = new Schema(
 				}
 			}
 		],
-		meal_plan: [
+		meal_plans: [
 			{
-				meals: {
-					type: [Schema.Types.ObjectId],
-					ref: 'meals'
-				},
-				status: {
-					type: Boolean,
-					default: 0,
-					require: true
-				},
 				date: {
 					type: Number,
 					require: true,
 					default: null
-				}
+				},
+				meals: [
+					{
+						meal: {
+							type: Schema.Types.ObjectId,
+							ref: 'meals'
+						},
+						status: {
+							type: Boolean,
+							default: 0,
+							require: true
+						}
+					}
+				]
 			}
 		]
 	},
