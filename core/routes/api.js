@@ -246,9 +246,9 @@ router
 		pickHandler('meal.controller@editMealPlan')
 	)
 	.get(
-		'/meal/get_meal_by_day/:date',
+		'/meal/get_meal_plan_by_day/:date',
 		requireAuth(),
-		pickHandler('meal.controller@getMealByDay')
+		pickHandler('meal.controller@getMealPlanByDay')
 	)
 	.get(
 		'/meal/get_meal_by_user_id',

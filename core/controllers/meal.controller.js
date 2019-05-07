@@ -202,9 +202,9 @@ const editMealPlan = async (req, res, next) => {
 	}
 }
 
-const getMealByDay = async (req, res, next) => {
+const getMealPlanByDay = async (req, res, next) => {
 	try {
-		const data = await mealService.getMealByDay({
+		const data = await mealService.getMealPlanByDay({
 			date: new Date(req.params.date).getTime(),
 			user_id: req.user.id
 		})
@@ -266,7 +266,7 @@ export {
 	getMealFavoriteByUser,
 	createMealPlan,
 	editMealPlan,
-	getMealByDay,
+	getMealPlanByDay,
 	getMealByUserId,
 	getMealRangeDay
 }
