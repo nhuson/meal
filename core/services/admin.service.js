@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs')
 class AdminService extends BaseService {
 	constructor() {
 		super()
-		this.tableName = 'admin_users'
 	}
 
 	tokenForUser(user) {
