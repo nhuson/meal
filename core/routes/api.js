@@ -15,7 +15,6 @@ const pickHandler = (handlerDef) => {
 	return asyncMiddleware(require(`../controllers/${handlerFile}`)[handlerMethod])
 }
 
-//all routes are here
 router.get('/ping', (req, res, next) => {
 	res.json(200, {
 		message: 'pong'
