@@ -1,0 +1,123 @@
+{
+    "/menu-type": {
+        "post": {
+            "tags": [
+                "Menu Types"
+            ],
+            "summary": "Todo create Menu Types.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "in": "formData",
+                    "name": "title",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": false,
+                    "description": "title"
+                },
+                {
+                    "in": "formData",
+                    "name": "description",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": true,
+                    "description": "description"
+                }
+            ]
+        },
+        "get": {
+            "tags": [
+                "Menu Types"
+            ],
+            "summary": "Todo get Menu Types.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "description": "page",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "per_page",
+                    "in": "query",
+                    "description": "per page",
+                    "required": true,
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "/menu-type/{id}": {
+        "put": {
+            "tags": [
+                "Menu Types"
+            ],
+            "summary": "Todo edit Menu Types",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "in": "formData",
+                    "name": "title",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": false,
+                    "description": "title"
+                },
+                {
+                    "in": "formData",
+                    "name": "description",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": true,
+                    "description": "description"
+                }
+            ]
+        },
+        "delete": {
+            "tags": [
+                "Menu Types"
+            ],
+            "summary": "Todo delete menu type.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Menu type id.",
+                    "required": true,
+                    "type": "integer"
+                }
+            ]
+        }
+    }
+}

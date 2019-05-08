@@ -1,0 +1,73 @@
+{
+    "/version": {
+        "get": {
+            "tags": [
+                "Versions"
+            ],
+            "summary": "Todo get Versions.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": false,
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "/version/{id}": {
+        "put": {
+            "tags": [
+                "Versions"
+            ],
+            "summary": "Todo update version.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": false,
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Version id.",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "name": "version",
+                    "in": "formData",
+                    "description": "Version.",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "os",
+                    "in": "formData",
+                    "description": "Android || IOS.",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "url",
+                    "in": "formData",
+                    "description": "Link version.",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "force",
+                    "in": "formData",
+                    "description": "Force Update.(0 || 1)",
+                    "required": true,
+                    "type": "integer"
+                }
+            ]
+        }
+    }
+}

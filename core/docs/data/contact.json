@@ -1,0 +1,91 @@
+{
+    "/contact": {
+        "post": {
+            "tags": [
+                "Contacts"
+            ],
+            "summary": "Todo create Contacts.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "in": "formData",
+                    "name": "title",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": false,
+                    "description": "title"
+                },
+                {
+                    "in": "formData",
+                    "name": "messages",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": true,
+                    "description": "messages"
+                }
+            ]
+        },
+        "get": {
+            "tags": [
+                "Contacts"
+            ],
+            "summary": "Todo get Contacts.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "description": "page",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "per_page",
+                    "in": "query",
+                    "description": "per page",
+                    "required": true,
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "/contact/{id}": {
+        "delete": {
+            "tags": [
+                "Contacts"
+            ],
+            "summary": "Todo delete Contact.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Contact id.",
+                    "required": true,
+                    "type": "integer"
+                }
+            ]
+        }
+    }
+}
