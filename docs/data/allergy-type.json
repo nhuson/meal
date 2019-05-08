@@ -1,0 +1,123 @@
+{
+    "/allergy-type": {
+        "post": {
+            "tags": [
+                "Allergy types"
+            ],
+            "summary": "Todo create Allergy types.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "in": "formData",
+                    "name": "title",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": false,
+                    "description": "title"
+                },
+                {
+                    "in": "formData",
+                    "name": "description",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": true,
+                    "description": "description"
+                }
+            ]
+        },
+        "get": {
+            "tags": [
+                "Allergy types"
+            ],
+            "summary": "Todo get Allergy types.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "name": "page",
+                    "in": "query",
+                    "description": "page",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "per_page",
+                    "in": "query",
+                    "description": "per page",
+                    "required": true,
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "/allergy-type/{id}": {
+        "put": {
+            "tags": [
+                "Allergy types"
+            ],
+            "summary": "Todo edit Allergy types",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "in": "formData",
+                    "name": "title",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": false,
+                    "description": "title"
+                },
+                {
+                    "in": "formData",
+                    "name": "description",
+                    "type": "string",
+                    "required": true,
+                    "allowMultiple": true,
+                    "description": "description"
+                }
+            ]
+        },
+        "delete": {
+            "tags": [
+                "Allergy types"
+            ],
+            "summary": "Todo delete Allergy type.",
+            "parameters": [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "User token",
+                    "required": true,
+                    "allowMultiple": true,
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Allergy type id.",
+                    "required": true,
+                    "type": "integer"
+                }
+            ]
+        }
+    }
+}
