@@ -10,7 +10,6 @@ import api from './routes/api'
 import crossAllowOrigin from './middleware/crossOrigin'
 import errorHandle from './middleware/errorHandle'
 
-const port = configs.server.port || 3000
 var app = express()
 app.set('views', __dirname + '/docs')
 app.set('view engine', 'ejs')
@@ -46,6 +45,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(errorHandle)
 
+const port =  configs.server.port || 3000
 app.listen(port, () => {
 	console.log(`API server is running.... on port ${port}`)
 })

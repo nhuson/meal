@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "debug": "nodemon --inspect=0.0.0.0:9229 server.js --exec babel-node -e js",
-    "dev": "nodemon server.js --exec babel-node -e js",
+    "dev": "babel-node server.js",
+    "start": "babel-node server.js",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "prettier": "prettier --config ../.prettierrc --write \"./**/*.js\""
@@ -38,7 +39,11 @@
     "request-promise": "^4.2.4",
     "uuid": "^3.3.2",
     "uuid-v4": "^0.1.0",
-    "validator": "^10.8.0"
+    "validator": "^10.8.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

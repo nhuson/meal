@@ -10,7 +10,7 @@ console.log(`Loading .env from '${envPath}'`)
 
 const _default = {
 	server: {
-		port: process.env.API_PORT,
+		port: process.env.PORT
 	},
 	jwt: {
 		secret: process.env.JWT_SECRET,

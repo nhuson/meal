@@ -25,7 +25,7 @@ function writeFileData(path, data) {
 			version: '1.0.0',
 			title: 'Meal Plan Apis (Add token with Bearer token: Bearer {token})'
 		},
-		host: 'localhost:3000',
+		host: 'mealplan-dev-240003.appspot.com',
 		basePath: '/api/v1',
 		schemes: ['https', 'http']
 	}

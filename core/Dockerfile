@@ -1,24 +1,27 @@
-FROM node:carbon-alpine
-RUN mkdir -p /home/node/meal-api/node_modules && chown -R node:node /home/node/meal-api
+FROM bitnami/node:10.15.0-r7 as builder
+
+# Create app directory
+WORKDIR /meal-api
+
+# Install app dependencies
+COPY package.json /meal-api
+RUN npm install --production --unsafe
+
+# Bundle app source
+COPY . /meal-api
+
+FROM bitnami/node:10.15.0-r7-prod
+RUN npm install --global pm2
+
+# Add user so we dont run our app as root
+RUN groupadd -r node && useradd -r -g node node \
+    && mkdir -p /home/node/meal-api \
+    && chown -R node:node /home/node
+
 WORKDIR /home/node/meal-api
-COPY package*.json ./
-RUN apk update \
-    && apk upgrade \
-    && apk add --no-cache --virtual .build-deps \
-    binutils-gold \
-    curl \
-    g++ \
-    gcc \
-    gnupg \
-    libgcc \
-    linux-headers \
-    make \
-    python \
-    bash git openssh \
-    && npm install \
-    && npm install -g nodemon \
-    && npm install babel-cli babel-preset-env babel-preset-es2016 babel-preset-stage-0 --save-dev
-COPY . .
-COPY --chown=node:node . .
+COPY --from=builder /meal-api .
+
 USER node
 EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
